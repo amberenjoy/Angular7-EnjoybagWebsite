@@ -1,0 +1,86 @@
+<section>
+    <div class="banner">
+        <h2>We're here to help</h2>
+    </div>
+    <div class="terms-body">
+        <div class="terms-topic">
+            <h3>FAQ by Topic</h3>
+            <br>
+            <div class="flex">
+                <a [routerLink]="[ './delivery' ]" [routerLinkActive]="['is-active']">Delivery &amp; Return</a>
+                <a [routerLink]="[ './membership' ]" [routerLinkActive]="['is-active']">Membership</a>
+                <a [routerLink]="[ './tc' ]" [routerLinkActive]="['is-active']">Terms &amp; Conditions</a>
+                <a [routerLink]="[ './privacy-policy' ]" [routerLinkActive]="['is-active']">Privacy Policy</a>
+                <a [routerLink]="[ './maintenance' ]" [routerLinkActive]="['is-active']">Maintenance</a>
+                <a [routerLink]="[ './product-care' ]" [routerLinkActive]="['is-active']">Product Care</a>
+                <a [routerLink]="[ './payment' ]" [routerLinkActive]="['is-active']">Payment</a>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+        <div class="terms-content">
+            <h3 class="text-center">General Enquiries</h3>
+            <br>
+            <div class="single-term">
+                <h4 (click)="infoStatus[0]=!infoStatus[0]">Do you have a physical store?</h4>
+                <div class="single-question" [hidden]="!infoStatus[0]">
+                    <span>We welcome you to visit our showroom at Tsuen Wan, where you can try on our
+            bags, and understand more about our design and quality. You can also purchase directly from
+            our showroom and enjoy free gift-wrapping service. Please call for appointment.</span><br /><br />
+                    <b>Showroom</b>
+                    <br />
+                    <span>Room 3308, 33/F, Cable TV Tower, 9 Hoi Shing Road, Tsuen Wan, N.T., Hong
+            Kong</span><br /><br />
+                    <b>Opening hours</b>
+                    <br />
+                    <span>Monday to Friday: 10 am to 6 pm</span><br />
+                    <span>Saturday: 10 am to 1 pm</span><br />
+                    <span>Close on Sundays and public holidays</span>
+                    <br /><br />
+                    <b>Customer Service</b><br />
+                    <span>Hotline: +852 3572 8158</span><br />
+                    <span>Email: </span> <a href="mailto:customer@enjoybag.com.hk">customer@enjoybag.com.hk</a>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[1]=!infoStatus[1]">Where can I buy your products?</h4>
+                <div class="single-question" [hidden]="!infoStatus[1]">
+                    <span>
+            Apart from online shop and showroom, you can also find our designs at Zalora HK and Jill Scott HK retail
+            stores.
+          </span>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[2]=!infoStatus[2]">Can I pick up the goods directly from showroom?</h4>
+                <div class="single-question" [hidden]="!infoStatus[2]">
+                    <span>
+            Yes! By choosing self pick-up at check out, you will receive an email and an sms about pick up time and
+            address. We accept cash, Visa/Master card and Wechat payment at showroom. Please note that unpaid goods
+            will
+            be reserved for you for one month upon
+            pick-up notification.
+          </span>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[3]=!infoStatus[3]">Where can I check your latest promotions and offers?</h4>
+                <div class="single-question" [hidden]="!infoStatus[3]">
+                    <span> Welcome to <span style="color: crimson;">subscribe</span> our newsletters and follow us on social media platforms ( <a> Facebook</a>, <a>Instagram</a> ) for latest promotions and offers.
+                    </span>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[4]=!infoStatus[4]">How do I change my shipping address or cancel order after placing order?
+                </h4>
+                <div class="single-question" [hidden]="!infoStatus[4]">
+                    <span> For any change of order, please contact our customer service team by email or telephone, and we would
+            be glad to solve your problems. Please kindly note that order details cannot be changed once goods are
+            shipped. </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #contact>
+        <app-contact></app-contact>
+    </div>
+</section>

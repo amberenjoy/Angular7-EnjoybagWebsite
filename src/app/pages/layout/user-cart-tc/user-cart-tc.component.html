@@ -1,0 +1,19 @@
+<div class="drop-login drop-cart text-center" *ngIf="items.length===0" id="emptyCart">
+    購物車為空.
+</div>
+<div class="drop-login drop-cart" *ngIf="items.length!=0" id="bagInfo">
+    <div class="bag" *ngFor="let item of items">
+        <a [routerLink]="['/tc/products',item.product.sku]"><img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="" onError="this.src='assets/images/icon.png'"></a>
+        <div>
+            <p>{{item.product.name}} </p>
+            <p>數量: {{item.qty}}</p>
+            <p>{{item.product.color}}</p>
+            <p *ngIf="item.product.dis!=='0'">{{item.product.dis | currency:userCurrency}} {{item.product.off}}</p>
+            <p *ngIf="item.product.dis==='0'">{{item.product.price | currency:userCurrency}} </p>
+        </div>
+    </div>
+    <div class="bottom">
+        <p>Subtotal: <span>{{subtotal()| currency:userCurrency}}</span></p>
+        <a [routerLink]="['/tc/checkout/step-1/mycart']">結算</a>
+    </div>
+</div>

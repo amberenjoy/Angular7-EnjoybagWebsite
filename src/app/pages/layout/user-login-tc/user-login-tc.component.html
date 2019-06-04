@@ -1,0 +1,74 @@
+<div class="flex">
+    <section [ngClass]="{'full': class==='register'}">
+        <ng-container *ngIf="!logined">
+            <h3>登錄</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <fieldset>
+                    <div class="forms_field">
+                        <label for="username"> 用戶名 / 郵箱</label>
+                        <input formControlName="username" type="text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid_feedback">
+                            <div *ngIf="f.username.errors.required">用戶名不能為空</div>
+                        </div>
+                    </div>
+                    <div class="forms_field">
+                        <label for="password">密碼 (區分大小寫) </label>
+                        <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid_feedback">
+                            <div *ngIf="f.password.errors.required">密碼不能為空</div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="forms_buttons">
+                    <button type="button">忘記密碼?</button>
+                    <button type="submit" [disabled]="loading" [ngClass]="{'disabled': f.username.errors||f.password.errors}">
+            <span> 登錄</span>
+            <div class="loader" *ngIf="loading"> <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </button>
+                </div>
+                <fieldset *ngIf="failed">
+                    <span class="failed">登錄失敗! 請填寫正確的用戶名和密碼.</span>
+                </fieldset>
+                <fieldset>
+                    <hr>
+                    <button class="loginBtn loginBtn_facebook" (click)="socialSignIn('facebook')"> Facebook賬號登錄 </button>
+                </fieldset>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="logined">
+            <h3>你好, {{user.login}}</h3>
+            <fieldset class="logined">
+                <div>
+                    <label>我的購物車:</label>
+                    <span> <a [routerLink]="['checkout/step-1/mycart']"> {{cartNum}} 個商品</a></span>
+                </div>
+                <div>
+                    <label>訂單:</label>
+                    <span> <a [routerLink]="['myEnjoybag']">{{user.orders.length}} 個訂單</a></span>
+                </div>
+                <div>
+                    <label>我的賬號:</label>
+                    <span> <a [routerLink]="['myEnjoybag']">查看</a> </span>
+                </div>
+            </fieldset>
+            <div class="forms_buttons">
+                <button> </button>
+                <button (click)="logout()">退出</button>
+            </div>
+        </ng-container>
+    </section>
+    <section [ngClass]="{'hide-all': class==='register'}" class="right">
+        <fieldset *ngIf="!logined">
+            <div>
+                <h3>您還不是我們的會員嗎? </h3>
+                <p>註冊並且訂閱我們的電子資訊，即可享受特別優惠!!</p>
+                <a class="btn-link" [routerLink]="['register']">註冊</a>
+            </div>
+        </fieldset>
+        <fieldset *ngIf="logined">
+            <h3>哪一個是您最喜歡的商品? </h3>
+            <p>Sign up and subscribe our newsletter to get a HKD 200.00 welcome voucher!!</p>
+        </fieldset>
+    </section>
+</div>

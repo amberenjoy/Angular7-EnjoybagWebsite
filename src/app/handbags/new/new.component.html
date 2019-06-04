@@ -1,0 +1,7 @@
+<nav> <a [routerLink]="[ '../../../../home' ]">Home</a>
+    <span *ngIf="key==='new'">New</span><span *ngIf="key==='discount'">Sale</span></nav>
+<div class="banner " [ngClass]="{'banner-new': key==='new','banner-sale': key==='discount'}">
+    <h2 *ngIf="key==='new'">New Arrivals</h2>
+    <h2 *ngIf="key==='discount'">Best Sellers</h2>
+</div>
+<app-bag-list></app-bag-list>

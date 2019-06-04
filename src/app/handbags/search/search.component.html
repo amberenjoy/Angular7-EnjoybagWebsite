@@ -1,0 +1,9 @@
+<div class="banner">
+    <h2>{{count}} Results for "{{paramSystem}}"</h2>
+</div>
+<app-bag-list [parameterSearch]="paramSystem" (passResult)="receiveResult($event)">
+</app-bag-list>
+<div [hidden]="count!='0'">
+    <h3>Sorry, <span> {{paramSystem}}</span> item(s) is temporarily unavailable. <br> For any enquiries, please drop us a message here.</h3>
+    <!-- <app-contact></app-contact> -->
+</div>

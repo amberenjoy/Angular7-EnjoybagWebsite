@@ -1,0 +1,115 @@
+<section>
+    <div class="banner">
+
+    </div>
+    <div>
+        <h5 class="text-center"> <span>你好, {{user.username}}</span> <br>
+            <a (click)="logout()">退出賬號</a> </h5>
+        <div class="body">
+            <div class="body-left">
+                <ul>
+                    <li [ngClass]="{'active': profileShow}" (click)="openProfile()"> <i class="fa fa-user"></i> 我的資料</li>
+                    <li [ngClass]="{'active': orderShow}" (click)="openOrderList()"><i class="fa fa-list"></i>訂單記錄</li>
+                    <!-- <li [ngClass]="{'active': changePass}" (click)="changePass()">
+                        Change Password
+                    </li> -->
+                </ul>
+            </div>
+            <div class="body-right" *ngIf="profileShow||orderShow">
+                <div class="container first" *ngIf="profile&&profileShow">
+                    <fieldset>
+                        <div class="flex">
+                            <div class="half">
+                                <label>用戶名</label>
+                                <input type="text" value="{{profile.username}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                            </div>
+                            <div class="half">
+                                <label>姓</label>
+                                <input type="text" value="{{profile.lastname}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="forms_field">
+                            <label> 郵箱 </label>
+                            <input type="text" value="{{profile.email}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="forms_field forms_mobile">
+                            <label> 聯絡號碼 </label>
+                            <div class="flex">
+                                <input type="text" value="+ {{profile.areacode}}" class="short" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                                <input type="text" value="{{profile.phone}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="forms_field forms_month">
+                            <label>生日月份 </label>
+                            <div class="flex">
+                                <input type="text" value="{{profile.birthmonth}}" class="short" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                                <span>Enjoy special discount during birthday month.</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="forms_field forms_address">
+                            <label>賬單地址 </label>
+                            <div>
+                                <label for="">Unit, Floor, Block, Building Name </label>
+                                <input type="text" value="{{profile.address.building}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                            </div>
+                            <div>
+                                <label for="">Street Number, Street Name </label>
+                                <input type="text" value="{{profile.address.street}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                            </div>
+                            <div class="flex">
+                                <div class="half">
+                                    <label for="">District, Area </label>
+                                    <input type="text" value="{{profile.address.district}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                                </div>
+                                <div class="half">
+                                    <label for="">City, Country</label>
+                                    <input type="text" value="{{profile.address.city}}" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="forms_field">
+                            <input class="styled-checkbox" id="edm" type="checkbox" [checked]="profile.newsletter==='Y'" [disabled]="!changeInput">
+                            <label for="edm">Subscribe our newsletter to be the first ro hear about exclusive offers. </label>
+                        </div>
+                    </fieldset>
+                    <div class="text-center">
+                        <button class="nextBtn" (click)="changeInfo()" [hidden]="changeInput">更新信息</button>
+                        <button class="nextBtn" (click)="saveInfo()" [hidden]="!changeInput">確定更新</button>
+                    </div>
+                </div>
+                <div class="container second" *ngIf="orderShow">
+                    <div *ngIf="profile.orders.length>0">
+                        <div class="flex-list">
+                            <div>點單號</div>
+                            <div>日期</div>
+                            <div>狀態 </div>
+                            <div>總計</div>
+                            <div></div>
+                        </div>
+                        <div class="flex-list list-body" *ngFor="let order of orderArray">
+                            <div>#{{order.id| uppercase}}</div>
+                            <div>{{order.created_at}}</div>
+                            <div>{{order.status}} </div>
+                            <div>{{order.total|currency: userCurrency}} 共{{order.orderItems.length}} 個商品</div>
+
+                            <div><button (click)="openOrder(order.id)">View</button></div>
+                        </div>
+                    </div>
+                    <div *ngIf="profile.orders.length===0" class="text-center">
+                        <h3>您沒有訂單記錄.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

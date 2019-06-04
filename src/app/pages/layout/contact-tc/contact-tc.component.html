@@ -1,0 +1,42 @@
+<div class="top-footer">
+    <form [formGroup]="contactForm">
+        <h3>聯絡我們</h3>
+        <div class="login">
+            <div>
+                <input type="text" formControlName="contactName" placeholder="姓名" class="input" required>
+                <div class="form-control-feedback" *ngIf="contactName.invalid && contactName.dirty">
+                    Name is not empty.
+                </div>
+            </div>
+            <div>
+                <input type="text" formControlName="contactEmail" placeholder="電郵" class="input" required>
+                <div class="form-control-feedback" *ngIf="contactEmail.invalid && contactEmail.dirty">
+                    Email is not empty or invalid.
+                </div>
+            </div>
+        </div>
+        <div class="msg">
+            <input type="text" class="input" formControlName="contactInfo" placeholder="你的意見" required>
+            <div class="form-control-feedback" *ngIf="contactInfo.invalid && contactInfo.dirty">
+                Message is not empty.
+            </div>
+        </div>
+        <div class="btn">Send Message</div>
+        <br><br>
+        <div class="contact-box">
+            <h4><i class="fa fa-clock-o "></i>服務時間: &nbsp;</h4>
+            <p>星期一至星期五上午10時至下午6時, 公眾假期除外</p><br>
+            <h4><i class="fa fa-map-marker"></i>電話: &nbsp;</h4>
+            <p>+852 3572 8158</p><br>
+            <h4><i class="fa fa-phone"></i>辦公室地址: &nbsp;</h4><br>
+            <p class="margin-left">香港新界荃灣海盛路9號 有線電視大樓 33/F., 3308室</p>
+        </div>
+        <div class="contact-box">
+            <h4><i class="fa fa-envelope"></i>電郵: &nbsp;</h4> <br>
+            <p class="margin-left">客戶服務部, <a href="mailto:customer@enjoybag.com.hk">customer@enjoybag.com.hk</a>
+            </p><br>
+            <p class="margin-left">新聞及媒體合作查詢, <a href="mailto:media@enjoybag.com.hk">media@enjoybag.com.hk</a></p><br>
+            <p class="margin-left">其他貨品問題及商業合作查詢, &nbsp; <a href="mailto:enquiries@enjoybag.com.hk">enquiries@enjoybag.com.hk</a></p>
+        </div>
+    </form>
+</div>

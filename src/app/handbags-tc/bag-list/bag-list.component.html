@@ -1,0 +1,60 @@
+<div class="product-list">
+    <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <div class="grid-layout" *ngFor="let collection of collections">
+        <div class="box-top">
+            <h1>{{collection.collectionname.slice(0, -10)}}</h1>
+            <h1>{{collection.product.length}} Items</h1>
+        </div>
+        <div class="box-wrapper">
+            <a *ngFor="let bag of collection.product| slice:0:8; let index=index" class="item" [routerLink]="['./', bag.productcode]" routerLinkActive="active">
+                <div class="box" (deferLoad)="bag.image.show = true">
+                    <!-- {{bag.productcode}} -->
+                    <div class="imgHover" *ngIf="bag.image.show">
+                        <img [hidden]="!imageLoader" src="assets/images/icon.png" />
+                        <img [hidden]="imageLoader" (load)="this.imageLoader = false;" [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
+                        <img [src]="bag.image.second" class="img-bag-2" onError="this.src='assets/images/hidden.png'">
+                    </div>
+                    <div class="bag-info">
+                        <h4>{{bag.productname}}</h4>
+                        <p [ngClass]="{'del': bag.discountprice!='0'}"> {{bag.price| currency: userCurrency}}</p>
+                        <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}</p>
+                        <p *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}</p>
+                    </div>
+                </div>
+            </a>
+            <ng-container *ngIf="collection.more===true">
+                <a *ngFor="let bag of collection.product| slice:8; let index=index" class="item" [routerLink]="['./', bag.productcode]" routerLinkActive="active">
+                    <div class="box" (deferLoad)="bag.image.show = true">
+                        <!-- {{bag.productcode}}  src="" -->
+                        <div class="imgHover" *ngIf="bag.image.show">
+                            <img [hidden]="!imageLoader" src="assets/images/icon.png" />
+                            <img [hidden]="imageLoader" (load)="this.imageLoader = false;" [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
+                            <img [src]="bag.image.second" class="img-bag-2" onError="this.src='assets/images/hidden.png'">
+                        </div>
+                        <div class="bag-info">
+                            <h4>{{bag.productname}}</h4>
+                            <p [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</p>
+                            <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}</p>
+                            <p *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}</p>
+                        </div>
+                    </div>
+                </a>
+            </ng-container>
+            <a class="item" *ngIf="collection.product.length<4 && collection.product.length %4 ==3">
+                <div class="imgHover">
+                    <img src="assets/images/cradle.jpg">
+                    <img src="assets/images/group.jpg" class="img-bag-2">
+                    <a href="/en/new/all">More New Arrivals</a>
+                </div>
+            </a>
+        </div>
+        <div class="box-more" *ngIf="collection.product.length>8 && collection.more==false">
+            <button (click)="collection.more=true">View All Collection Items ( {{collection.product.length}} )</button>
+        </div>
+    </div>
+</div>
+<div class="scroll-btn" [ngClass]="{'show-scrollTop': windowScrolled}">
+    <button (click)="scrollTop()"><i class="fa fa-chevron-up"></i> Top</button>
+</div>

@@ -1,0 +1,39 @@
+<footer class="flex-rw">
+    <ul class="footer-list-top">
+        <li>
+            <h4 class="footer-list-header">About Us</h4>
+        </li>
+        <li><a [routerLink]="[ 'brand/about-us' ]" class="footer-list-anchor">Get to Know Us</a></li>
+        <li><a [routerLink]="[ 'brand/events' ]" class="footer-list-anchor">Events</a></li>
+        <li><a [routerLink]="[ 'brand/our-philosophy' ]" class="footer-list-anchor">Our Philosophy</a></li>
+    </ul>
+    <ul class="footer-list-top">
+        <li>
+            <h4 class="footer-list-header">Join Our Newsletter</h4>
+        </li>
+        <li>
+            <a class="footer-list-anchor">Be the first to get early access to our newest collections!</a>
+        </li>
+        <li>
+            <input type="text">
+            <button>Submit</button>
+        </li>
+    </ul>
+    <ul class="footer-list-top">
+        <li id="help">
+            <h4 class="footer-list-header">Please Help Me</h4>
+        </li>
+        <li><a [routerLink]="[ 'FAQ']" fragment="Contact" class="footer-list-anchor">Contact Us</a></li>
+        <li><a [routerLink]="[ 'FAQ/privacy-policy']" class="footer-list-anchor">Privacy Policy</a></li>
+        <li><a [routerLink]="[ 'FAQ/delivery']" class="footer-list-anchor">Delivery &amp; Return</a></li>
+    </ul>
+    <section class="footer-bottom-section flex-rw">
+        <div class="footer-bottom-wrapper">
+            <i class="fa fa-copyright" role="copyright"></i><span> Enjoybag HK 2019 - All Rights Reserved</span>
+        </div>
+        <div class="footer-bottom-wrapper">
+            <a href="" target="_blank" title="Facebook"><i class="fa fa-facebook "></i></a>
+            <a href=" " target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+        </div>
+    </section>
+</footer>

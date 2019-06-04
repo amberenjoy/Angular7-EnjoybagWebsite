@@ -1,0 +1,10 @@
+<section>
+    <nav><a href="/tc/home">首頁</a><span> {{key}}</span></nav>
+    <div [hidden]="key!='ZHU'" class="banner banner-zhu">
+        <h2>Special Line: ZHU</h2>
+    </div>
+    <div [hidden]="key!='EJ'" class="banner banner-ej">
+        <h2>Special Line: EJ</h2>
+    </div>
+    <app-bag-list [parameter]="paramSystem"></app-bag-list>
+</section>

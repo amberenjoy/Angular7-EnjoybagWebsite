@@ -1,0 +1,14 @@
+<div class="modal">
+    <div class="modal-body">
+        <div class="image text-center" *ngFor="let i of largePhotoArray; index as id" (deferLoad)="i.show = true">
+            <div *ngIf="i.show" [ngClass]="{'show': id===indexPhoto}">
+                <img [src]="i.url" alt="bag-photo">
+                <span>{{id+1}} / {{parameter}}</span>
+            </div>
+        </div>
+        <div class="control">
+            <a class="control_prev" (click)="slideToLeft()"><i class="fa fa-angle-left"></i></a>
+            <a class="control_next" (click)="slideToRight()"><i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+</div>

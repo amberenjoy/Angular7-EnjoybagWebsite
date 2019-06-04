@@ -1,0 +1,74 @@
+<div class="flex">
+    <section [ngClass]="{'full': class==='register'}">
+        <ng-container *ngIf="!logined">
+            <h3>Sign In</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <fieldset>
+                    <div class="forms_field">
+                        <label for="username"> Username / Email</label>
+                        <input formControlName="username" type="text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid_feedback">
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="forms_field">
+                        <label for="password">Password (Case-Sensitive) </label>
+                        <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid_feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="forms_buttons">
+                    <button type="button">Forgot password?</button>
+                    <button type="submit" [disabled]="loading" [ngClass]="{'disabled': f.username.errors||f.password.errors}">
+            <span> Sign in </span>
+            <div class="loader" *ngIf="loading"> <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </button>
+                </div>
+                <fieldset *ngIf="failed">
+                    <span class="failed">Login failed! Please input correct username and password.</span>
+                </fieldset>
+                <fieldset>
+                    <hr>
+                    <button class="loginBtn loginBtn_facebook" (click)="socialSignIn('facebook')"> Login with Facebook</button>
+                </fieldset>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="logined">
+            <h3>Hello, {{user.login}}</h3>
+            <fieldset class="logined">
+                <div>
+                    <label> My cart:</label>
+                    <span> <a [routerLink]="['checkout/step-1/mycart']"> {{cartNum}} items</a></span>
+                </div>
+                <div>
+                    <label>Orders:</label>
+                    <span> <a [routerLink]="['myEnjoybag']">{{user.orders.length}} Orders</a></span>
+                </div>
+                <div>
+                    <label> Account details:</label>
+                    <span> <a [routerLink]="['myEnjoybag']">View</a> </span>
+                </div>
+            </fieldset>
+            <div class="forms_buttons">
+                <button> </button>
+                <button (click)="logout()">Log Out</button>
+            </div>
+        </ng-container>
+    </section>
+    <section [ngClass]="{'hide-all': class==='register'}" class="right">
+        <fieldset *ngIf="!logined">
+            <div>
+                <h3> Don't have an account? </h3>
+                <p>Sign up and subscribe our newsletter to get a HKD 200.00 welcome voucher!!</p>
+                <a class="btn-link" [routerLink]="['register']">Register</a>
+            </div>
+        </fieldset>
+        <fieldset *ngIf="logined">
+            <h3> What is your favourite bag? </h3>
+            <p>Sign up and subscribe our newsletter to get a HKD 200.00 welcome voucher!!</p>
+        </fieldset>
+    </section>
+</div>

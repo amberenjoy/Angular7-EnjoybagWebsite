@@ -1,0 +1,132 @@
+<section>
+    <h3>註冊</h3>
+    <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+        <fieldset>
+            <div class="forms_field">
+                <label>郵箱 *</label>
+                <input formControlName="email" type="text" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid_feedback">
+                    <div *ngIf="f.email.errors.required">郵箱不可為空</div>
+                    <div *ngIf="f.email.errors.email">必須為正確的郵箱地址</div>
+                </div>
+            </div>
+            <div class="forms_field">
+                <label for="password">密碼 (至少8位) * </label>
+                <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid_feedback">
+                    <div *ngIf="f.password.errors.required">密碼不能為空</div>
+                    <div *ngIf="f.password.errors.minlength">密碼至少8位</div>
+                </div>
+            </div>
+            <div class="forms_field half">
+                <label for="username">用戶名 *</label>
+                <input formControlName="username" type="text" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                <div *ngIf="submitted && f.username.errors" class="invalid_feedback ">
+                    <div *ngIf="f.username.errors.required">用戶名不能為空</div>
+                </div>
+            </div>
+            <div class="forms_field half half-right">
+                <label for="lastname">姓 *</label>
+                <input formControlName="lastname" type="text" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+                <div *ngIf="submitted && f.lastname.errors" class="invalid_feedback ">
+                    <div *ngIf="f.lastname.errors.required">不能為空</div>
+                </div>
+            </div>
+            <div class="forms_field">
+                <label>地區 *</label>
+                <div class="radio_area" [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
+                    <div class="radio">
+                        <input value="Hong Kong" id="region-HK" formControlName="region" type="radio" (change)="regionChange(852)">
+                        <label for="region-HK" class="radio-label">香港</label>
+                    </div>
+                    <div class="radio">
+                        <input value="China Mainland" id="region-mainland" formControlName="region" type="radio" (change)="regionChange(86)">
+                        <label for="region-mainland" class="radio-label">中國大陸</label>
+                    </div>
+                    <div class="radio">
+                        <input value="Others" id="region-others" formControlName="region" type="radio" (change)="regionChange('')">
+                        <label for="region-others" class="radio-label">其他</label>
+                    </div>
+                </div>
+                <div *ngIf="submitted && f.region.errors" class="invalid_feedback">
+                    <div *ngIf="f.region.errors.required">必須勾選地區</div>
+                </div>
+            </div>
+            <div class="forms_field">
+                <label for="phone">聯繫電話 *</label>
+                <div class="mobile_box">
+                    <input formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+" class="area_code" [ngClass]="{ 'is-invalid': submitted && f.areacode.errors }" [value]="areacode" />
+                    <span> <i class="fa fa-minus"></i> </span>
+                    <input formControlName="phone" type="tel" pattern="[0-9]+" class="phone_number" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                </div>
+                <div *ngIf="submitted && f.areacode.errors " class="invalid_feedback ">
+                    <div *ngIf=" f.areacode.errors.required"> Area code is required. </div>
+                    <div *ngIf="f.areacode.errors.pattern"> Area code is incorrect. </div>
+                </div>
+                <div *ngIf="submitted && f.phone.errors" class="invalid_feedback ">
+                    <div *ngIf="f.phone.errors.required"> 號碼不能為空 </div>
+                    <div *ngIf="f.phone.errors.pattern"> 號碼不正確 </div>
+                </div>
+            </div>
+            <div class="forms_field" formGroupName="address">
+                <label for="address">地址</label>
+                <div class="small">
+                    <label for="building">建築物名稱，樓層及單位號碼</label>
+                    <input type="text" name="building" formControlName="building">
+                </div>
+                <div class="small">
+                    <label for="street">街道名稱及門牌號數 </label>
+                    <input type="text" name="street" formControlName="street">
+                </div>
+                <div class="small half ">
+                    <label for="district">市鎮，地區名稱</label>
+                    <input type="text" name="district" formControlName="district">
+                </div>
+                <div class="small half half-right">
+                    <label for="city">城市，國家</label>
+                    <input type="text" name="city" formControlName="city">
+                </div>
+            </div>
+            <div class="forms_field">
+                <label for="birthmonth">生日月份</label>
+                <input formControlName="birthmonth" type="number" pattern="^(0?[1-9]|1[012])$" placeholder="00" [ngClass]="{ 'is-invalid': f.birthmonth.errors }" />
+                <div *ngIf="f.birthmonth.errors" class="invalid_feedback">
+                    <div *ngIf="f.birthmonth.errors.pattern">請填寫正確的生日月份</div>
+                </div>
+                <div class="info">
+                </div>
+            </div>
+            <div class="forms_field">
+                <input class="styled-checkbox" id="newsletter" type="checkbox" formControlName="newsletter">
+                <label for="newsletter">訂閱我們的最新資訊有特別優惠。</label>
+            </div>
+        </fieldset>
+        <div class="forms_buttons">
+            <button></button>
+            <button type="submit" [disabled]="loading" [ngClass]="{'disabled': f.email.errors||f.password.errors}">註冊</button>
+            <div class="loader" *ngIf="loading">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+        </div>
+        <div *ngIf="success" class="success">
+            <p class="text-center">註冊成功! <br> 感謝您的註冊，現在可以登錄。</p>
+        </div>
+        <div *ngIf="success===false" class="success">
+            <p class="text-center">抱歉! <br> 註冊失敗，請重新輸入。 </p>
+        </div>
+        <fieldset class="reg_tc">
+            <div>
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span> 生日月份將送上精選優惠 ，登記後不能更改。</span>
+            </div>
+            <div>
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <span> 點擊註冊，即表示您同意
+          <a [routerLink]="['/en/FAQ/privacy-policy']">私隱政策</a>, 而且您也閱讀了<a
+            [routerLink]="['/en/FAQ/privacy-policy']">條款或細則</a>.</span>
+            </div>
+            <br>
+        </fieldset>
+    </form>
+</section>

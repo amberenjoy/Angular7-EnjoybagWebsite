@@ -1,0 +1,7 @@
+<form (keydown)="searchKey($event, searchItem.value)" [formGroup]="searchForm">
+    <input name="search" formControlName="searchName" type="text" placeholder="搜索" #searchItem required>
+    <button (click)="searchBtn($event, searchItem.value)"></button>
+    <div class="form-control-feedback" *ngIf="searchName.errors && (searchName.dirty || searchName.touched)">
+        <p *ngIf="searchName.errors.required">搜索不能为空</p>
+    </div>
+</form>

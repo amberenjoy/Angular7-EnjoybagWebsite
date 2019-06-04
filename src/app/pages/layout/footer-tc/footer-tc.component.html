@@ -1,0 +1,39 @@
+<footer class="flex-rw">
+    <ul class="footer-list-top">
+        <li>
+            <h4 class="footer-list-header">關於Enjoybag</h4>
+        </li>
+        <li><a [routerLink]="[ 'brand/about-us' ]" class="footer-list-anchor">關於我們</a></li>
+        <li><a [routerLink]="[ 'brand/events' ]" class="footer-list-anchor">推廣活動</a></li>
+        <li><a [routerLink]="[ 'brand/our-philosophy' ]" class="footer-list-anchor">品牌理念</a></li>
+    </ul>
+    <ul class="footer-list-top">
+        <li>
+            <h4 class="footer-list-header">訂閱資訊</h4>
+        </li>
+        <li>
+            <a class="footer-list-anchor">輸入你的電郵地址, 接收最新資訊和優惠!</a>
+        </li>
+        <li>
+            <input type="text">
+            <button>訂閱</button>
+        </li>
+    </ul>
+    <ul class="footer-list-top">
+        <li id="help">
+            <h4 class="footer-list-header">客戶服務</h4>
+        </li>
+        <li><a [routerLink]="[ 'FAQ']" fragment="Contact" class="footer-list-anchor">聯絡我們</a></li>
+        <li><a [routerLink]="[ 'FAQ/privacy-policy']" class="footer-list-anchor">隱私聲明</a></li>
+        <li><a [routerLink]="[ 'FAQ/delivery']" class="footer-list-anchor">送貨及退貨</a></li>
+    </ul>
+    <section class="footer-bottom-section flex-rw">
+        <div class="footer-bottom-wrapper">
+            <i class="fa fa-copyright" role="copyright"></i><span> Enjoybag HK 2019 - All Rights Reserved</span>
+        </div>
+        <div class="footer-bottom-wrapper">
+            <a href="" target="_blank" title="Facebook"><i class="fa fa-facebook "></i></a>
+            <a href=" " target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+        </div>
+    </section>
+</footer>

@@ -1,0 +1,92 @@
+<div class="terms-content">
+    <h3 class="text-center">Delivery &amp; Return</h3>
+    <br>
+    <div class="single-term">
+        <h4 (click)="deliveryStatus[0]=!deliveryStatus[0]">Do you provide free shipping to Hong Kong and Mainland China ?
+        </h4>
+        <div class="single-question" [hidden]="!deliveryStatus[0]">
+            <span>Yes, we provide free delivery to Hong Kong and Mainland China standard addresses for order over specified
+        amount, standard delivery fee will be charged for order below amount. Once your parcel is dispatched, you will
+        receive an email
+        and an sms with tracking details.</span><br /><br />
+            <table>
+                <tr>
+                    <th>Region</th>
+                    <th>Free shipping amount</th>
+                    <th>Standard delivery fee</th>
+                    <th>Service Provider</th>
+                </tr>
+                <tr>
+                    <td>Hong Kong</td>
+                    <td>Over HK$500</td>
+                    <td>HK$60</td>
+                    <td>SF Express</td>
+                </tr>
+                <tr>
+                    <td>Mainland China</td>
+                    <td>Over HK$1000 </td>
+                    <td>HK$30</td>
+                    <td>SF Express, STO Express</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="single-term">
+        <h4 (click)="deliveryStatus[1]=!deliveryStatus[1]">Do you provide international shipping?</h4>
+        <div class="single-question" [hidden]="!deliveryStatus[1]">
+            <span>For delivery outside Hong Kong and China, customers are responsible for the shipping fees and incurred
+        service charge.<br /><br />Shipping fees shown in check-out is for reference only. The actual fee might be
+        varied by special conditions
+        and customs of delivery country. We will notify customers by email the most accurate fee after receiving order.
+        <br /><br />Please note that products ordered by customers are subject to restrictions on the import
+        regulations of the delivery country and customer agrees to comply with all applicable entry regulations.
+        <br /><br />The customer understands that the import regulations or restrictions on the products ordered will
+        change due to time and will lead to delays in delivery.<br /><br />The customer is either responsible for the
+        import duties
+        and customs clearance fees and the payment of all local sales and VAT.<br /><br />Once your parcel is
+        dispatched, you will receive an email and a sms with tracking details.
+      </span>
+        </div>
+    </div>
+    <div class="single-term">
+        <h4 (click)="deliveryStatus[2]=!deliveryStatus[2]">Do you have free returns?</h4>
+        <div class="single-question" [hidden]="!deliveryStatus[2]">
+            <span>You can return any non-sale goods for a refund/exchange within 14 days of purchase. <br /><br />Please
+        provide your original invoice when you return/exchange the item and make sure that goods are in re-saleable
+        condition: unused, undamaged
+        and with its original packaging, such as barcode stickers, dust bags and so on. <br /><br />We reserve the
+        rights
+        of not refunding/exchanging purchased items given that it does not meet the re-saleable condition. Goods will be
+        returned by
+        standard post. <br /><br />For other delivery methods, additional shipping charge might be applied to customer.
+        <br /><br />Discount items are non-refundable.
+        <br /><br />
+        <b>Return procedures</b><br /><br />Please contact our customer service team by email or telephone for return
+        arrangement, you will then receive a return from.<br /><br />Simply fill in the form and drop off the parcel in
+        original packaging
+        to any SF Express Service Center.<br /><br /> Return Address: Room 3308, 33/F, Cable TV Tower, 9 Hoi Shing Road,
+        Tsuen
+        Wan, New Territories, Hong Kong
+        <br /><br />You can also return the goods directly to showroom.
+        <br /><br />Refund will be processed within 14 business days after confirming goods meet return requirement.
+        <br /><br />The money will be refunded based on your payment method:<br />&nbsp;&nbsp;&nbsp; 1,&nbsp;
+        Paypal/Visa/Master: Money will
+        be
+        refunded to your Paypal or credit card accounts <br />&nbsp;&nbsp;&nbsp; 2,&nbsp; Wechat pay: Money will be
+        refunded
+        to customer's WeChat
+        account
+        <br />&nbsp;&nbsp;&nbsp; 3,&nbsp; Cash/Bank Transfer: Money will be refunded in crossed check and sent to
+        customer's
+        address
+        <br /><br /> Returned goods must meet following requirements:<br />&nbsp;&nbsp;&nbsp; 1,&nbsp;Unused with its
+        invoice and original
+        packaging, such as barcode stickers, dust bags<br />&nbsp;&nbsp;&nbsp; 3,&nbsp;Without any man-made
+        damage/stain/scratch.
+        <br />&nbsp;&nbsp;&nbsp; 3,&nbsp;Non-sale products.<br />&nbsp;&nbsp;&nbsp; 4,&nbsp;Return made within 14 days
+        since date of purchase.<br />&nbsp;&nbsp;&nbsp; 5,&nbsp; We reserve the
+        rights of final decision.<br />
+      </span>
+        </div>
+    </div>
+</div>

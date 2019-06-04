@@ -1,0 +1,211 @@
+    .product-list {
+        position: relative;
+    }
+    
+    .box-top {
+        width: 100%;
+        position: relative;
+        // background: url(../../../assets/images/collection-bg.png) 50% 89% no-repeat/24%;
+        box-shadow: inset 0px -2px 0px #f5f5f5;
+        display: flex;
+        justify-content: space-between;
+        h1 {
+            font-size: 1rem;
+            margin-top: 40px;
+            font-family: 'Josefin Sans', sans-serif;
+            padding: 0 10px 10px;
+        }
+        img {
+            width: 100%;
+            max-height: 110px;
+        }
+    }
+    
+    .box-more {
+        width: 100%;
+        padding: 30px 0 30px;
+        text-align: center;
+        button {
+            font-size: 1rem;
+            background: none;
+            border: none;
+            padding: 15px 35px;
+            cursor: pointer;
+            border: 1px solid #424242;
+        }
+    }
+    
+    .box-wrapper {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        .item {
+            width: 100%;
+            color: unset;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .3s ease;
+            .box {
+                position: relative;
+                margin: 0;
+                padding-bottom: 84px;
+                cursor: pointer;
+                z-index: 0;
+            }
+            // &:first-child {
+            //     grid-column: span 2;
+            //     grid-row: span 2;
+            // }
+        }
+    }
+    
+    .imgHover {
+        width: 100%;
+        position: relative;
+        text-align: center;
+        img {
+            width: 90%;
+        }
+        .img-bag-2 {
+            position: absolute;
+            top: 0;
+            left: 5%;
+            opacity: 0;
+            transition: all .3s ease;
+        }
+        &:hover {
+            .img-bag-2 {
+                opacity: 1;
+            }
+        }
+        a {
+            position: absolute;
+            width: 90%;
+            left: 5%;
+            bottom: -10px;
+            z-index: 2;
+            color: white;
+            text-shadow: 1px 1px 1px #333;
+            font-size: .9rem;
+            background: crimson;
+            padding: 10px 0px;
+        }
+    }
+    
+    .bag-info {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        text-align: center;
+        h4 {
+            font-size: .9rem;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        p {
+            font-size: .9rem;
+            display: inline-block;
+            margin: 5px 0 0;
+        }
+        p[hidden] {
+            display: none;
+        }
+    }
+    
+    .del {
+        text-decoration: line-through;
+        color: #999;
+    }
+    
+    .loader-overlay {
+        width: 100%;
+        height: 80vh;
+        opacity: 1;
+        visibility: visible;
+        transition: all .5s;
+        &.hidden {
+            height: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    
+    .loader {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border: 4px solid crimson;
+        top: 20%;
+        left: calc(50% - 15px);
+        animation: loader 2s infinite ease;
+    }
+    
+    .loader-inner {
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        background-color: crimson;
+        animation: loader-inner 2s infinite ease-in;
+    }
+    
+    @keyframes loader {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(180deg);
+        }
+        50% {
+            transform: rotate(180deg);
+        }
+        75% {
+            transform: rotate(360deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes loader-inner {
+        0% {
+            height: 0%;
+        }
+        25% {
+            height: 0%;
+        }
+        50% {
+            height: 100%;
+        }
+        75% {
+            height: 100%;
+        }
+        100% {
+            height: 0%;
+        }
+    }
+    
+    .scroll-btn {
+        position: fixed;
+        right: 0;
+        bottom: 200px;
+        opacity: 0;
+        transition: all .2s ease-in-out;
+        button {
+            position: absolute;
+            right: 20px;
+            bottom: 0;
+            z-index: 99;
+            background: crimson;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    }
+    
+    .show-scrollTop {
+        opacity: 1;
+        transition: all .2s ease-in-out;
+    }

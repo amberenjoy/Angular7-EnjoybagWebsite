@@ -1,0 +1,299 @@
+section {
+    width: 90%;
+    margin: 0 auto;
+}
+
+h3 {
+    width: 100%;
+    font-size: 1.6rem;
+    margin: 0 auto 20px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+}
+
+fieldset {
+    padding: 0;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    label {
+        margin-bottom: 2px;
+        color: #333;
+        display: block;
+        font-size: .9rem
+    }
+    input {
+        width: 100%;
+        padding: 5px 0 4px;
+        text-indent: 5px;
+        letter-spacing: .1rem;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        background: rgba(243, 243, 243, 0.54);
+    }
+    div {
+        p {
+            margin: 5px 0 30px;
+        }
+    }
+}
+
+.radio_area {
+    margin-top: 7px;
+}
+
+.radio {
+    display: inline-block;
+    margin: 5px 22px 0px 0px;
+    label {
+        margin-bottom: 0;
+        font-weight: 400;
+        cursor: pointer;
+    }
+    input[type=radio] {
+        position: absolute;
+        opacity: 0;
+        margin-left: -20px;
+        width: unset !important;
+    }
+}
+
+.radio input[type=radio]:checked+.radio-label:before {
+    background-color: #dc143c;
+    box-shadow: inset 0 0 0 3px #f4f4f4;
+}
+
+.radio input[type=radio]+.radio-label:before {
+    position: relative;
+    top: -3px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    content: '';
+    cursor: pointer;
+    transition: all 250ms ease;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid #b4b4b4;
+    border-radius: 100%;
+    background: #f4f4f4;
+}
+
+.styled-checkbox {
+    position: absolute; // take it out of document flow
+    opacity: 0; // hide it
+    &+label {
+        position: relative;
+        cursor: pointer;
+        padding: 0 0 0 30px;
+        line-height: 1.3;
+    }
+    // Box.
+    &+label:before {
+        content: '';
+        margin-right: 9px;
+        display: inline-block;
+        vertical-align: text-top;
+        width: 15px;
+        height: 15px;
+        background: white;
+        border: 1px solid #888;
+        transition: all .3s;
+        border-radius: 50%;
+        margin-left: -26px;
+    }
+    // Box hover
+    &:hover+label:before,
+    &:checked+label:before {
+        background: crimson;
+    }
+    // Checkmark. Could be replaced with an image
+    &:checked+label:after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        transform: rotate(45deg);
+    }
+}
+
+.forms_field {
+    width: 100%;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.small {
+    label {
+        font-size: .8rem;
+        color: #888;
+        margin: 10px 0 2px;
+    }
+}
+
+.half {
+    width: 48%;
+    display: inline-block;
+    &-right {
+        margin-left: 4%;
+    }
+}
+
+.forms_buttons {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+    position: relative;
+    button {
+        color: #333;
+        border: 0;
+        background: transparent;
+        text-decoration: underline;
+        padding: 0;
+        cursor: pointer;
+        &:nth-child(2) {
+            background: crimson;
+            padding: 8px 28px;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            text-decoration: none;
+            position: relative;
+        }
+        &.disabled {
+            opacity: 0.7;
+        }
+    }
+}
+
+.mobile_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    span {
+        display: inline-block;
+        margin-right: 5px;
+        color: #888;
+    }
+}
+
+.area_code {
+    display: inline-block;
+    width: 80px !important;
+    margin-right: 5px;
+}
+
+.phone_number {
+    display: inline-block;
+}
+
+.invalid_feedback {
+    color: #fff;
+    font-size: 14px;
+    background: crimson;
+    display: inline-block;
+    padding: 3px 5px 1px;
+}
+
+.reg_tc {
+    font-size: .8rem;
+    line-height: 1.5;
+    background: #f9f9f9;
+    margin-top: 20px !important;
+    div {
+        padding: 15px 20px 0;
+        display: flex;
+        span {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        i {
+            margin-top: 5px;
+            color: crimson;
+        }
+    }
+    a {
+        text-decoration: underline;
+        color: crimson;
+    }
+}
+
+.success {
+    margin-top: 20px;
+    background: #f9f9f9;
+    padding: 20px;
+    color: crimson;
+    line-height: 1.4;
+}
+
+.loader {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: crimson;
+    width: 122px;
+    height: 28px;
+    text-align: center;
+    padding-top: 10px;
+    span {
+        display: inline-block;
+        height: 8px;
+        width: 8px;
+        background: #fff;
+        border-radius: 0px;
+        &:nth-child(1) {
+            border-radius: 0;
+            background-clip: padding-box;
+            border-radius: 500px;
+            animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
+        &:nth-child(2) {
+            border-radius: 0;
+            background-clip: padding-box;
+            border-radius: 500px;
+            animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
+        &:nth-child(3) {
+            border-radius: 0;
+            background-clip: padding-box;
+            border-radius: 500px;
+            animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
+        &:nth-child(4) {
+            border-radius: 0;
+            background-clip: padding-box;
+            border-radius: 500px;
+            animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
+        &:nth-child(5) {
+            border-radius: 0;
+            background-clip: padding-box;
+            border-radius: 500px;
+            animation: scale 1s 0.5s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
+    }
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(0);
+    }
+    25% {
+        transform: scale(0.9, 0.9);
+        background: #ffd1d1;
+    }
+    50% {
+        transform: scale(1, 1);
+        margin: 0 3px;
+        background: rgb(255, 255, 255);
+    }
+    100% {
+        transform: scale(0);
+    }
+}

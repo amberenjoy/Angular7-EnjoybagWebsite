@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'demo';
+
+  constructor(private router: Router, private titleService: Title) {
+
+    // subscribes every changes of your route
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // scroll to top
+        window.scrollTo(0, 0);
+      }
+    });
+
+    this.titleService.setTitle('Enjoy Handbag Online Shopping HK ');
+  }
+
 }

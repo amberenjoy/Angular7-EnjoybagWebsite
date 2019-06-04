@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'reset-css';
+$fa-font-path: "../node_modules/font-awesome/fonts";
+@import "../node_modules/font-awesome/scss/font-awesome.scss";
+@mixin transform($value) {
+    -webkit-transform: ($value);
+    -moz-transform: ($value);
+    -ms-transform: ($value);
+    transform: ($value);
+}
+
+@mixin transition($value) {
+    -webkit-transition: ($value);
+    -moz-transition: ($value);
+    -ms-transition: ($value);
+    transition: ($value);
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.text-center {
+    text-align: center
+}
+
+.text-right {
+    text-align: right;
+}
+
+*[hidden] {
+    display: none !important;
+}

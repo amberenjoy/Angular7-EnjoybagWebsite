@@ -1,0 +1,14 @@
+<nav><a href="/en/home">Home</a><span> {{line}}</span></nav>
+<div *ngIf="line==='ZHU'" class="banner banner-zhu">
+    <img src="assets/images/zhu-banner.jpg" alt="" class="img-responsive">
+    <h2>Elegance With Attitude: ZHU</h2>
+    <p> 'Zhu' is inspired by evergreen Bamboo, which is a symbol of virtue and reflects people’s souls. This new logo is traditional style gold, combining the form of bamboo segment that makes Enjoybag goes beyond the boundaries of time and space and lasts
+        forever.</p>
+</div>
+<div *ngIf="line==='EJ'" class="banner banner-ej">
+    <img src="assets/images/new.jpg" alt="" class="img-responsive">
+    <h2>Breath of Youth: EJ</h2>
+    <p>E means Energy, which reflects youthful vitality and J is Joyance, represents the young's mood for future expectation. Finding the perfect balance between tradition and modernity, creating the fresh breath of youth, this collection can give you a
+        lightness of spirit.</p>
+</div>
+<app-bag-list></app-bag-list>
