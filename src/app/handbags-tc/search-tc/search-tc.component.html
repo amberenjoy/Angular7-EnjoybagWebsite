@@ -1,11 +1,9 @@
-<section>
-    <div class="banner">
-        <h2>{{count}} 個搜尋結果 "{{paramSystem}}"</h2>
-    </div>
-    <app-bag-list [parameterSearch]="paramSystem" (passResult)="receiveResult($event)">
-    </app-bag-list>
-    <div [hidden]="count!='0'">
-        <h3>不好意思, <span> {{paramSystem}}</span> item(s) is temporarily unavailable. <br> For any enquiries, please drop us a message here.</h3>
-        <!-- <app-contact-tc></app-contact-tc> -->
-    </div>
-</section>
+<div class="banner">
+    <h2>{{count}} 個搜尋結果 "{{paramSystem}}"</h2>
+</div>
+<app-bag-list [parameterSearch]="paramSystem" (passResult)="receiveResult($event)">
+</app-bag-list>
+<div [hidden]="count!='0'">
+    <h3>不好意思, <span> {{paramSystem}}</span> 產品已經下線或者不存在. <br> 如有其他疑問, 可以聯絡我們.</h3>
+    <!-- <app-contact></app-contact> -->
+</div>

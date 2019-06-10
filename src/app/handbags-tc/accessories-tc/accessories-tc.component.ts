@@ -8,18 +8,18 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./accessories-tc.component.scss']
 })
 export class AccessoriesTcComponent implements OnInit {
-
-  paramSystem: string;
   name: string;
-  constructor(private route: ActivatedRoute, private title: Title, private _elementRef: ElementRef) { }
+  constructor(private route: ActivatedRoute, private title: Title, private elementRef: ElementRef) { }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const domElement = this._elementRef.nativeElement.querySelector(`.side-list`);
+    const domElement = this.elementRef.nativeElement.querySelector(`.side-list`);
     const distance = domElement.offsetTop;
-    const stopElement = this._elementRef.nativeElement.querySelector(`app-footer-tc`).offsetTop;
+    const stopElement = this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight
+      + this.elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
+
     if (window.pageYOffset > distance) {
       const marginAdd = window.pageYOffset - distance;
-      if (marginAdd < stopElement - distance - domElement.offsetHeight - 25) {
+      if (marginAdd < stopElement - distance - domElement.offsetHeight) {
         domElement.style.transform = 'translateY(' + marginAdd + 'px)';
       }
     } else if (window.pageYOffset < domElement.offsetHeight) {
@@ -28,12 +28,9 @@ export class AccessoriesTcComponent implements OnInit {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.name = params['name'];
-      this.paramSystem = params['name'];
-      if (params['name'] === 'all') {
-        this.paramSystem = 'slg';
-      }
+      this.name = params['name'.toString()];
     });
-    this.title.setTitle('Designer Accessories ' + this.name + ' | Enjoybag HK');
+    this.title.setTitle('Designer Accessories ' + this.name.charAt(0).toUpperCase() + this.name.slice(1) + ' | Enjoybag HK');
   }
 }
+

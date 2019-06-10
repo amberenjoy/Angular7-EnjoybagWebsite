@@ -20,11 +20,11 @@ export class SearchTcComponent implements OnInit {
     });
     this.title.setTitle('Search Results: ' + this.paramSystem + ' | Enjoybag HK');
     if (!this.paramSystem) {
-      this.router.navigateByUrl('/en/home');
+      this.router.navigateByUrl('/tc/home');
     }
   }
   receiveResult($event) {
     this.count = $event;
   }
-
 }
+

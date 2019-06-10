@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaglistService } from '../../shared/services/baglist.service';
 import { Title } from '@angular/platform-browser';
 import { Meta } from '@angular/platform-browser';
-import { CartItemService } from './../../shared/services/cart-item.service';
 import { Product } from './../../shared/models/product';
+import { BaglistService } from '../../shared/services/baglist.service';
+import { CartItemService } from './../../shared/services/cart-item.service';
+import { AuthenticationService } from '../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-detail-tc',
@@ -32,6 +33,7 @@ export class DetailTcComponent implements OnInit {
   showLargePhoto = false;
   largePhotoIndex: string;
   shareInfo: any;
+  logined: boolean;
 
   constructor(
     private router: Router,
@@ -39,47 +41,51 @@ export class DetailTcComponent implements OnInit {
     private dataService: BaglistService,
     private title: Title,
     private meta: Meta,
-    private element: ElementRef,
-    private cartItem: CartItemService
+    private cartItem: CartItemService,
+    private authentication: AuthenticationService
   ) { }
 
   ngOnInit() {
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-    this.route.params.subscribe(params => {
-      this.sku = +params['sku']; // (+) converts string 'id' to a number
-      this.key = params.key;
-    });
     // get currency
-    this.userCurrency = localStorage.getItem('currency') || '';
-    if (!this.userCurrency) {
-      this.userCurrency = 'HKD';
-      localStorage.setItem('currency', 'HKD');
-    }
-    // get subline after home link
-    if (!this.key) {
-      this.key = this.router.url.split('/')[2];
-      this.href = this.router.url.substring(0, this.router.url.lastIndexOf('/'));
-      this.keyLink = this.href.substring(0, this.href.lastIndexOf('/'));
-    }
-    this.dataService.getBag(this.sku, 'EN', this.userCurrency).subscribe(results => {
-      this.loading = false;
-      this.bag = results;
-      this.getAllInfo(this.bag);
+    this.userCurrency = localStorage.getItem('currency') || 'HKD';
+    // reload the current route with the angular  router
+    this.router.routeReuseStrategy.shouldReuseRoute = (() => {
+      return false;
+    });
+    this.route.params.subscribe(params => {
+      this.sku = +params['sku'.toString()]; // (+) converts string 'id' to a number
+      this.dataService.getBag(this.sku, 'TC', this.userCurrency).subscribe(results => {
+        this.loading = false;
+        this.bag = results;
+        this.getAllInfo(this.bag);
+      });
+      this.key = params.key || params.name || params.line;
+      if (!this.key || this.key === 'all') {
+        this.key = this.router.url.split('/')[3];
+        if (this.key === 'discount') {
+          this.key = 'sale';
+        }
+      }
+    });
+
+    this.authentication.currentUser.subscribe(res => {
+      if (res) {
+        this.logined = true;
+      } else {
+        this.logined = false;
+      }
     });
   }
 
   getAllInfo(bag) {
-    this.title.setTitle('Enjoybag ' + bag['productname'] + ' : ' + bag['type']);
-    this.meta.addTag({ name: 'description', content: bag['Description'] });
-    this.meta.addTag({ name: 'keywords', content: bag['productname'] });
+    this.title.setTitle('Enjoybag ' + bag['productname'.toString()] + ' : ' + bag['type'.toString()]);
+    this.meta.addTag({ name: 'description', content: bag['Description'.toString()] });
+    this.meta.addTag({ name: 'keywords', content: bag['productname'.toString()] });
 
     this.shareInfo = {
       title: bag.productname,
       desc: bag.Description,
-      url: 'https://www.enjoybag.com.hk/product-info.html?lan=EN&sku=' + this.sku,
+      url: 'https://www.enjoybag.com.hk/product-info.html?lan=TC&sku=' + this.sku,
       imgurl: 'https://www.enjoybag.com.hk/photo/' + this.sku + '_1_c.jpg',
     };
 
@@ -102,7 +108,7 @@ export class DetailTcComponent implements OnInit {
       this.bagDetail.push(bag.Detail);
     }
     // get other color
-    if (bag.othercolor_productcode['totalcolor'] === '0' || !bag.othercolor_productcode['totalcolor']) {
+    if (!bag.othercolor_productcode || bag.othercolor_productcode['totalcolor'.toString()] === '0') {
       this.otherColorList = [];
     } else if (bag.othercolor_productcode.product.length) {
       this.otherColorList = bag.othercolor_productcode.product;
@@ -122,7 +128,7 @@ export class DetailTcComponent implements OnInit {
       color: bag.color
     };
     // check user login or not
-    // this.cartItem.addUserItem(thisBag);
+    this.cartItem.addUserItem(thisBag.sku, this.logined);
   }
 
   openModal(id: string) {
@@ -138,3 +144,4 @@ export class DetailTcComponent implements OnInit {
     window.open('https://www.facebook.com/sharer.php?u=' + encodeURIComponent(this.shareInfo.url));
   }
 }
+

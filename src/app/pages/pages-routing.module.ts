@@ -55,8 +55,14 @@ const routes: Routes = [
         path: 'products', loadChildren: '../handbags-tc/handbags-tc.module#HandbagsTcModule'
       },
       {
-        path: 'FAQ', component: FaqTcComponent, loadChildren: '../faq-page/faq-page.module#FaqPageModule'
+        path: 'FAQ', component: FaqTcComponent, loadChildren: '../faq-pages-tc/faq-pages-tc.module#FaqPagesTcModule'
       },
+      {
+        path: 'checkout', loadChildren: '../checkout-pages-tc/checkout-pages-tc.module#CheckoutPagesTcModule'
+      },
+      {
+        path: 'brand', loadChildren: '../brand-page-tc/brand-page-tc.module#BrandPageTcModule'
+      }
     ]
   }
 ];

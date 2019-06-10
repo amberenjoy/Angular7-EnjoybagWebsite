@@ -1,35 +1,37 @@
-<section>
-    <nav><a href="/tc/home">首頁</a><a href="/tc/accessories/all"> 銀包配飾</a><span>{{name}}</span></nav>
-    <div class="banner" [ngClass]="{ 'banner-all': name==='all',  'banner-chain': name==='chain wallet',
+<nav><a [routerLink]="[ '../../home' ]">首頁</a><a [routerLink]="[ '../','all' ]">銀包配飾</a><span>{{name}}</span>
+</nav>
+<div class="banner" [ngClass]="{ 'banner-all': name==='all',  'banner-chain': name==='chain wallet',
     'banner-wallet': name==='wallet',  'banner-cosmetic': name==='cosmetic bag',
     'banner-cardholder': name==='cardholder',   'banner-belt': name==='belt',  'banner-bracelet': name==='bracelet', 
     'banner-charm': name==='charm' }">
-        <h2 [hidden]="name!='all'">accessories world</h2>
-        <h2 [hidden]="name==='all'">{{name}}</h2>
+    <h2 [hidden]="name!='all'">精品小件</h2>
+    <h2 [hidden]="name==='all'">{{name}}</h2>
+</div>
+<div class="body-flex">
+    <div class="side-list">
+        <h4>類別</h4>
+        <ul>
+            <li> <a [ngClass]="{'active': name==='chain wallet'}" [routerLink]="[ '../','chain wallet']">鏈條包</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='wallet'}" [routerLink]="[ '../','wallet']">錢包</a> </li>
+            <li> <a [ngClass]="{'active': name==='cosmetic bag'}" [routerLink]="[ '../','cosmetic bag']">化妝包</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='cardholder'}" [routerLink]="[ '../','cardholder']">卡包</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='belt'}" [routerLink]="[ '../','belt']">腰帶</a> </li>
+            <li> <a [ngClass]="{'active': name==='bracelet'}" [routerLink]="[ '../','bracelet']">手鏈</a></li>
+            <li> <a [ngClass]="{'active': name==='charm'}" [routerLink]="[ '../','charm']">小件</a> </li>
+            <li> <a [routerLink]="[ '../','all']" [ngClass]="{'active': name==='all'}">全部</a></li>
+        </ul>
+        <h4>系列</h4>
+        <ul>
+            <li><a [routerLink]="['/tc/products/new/all']"> 新品上市</a></li>
+            <li><a [routerLink]="['/tc/products/sale/all']"> 驚喜折扣</a></li>
+            <li> <a [routerLink]="['/tc/products/collections/ZHU']">ZHU 系列</a> </li>
+            <li> <a [routerLink]="['/tc/products/collections/EJ']">EJ 系列</a> </li>
+        </ul>
     </div>
-    <div class="body-flex">
-        <div class="side-list">
-            <h4>類別</h4>
-            <ul>
-                <li> <a [ngClass]="{'active': name==='chain wallet'}" href="/tc/accessories/chain%20wallet"> 链条包</a></li>
-                <li> <a [ngClass]="{'active': name==='wallet'}" href="/tc/accessories/wallet">錢包 </a> </li>
-                <li> <a [ngClass]="{'active': name==='cosmetic bag'}" href="/tc/accessories/cosmetic%20bag"> 化妝袋 </a> </li>
-                <li> <a [ngClass]="{'active': name==='cardholder'}" href="/tc/accessories/cardholder">卡片套</a></li>
-                <li> <a [ngClass]="{'active': name==='belt'}" href="/tc/accessories/belt"> 腰帶 </a> </li>
-                <li> <a [ngClass]="{'active': name==='bracelet'}" href="/tc/accessories/bracelet"> 手鐲</a></li>
-                <li> <a [ngClass]="{'active': name==='charm'}" href="/tc/accessories/charm"> 小配件</a> </li>
-                <li> <a href="/tc/accessories/all" [ngClass]="{'active': name==='all'}"> 全部</a></li>
-            </ul>
-            <h4> 系列</h4>
-            <ul>
-                <li><a href="/tc/new"> 新品</a></li>
-                <li><a href="/tc/sale">特價</a></li>
-                <li> <a href="">ZHU</a> </li>
-                <li> <a href="">EJ</a> </li>
-            </ul>
-        </div>
-        <div class="right-list">
-            <app-bag-list [parameter]="paramSystem"></app-bag-list>
-        </div>
+    <div class="right-list">
+        <app-bag-list></app-bag-list>
     </div>
-</section>
+</div>

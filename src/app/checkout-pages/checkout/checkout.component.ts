@@ -26,10 +26,8 @@ export class CheckoutComponent implements OnInit {
   paypalLoad = false;
   paypalShow = false;
   paypalResult: boolean;
-  paymentMessage: {
-    status: string,
-    message: string
-  };
+  paymentMessage = '';
+  paymentStatus = '';
   user: User;
   delivery: number;
   logined: boolean;
@@ -116,7 +114,7 @@ export class CheckoutComponent implements OnInit {
         this.logined = true;
       } else {
         this.logined = false;
-        this.router.navigate(['/en/myEnjoybag']);
+        this.router.navigate(['/en/register']);
       }
     });
     this.checkoutService.getShipping().subscribe(
@@ -258,8 +256,9 @@ export class CheckoutComponent implements OnInit {
             return actions.order.capture().then(details => {
               console.log('onApprove - you can get full order details inside onApprove: ', details);
               this.paypalResult = false;
-              this.paymentMessage.status = 'Payment Success! ';
-              this.paymentMessage.message = ' Transaction completed by' + details.payer.name.given_name + ' - Transaction ID:' + data.orderID;
+              this.paymentStatus = 'Payment Success! ';
+              this.paymentMessage = ' Transaction completed by' + details.payer.name.given_name
+                + ' - Transaction ID:' + data.orderID;
               this.order.payment.transaction_id = data.orderID;
               this.order.payment.status = 'Paid';
             });
@@ -268,13 +267,14 @@ export class CheckoutComponent implements OnInit {
             console.log('OnError', err);
             this.paypalResult = false;
             // payment faild please click paypal again
-            this.paymentMessage.status = 'Ooops! Paypal failed to load. ';
-            this.paymentMessage.message = 'Please click the paypal button again!';
+            this.paymentStatus = 'Ooops! Paypal failed to load. ';
+            this.paymentMessage = 'Please click the paypal button again!';
           },
           onCancel: (data, actions) => {
             // Show a cancel page or return to cart
-            this.paymentMessage.status = 'Transaction Canceled!';
+            console.log('canceled', actions);
             this.paypalResult = false;
+            this.paymentStatus = 'Transaction Canceled!';
           }
         }).render('#paypal-button-container');
       }).then(() => {

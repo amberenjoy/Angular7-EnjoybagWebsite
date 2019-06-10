@@ -8,20 +8,16 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./line-tc.component.scss']
 })
 export class LineTcComponent implements OnInit {
-  paramSystem: string;
-  key: string;
+
+  line: string;
   constructor(private route: ActivatedRoute, private title: Title) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params['key'] === 'ZHU') {
-        this.paramSystem = 'campaign_special';
-      } else if (params['key'] === 'EJ') {
-        this.paramSystem = 'gift';
-      }
-      this.key = params['key'];
+      this.line = params['line'.toString()];
     });
-    this.title.setTitle('Designer special collections: ' + this.key + ' | Enjoybag HK');
+    this.title.setTitle('Designer special collections: ' + this.line + ' | Enjoybag HK');
   }
 
 }
+

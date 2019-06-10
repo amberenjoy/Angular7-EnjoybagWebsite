@@ -331,16 +331,24 @@
     }
     
     .paypal-btn {
-        margin: 5px 0 0 26px;
+        margin: -10px 0 0 26px;
         background: #f9f9f9;
         padding: 20px;
-        margin-top: -10px;
         text-align: center;
         position: relative;
         span {
             line-height: 1.5;
             color: crimson;
         }
+    }
+    
+    .payment-info {
+        position: relative;
+        text-align: center;
+        background: #f9f9f9;
+        padding-bottom: 20px;
+        margin: 0 0 0 26px;
+        color: crimson;
     }
     
     .bag {

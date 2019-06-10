@@ -1,9 +1,9 @@
-
-<section>
-    <nav><a href="/en/home">首頁</a><span>新品</span></nav>
-    <div class="banner banner-new">
-        <h2>新品上市</h2>
-    </div>
-    <app-bag-list [parameter]="paramSystem"></app-bag-list>
-    <router-outlet></router-outlet>
-</section>
+<nav>
+    <a [routerLink]="[ '../../../../../home' ]">首頁</a>
+    <span *ngIf="key==='new'">新品</span><span *ngIf="key==='discount'">折扣區</span>
+</nav>
+<div class="banner " [ngClass]="{'banner-new': key==='new','banner-sale': key==='discount'}">
+    <h2 *ngIf="key==='new'">新品上市</h2>
+    <h2 *ngIf="key==='discount'">折扣區</h2>
+</div>
+<app-bag-list></app-bag-list>

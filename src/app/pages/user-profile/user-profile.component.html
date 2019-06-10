@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="container second" *ngIf="orderShow">
-                    <div *ngIf="profile.orders.length>0">
+                    <div *ngIf="orderArray.length>0">
                         <div class="flex-list">
                             <div>Order No</div>
                             <div>Date</div>
@@ -105,7 +105,7 @@
                             <div><button (click)="openOrder(order.id)">View</button></div>
                         </div>
                     </div>
-                    <div *ngIf="profile.orders.length===0" class="text-center">
+                    <div *ngIf="orderArray.length===0" class="text-center">
                         <h3>At this time, you have no Order History.</h3>
                     </div>
                 </div>

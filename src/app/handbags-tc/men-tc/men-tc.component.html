@@ -1,8 +1,5 @@
-<section>
-    <nav><a href="/tc/home">首頁</a><a href="/en/men/all">Men</a><span>{{name}}</span></nav>
-    <div class="banner banner-men">
-        <h2>Gifts for him</h2>
-    </div>
-    <app-bag-list [parameter]="paramSystem"></app-bag-list>
-    <router-outlet></router-outlet>
-</section>
+<nav><a [routerLink]="['../../../home']">首頁</a><a [routerLink]="['../all']">男裝</a><span>{{name}}</span></nav>
+<div class="banner banner-men">
+    <h2>Gifts for him</h2>
+</div>
+<app-bag-list></app-bag-list>

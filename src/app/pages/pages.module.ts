@@ -24,15 +24,15 @@ import { SearchTcComponent } from './layout/search-tc/search-tc.component';
 import { UserCartComponent } from './layout/user-cart/user-cart.component';
 import { UserCartTcComponent } from './layout/user-cart-tc/user-cart-tc.component';
 import { UserLoginComponent } from './layout/user-login/user-login.component';
-import { UserRegisterComponent } from './layout/user-register/user-register.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UserRegisterPageComponent } from './user-register-page/user-register-page.component';
 import { UserLoginTcComponent } from './layout/user-login-tc/user-login-tc.component';
+import { UserRegisterComponent } from './layout/user-register/user-register.component';
+import { UserRegisterPageComponent } from './user-register-page/user-register-page.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileTcComponent } from './user-profile-tc/user-profile-tc.component';
 import { UserRegisterTcComponent } from './layout/user-register-tc/user-register-tc.component';
 import { UserRegisterPageTcComponent } from './user-register-page-tc/user-register-page-tc.component';
 import { FaqComponent } from './faq/faq.component';
 import { FaqTcComponent } from './faq-tc/faq-tc.component';
-import { UserProfileTcComponent } from './user-profile-tc/user-profile-tc.component';
 
 @NgModule({
   declarations: [

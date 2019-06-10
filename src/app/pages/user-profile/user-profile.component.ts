@@ -55,6 +55,7 @@ export class UserProfileComponent implements OnInit {
   openOrderList() {
     this.orderService.getUserOrders().subscribe(orderlist => {
       this.orderArray = orderlist.orders;
+      console.log(this.orderArray);
       this.orderShow = true;
       this.profileShow = false;
     });

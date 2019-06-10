@@ -28,7 +28,7 @@ export class HeaderTcComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
     // get language
@@ -76,10 +76,12 @@ export class HeaderTcComponent implements OnInit {
     localStorage.setItem('language', language);
     if (language === 'en') {
       const newUrl = this.router.url.replace('/tc', '/en');
-      this.router.navigateByUrl(newUrl);
+      // this.router.navigateByUrl(newUrl);
+      window.location.href = newUrl;
     } else {
       const newUrl = this.router.url.replace('/en', '/tc');
-      this.router.navigateByUrl(newUrl);
+      // this.router.navigateByUrl(newUrl);
+      window.location.href = newUrl;
     }
   }
 

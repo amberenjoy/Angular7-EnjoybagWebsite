@@ -13,7 +13,10 @@ export class UserRegisterPageTcComponent implements OnInit {
   page = 'register';
   returnUrl: string;
 
-  constructor(private title: Title, private router: Router, private authenticationService: AuthenticationService,
+  constructor(
+    private title: Title,
+    private router: Router,
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit() {

@@ -1,0 +1,215 @@
+<section [ngClass]="{'print': print}">
+    <div class="banner" *ngIf="order.status==='Placed Order'">
+        <h3>完成以下步驟確認訂單</h3>
+        <ul>
+            <li class="step active">
+                <div>
+                    <a>購物車</a>
+                </div>
+            </li>
+            <li class="step active">
+                <div>
+                    <a>結算</a>
+                </div>
+            </li>
+            <li class="step active completed">
+                <div>
+                    <a>確認訂單</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="banner" *ngIf="order.status!=='Placed Order'&&order.status!=='Canceled'">
+        <h3>完成訂單</h3>
+        <ul>
+            <li class="step active">
+                <div>
+                    <a>已確認訂單</a>
+                </div>
+            </li>
+            <li class="step active">
+                <div>
+                    <a>訂單處理中</a>
+                </div>
+            </li>
+            <li class="step">
+                <div>
+                    <a>已經收貨</a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <div class="body" id="invoice" *ngIf="!error&&order">
+        <div class="header" *ngIf="order.status==='Placed Order'">
+            <div class="text-center">
+                <div class="info-right text-right">
+                    <button class="nextBtn" (click)="cancelModal=true">取消訂單</button>
+                </div>
+                <h2 *ngIf="!print">Thanks</h2>
+                <div class="text-center" *ngIf="print">
+                    <br>
+                    <br>
+                    <br>
+                    <img src="assets/images/logo.png" alt=" " class="logo">
+                </div>
+                <p class="order-id">訂單號*: <span class="strong">{{order.id | uppercase}}</span> </p>
+                <p class="text-center small">您的訂單已經確認了. <br> 當我們確認收款之後，我們會立即包裝發貨.
+                </p>
+                <br>
+            </div>
+        </div>
+        <div class="header" *ngIf="order.status!=='Placed Order'">
+            <h2 class="text-center" *ngIf="!print">Thanks</h2>
+            <div class="text-center" *ngIf="print">
+                <img src="assets/images/logo.png" alt=" " class="logo">
+                <br>
+                <br>
+            </div>
+            <p class="order-id text-center">您的訂單正在 <span class="strong">{{order.status}}</span> .
+                <br> 訂單信息.
+            </p>
+            <br>
+        </div>
+        <div class="container">
+            <div class="flex bg">
+                <div class="full info">
+                    <p class="order-info"><span>用戶名:</span>
+                        <span>{{order.billing.username | uppercase}}</span> </p>
+                    <p class="order-info">
+                        <span>聯絡電話:</span><span>{{order.billing.areacode}}-{{order.billing.phone}}</span></p>
+                    <p class="order-info"><span>郵箱:</span><span> {{order.billing.email}}</span></p>
+
+                    <p class="order-info">
+                        <span>地址:</span>
+                        <span>{{order.billing.building}}, <br>
+              {{order.billing.street}}, {{order.billing.district}},<br>{{order.billing.city}}</span>
+                    </p>
+                    <p class="order-info">
+                        <span>訂單備註:</span>
+                        <span> <i *ngIf="order.comment">{{order.comment}}</i><i *ngIf="!order.comment">沒有</i> </span>
+                    </p>
+                </div>
+                <div class="full">
+                    <p class="order-info"> <span>訂單號 </span><span>{{order.id| uppercase}}</span></p>
+                    <p class="order-info"> <span>訂單日期 </span><span> {{order.created_at}}</span></p>
+                    <p class="order-info"> <span>訂單狀態 </span><span class="bg"> {{order.status}}</span></p>
+                    <p class="order-info"> <span>付款 </span>
+                        <span>{{order.payment.paymentMethod}}</span> -
+                        <span class="bg"> {{order.payment.status}}</span>
+                    </p>
+                    <p *ngIf="order.payment.transaction_id" class="order-info">
+                        <span>交易ID:</span>
+                        <span> {{order.payment.transaction_id}}</span>
+                    </p>
+                    <p class="order-info">
+                        <span>送貨方式 </span>
+                        <span>{{order.delivery.deliveryMethod}}</span> <br>
+                        <span>{{order.delivery.status}}</span> <br>
+                        <span>{{order.delivery.date}}</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="container ">
+            <div class="flex" *ngFor="let item of order.orderItems">
+                <div class="four">
+                    <img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="">
+                </div>
+                <div class="four">
+                    <p>{{item.product.name}}</p>
+                    <span class="small">#{{item.product.sku}}</span>
+                    <span class="small">顏色: {{item.product.color}}</span>
+                </div>
+                <div class="four">
+                    <p class="text-center">數量: {{item.qty}}</p>
+                </div>
+                <div class="four">
+                    <p class="text-right" [ngClass]="{'del': item.product.dis>0}">{{item.product.price | currency:userCurrency}}
+                    </p>
+                    <p class="text-right" *ngIf="item.product.dis>0">{{item.product.dis|currency:userCurrency}}</p>
+                </div>
+            </div>
+            <div class="flex total">
+                <div class=" text-right">
+                    <span class="small"> 總計商品 ({{order.orderItems.length}}) :</span>
+                    <span class="small" *ngIf="order.bonus>0||order.discount!=''"> 優惠 :</span>
+                    <span class="small"> 稅費 : </span>
+                    <span class="small"> 運費 :</span>
+                    <h4> 總計 : </h4>
+                </div>
+                <div class="text-right">
+                    <span class="small">{{order.subtotal | currency:userCurrency}}</span>
+                    <span class="small" *ngIf="order.bonus>0||order.discount!=''">
+            <span *ngIf="order.bonus">- {{order.bonus | currency:userCurrency}}</span>
+                    <span class="small" *ngIf="order.discount">{{order.discount}} Off</span>
+                    </span>
+                    <span class="small"> {{order.tax | currency:userCurrency}} </span>
+                    <span class="small"> {{order.shipping | currency:userCurrency}} </span>
+                    <h4> {{order.total | currency:userCurrency}} </h4>
+                </div>
+            </div>
+            <div class="header text-center btn" *ngIf="order.status==='Placed Order'">
+                <a class="nextBtn crimson" [routerLink]="['/tc/home']">繼續購物</a>
+                <a *ngIf="logined" class="nextBtn" [routerLink]="['/tc/myEnjoybag']">查看賬戶</a>
+            </div>
+            <div class="header text-center btn" *ngIf="order.status!=='Placed Order'">
+                <button class="nextBtn crimson" (click)="printInvoice()">打印賬單</button>
+            </div>
+            <p class="small ">Ref No*: EW0000352</p>
+        </div>
+    </div>
+    <div class="body" *ngIf="error">
+        <div class="container">
+            <p class="order-id text-center">
+                <br><br> 不好意思，該訂單不存在
+                <br><br>
+            </p>
+        </div>
+    </div>
+    <div class="footer text-center">
+        <h3>需要幫助 ?</h3>
+        <br>
+        <p>如有其他疑問，請<a [routerLink]="['/tc/FAQ']" fragment="Contact" href="tc/FAQ#contact">聯絡我們</a>.
+        </p>
+    </div>
+    <router-outlet name="invoice"></router-outlet>
+</section>
+<div class="modal" *ngIf="cancelModal">
+    <div class="modal-body">
+        <h3>取消訂單 ?</h3>
+        <div class="form">
+            <div>
+                <p>取消原因 ( 選填 ):</p>
+                <div class="radio">
+                    <input id="radio-1" name="radio" type="radio" value="Changed my mind" (change)="reasonChange('Changed my mind')">
+                    <label for="radio-1" class="radio-label">我改變主意了</label>
+                </div>
+                <div class="radio">
+                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address" (change)="reasonChange(' Wrong shipping address ')">
+                    <label for="radio-2" class="radio-label">送貨信息錯誤</label>
+                </div>
+                <div class="radio">
+                    <input id="radio-3" name="radio" type="radio" value="Duplicate order" (change)="reasonChange(' Duplicate order')">
+                    <label for="radio-3" class="radio-label">訂單重複了</label>
+                </div>
+                <div class="radio">
+                    <input id="radio-4" name="radio" type="radio" value="Others" (change)="reasonChange(' Others')">
+                    <label for="radio-4" class="radio-label">其他</label>
+                </div>
+            </div>
+            <div>
+                <p>您的意見:</p>
+                <input type="text">
+                <div class="text-center">
+                    <button class="nextBtn crimson" (click)="cancelModal=false">回到訂單</button>
+                    <button class="nextBtn" (click)="cancelOrder(order.id)">取消訂單</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,89 +1,80 @@
-<section>
-    <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
-        <span class="loader"><span class="loader-inner"></span></span>
-    </div>
-    <nav *ngIf="!loading">
-        <a href="/tc/home">首页</a>
-        <a [hidden]="!keyLink||key==='items'||key==='search'" href="{{keyLink}}/all">{{key}}</a>
-        <a [hidden]="keyLink||key==='items'||key==='search'" href="/tc/handbags/{{key}}">{{key}}</a>
-        <span> {{bag.collection}}</span>
-    </nav>
-    <div class="bagBody" *ngIf="!loading">
-        <div class="sliderImg">
-            <div class="wrapper">
-                <div id="slider">
-                    <div class="inner">
-                        <div class="item zoom-image" *ngFor="let i of bagPhotoArray; index as id" (deferLoad)="i.show = true">
-                            <div *ngIf="i.show">
-                                <img [src]="i.url" alt="bag-photo" class="img-responsive imgBig" (click)="openModal(id)">
-                            </div>
+<div class="loader-overlay" [ngClass]="{'hidden': !loading}">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+<nav *ngIf="!loading">
+    <a [routerLink]="[ '../../../../home' ]">首頁</a>
+    <a *ngIf="key!=sku&&key!=='search'" [routerLink]="[ '../' ]">{{key}}</a>
+    <span> {{bag.collection}}</span>
+</nav>
+<div class="bagBody" *ngIf="!loading">
+    <div class="sliderImg">
+        <div class="wrapper">
+            <div id="slider">
+                <div class="inner">
+                    <div class="item zoom-image" *ngFor="let i of bagPhotoArray; index as id" (deferLoad)="i.show = true">
+                        <div *ngIf="i.show">
+                            <img [src]="i.url" alt="bag-photo" class="img-responsive imgBig" (click)="openModal(id)">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="details">
-            <h4>{{bag.productname}}</h4>
-            <p class="price">
-                <span [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</span>
-                <span [hidden]="bag.discountprice=='0'">{{bag.discountprice| currency: userCurrency}}</span>
-                <span [hidden]="bag.discountprice=='0'">{{bag.discountpriceper}}</span>
-            </p>
-            <div>
-                <a [routerLink]="['..', bag.productcode]" class="color active" [ngStyle]="{'background':'#'+ bag.colorpick.slice(2,8)}">
-                    <span>{{bag.color}}</span>
-                </a>
-                <a *ngFor="let other of otherColorList" [routerLink]="['..', other.productcode]" class="color" [ngStyle]="{'background':'#'+ other.colorpick.slice(2,8)}"><span>{{other.color}}</span></a>
-            </div>
-            <p [hidden]="bag.StockQty > 5 || bag.StockQty == 0">( 數量: {{bag.StockQty}} )</p>
-            <p [hidden]="bag.StockQty !=0 ">( 已脫銷 )</p>
-            <div>
-                <button class="add-to-cart" (click)="addToCart(bag)">添加到購物袋</button>
-            </div>
-            <div class="tab-container">
-                <label>產品</label>
-                <div class="tab-content">
-                    <p>
-                        <li class="first-tab">{{bag.Description}}</li>
-                    </p>
-                </div>
-                <label>細節</label>
-                <div class="tab-content">
-                    <p>
-                        <li *ngFor="let a of bagDetail">{{a}}</li>
-                    </p>
-                </div>
-                <label>物料</label>
-                <div class="tab-content">
-                    <p>
-                        <li *ngFor="let a of bagMaterial">{{a}}</li>
-                    </p>
-                </div>
-            </div>
-            <div class="other-info">
+    </div>
+    <div class="details">
+        <h4>{{bag.productname}}</h4>
+        <p class="price">
+            <span [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</span>
+            <span *ngIf="bag.discountprice!=='0'">{{bag.discountprice| currency: userCurrency}}</span>
+            <span *ngIf="bag.discountprice!=='0'">{{bag.discountpriceper}}</span>
+        </p>
+        <div>
+            <a [routerLink]="['..', bag.productcode]" class="color active" [ngStyle]="{'background':'#'+ bag.colorpick.slice(2,8)}">
+                <span>{{bag.color}}</span>
+            </a>
+            <a *ngFor="let other of otherColorList" [routerLink]="['..', other.productcode]" class="color" [ngStyle]="{'background':'#'+ other.colorpick.slice(2,8)}"><span>{{other.color}}</span></a>
+        </div>
+        <p [hidden]="bag.StockQty > 5 || bag.StockQty == 0">( Last Qty: {{bag.StockQty}} )</p>
+        <p [hidden]="bag.StockQty !=0 ">( Out of Stock )</p>
+        <div>
+            <button class="add-to-cart" (click)="addToCart(bag)">添加購物車</button>
+        </div>
+        <div class="tab-container">
+            <label>產品</label>
+            <div class="tab-content">
                 <p>
-                    <i class="fa fa-truck"></i>全場選購 HKD 500.00以上，香港地區免運費
-                </p>
-
-                <p>
-                    <i class="fa fa-gift"></i>凡購買滿HKD500.00, 即送價值HKD108.00的小豬牛皮鑰匙包一份
+                    <li class="first-tab">{{bag.Description}}</li>
                 </p>
             </div>
-            <div class="social-container">
-                <ul class="social-icons">
-                    <li><a><i class="fa fa-facebook-official facebook" (click)="facebookSharing(shareObj)"></i></a>
-                    </li>
-                    <li><a><i class="fa fa-twitter-square twitter"></i></a></li>
-                    <!-- <li><a><i class="fa fa-google-plus-official google-plus"></i></a></li>
-                    <li><a><i class="fa fa-weibo weibo"></i></a></li> -->
-                </ul>
+            <label>細節</label>
+            <div class="tab-content">
+                <p>
+                    <li *ngFor="let a of bagDetail">{{a}}</li>
+                </p>
+            </div>
+            <label>物料</label>
+            <div class="tab-content">
+                <p>
+                    <li *ngFor="let a of bagMaterial">{{a}}</li>
+                </p>
             </div>
         </div>
+        <div class="other-info">
+            <p>
+                <i class="fa fa-truck"></i>全場選購超過 HK$ 500.00 以上，香港地區免運
+            </p>
+        </div>
+        <div class="social-container">
+            <ul class="social-icons">
+                <li><a><i class="fa fa-facebook-official facebook" (click)="facebookSharing(shareObj)"></i></a>
+                </li>
+                <li><a><i class="fa fa-twitter-square twitter"></i></a></li>
+                <!-- <li><a><i class="fa fa-google-plus-official google-plus"></i></a></li>
+                    <li><a><i class="fa fa-weibo weibo"></i></a></li> -->
+            </ul>
+        </div>
     </div>
-    <div *ngIf="showLargePhoto" id="modal">
-        <button (click)="closeModal();"><i class="fa fa-close"></i></button>
-        <app-photo-modal [parameter]="bag.photono" [indexPhoto]="largePhotoIndex" [productSku]="sku"></app-photo-modal>
-    </div>
-</section>
-
-<br><br><br>
+</div>
+<div *ngIf="showLargePhoto" id="modal">
+    <button (click)="closeModal();"><i class="fa fa-close"></i></button>
+    <app-photo-modal [parameter]="bag.photono" [indexPhoto]="largePhotoIndex" [productSku]="sku"></app-photo-modal>
+</div>

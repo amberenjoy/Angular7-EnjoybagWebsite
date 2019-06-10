@@ -37,10 +37,10 @@ export class SearchTcComponent implements OnInit {
     if (value !== '') {
       // 重复点击菜单刷新界面 网上没找到方法 通过跳转到别的界面在跳回来的方式进行实现
       this.router.navigateByUrl('/tc/home').then(() => {
-        this.router.navigate(['/tc/search'], { queryParams: { qry: value } });
+        this.router.navigate(['/tc/products/search'], { queryParams: { qry: value } });
       });
     } else {
-      this.searchForm.controls['email'].setErrors({ 'incorrect': true });
+      this.searchForm.controls['email'.toString()].setErrors({ 'incorrect': true });
     }
   }
 }

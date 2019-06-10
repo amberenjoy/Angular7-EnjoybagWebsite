@@ -9,12 +9,13 @@ import { Title } from '@angular/platform-browser';
 })
 export class AccessoriesComponent implements OnInit {
   name: string;
-  constructor(private route: ActivatedRoute, private title: Title, private _elementRef: ElementRef) { }
+  constructor(private route: ActivatedRoute, private title: Title, private elementRef: ElementRef) { }
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const domElement = this._elementRef.nativeElement.querySelector(`.side-list`);
+    const domElement = this.elementRef.nativeElement.querySelector(`.side-list`);
     const distance = domElement.offsetTop;
-    const stopElement = this._elementRef.nativeElement.querySelector(`.right-list`).offsetHeight + this._elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
+    const stopElement = this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight
+      + this.elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
 
     if (window.pageYOffset > distance) {
       const marginAdd = window.pageYOffset - distance;
@@ -27,7 +28,7 @@ export class AccessoriesComponent implements OnInit {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.name = params['name'];
+      this.name = params['name'.toString()];
     });
     this.title.setTitle('Designer Accessories ' + this.name.charAt(0).toUpperCase() + this.name.slice(1) + ' | Enjoybag HK');
   }

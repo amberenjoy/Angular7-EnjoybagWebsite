@@ -1,35 +1,39 @@
-<section>
-    <nav><a href="/tc/home"> 首頁</a><a href="/tc/women/all">女裝手袋</a><span>{{name}}</span></nav>
-    <div class="banner" [ngClass]="{ 'banner-all': name==='all', 'banner-cross': name==='crossbody bag',
-    'banner-top': name==='top handle', 'banner-tote': name==='tote bag',
-    'banner-clutch': name==='clutch', 'banner-bucket': name==='bucket bags', 'banner-backpack': name==='backpack'}">
-        <h2 [hidden]="name!='all'">Women's Bags</h2>
-        <h2 [hidden]="name==='all'">{{name}}</h2>
+<nav><a [routerLink]="[ '../../../home' ]">首頁</a><a [routerLink]="[ '../','all' ]">女裝</a><span>{{name}}</span>
+</nav>
+<div class="banner" [ngClass]="{ 
+      'banner-all': name==='all', 'banner-cross': name==='crossbody bag',
+  'banner-top': name==='top handle', 'banner-tote': name==='tote bag',
+  'banner-clutch': name==='clutch', 'banner-bucket': name==='bucket bags',
+   'banner-backpack': name==='backpack'}">
+    <h2 *ngIf="name==='all'">Women's Bags</h2>
+    <h2 *ngIf="name!=='all'">{{name}}</h2>
+</div>
+<div class="body-flex">
+    <div class="side-list">
+        <h4>類別</h4>
+        <ul>
+            <li> <a [ngClass]="{'active': name==='top handle'}" [routerLink]="['../','top handle']">單手柄袋</a> </li>
+            <li> <a [ngClass]="{'active': name==='crossbody bag'}" [routerLink]="['../','crossbody bag']">斜背袋</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='tote bag'}" [routerLink]="['../','tote bag']">手挽袋</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='clutch'}" [routerLink]="['../','clutch']">手拿包</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='bucket bags'}" [routerLink]="['../','bucket bags']">水桶袋</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='backpack'}" [routerLink]="['../','backpack']">背包</a>
+            </li>
+            <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> 全部</a></li>
+        </ul>
+        <h4>系列</h4>
+        <ul>
+            <li><a [routerLink]="['/tc/products/new/all']"> 新品上市</a></li>
+            <li><a [routerLink]="['/tc/products/sale/all']">驚喜折扣</a></li>
+            <li> <a [routerLink]="['/tc/products/collections/ZHU']">ZHU 系列</a> </li>
+            <li> <a [routerLink]="['/tc/products/collections/EJ']">EJ 系列</a> </li>
+        </ul>
     </div>
-    <div class="body-flex">
-        <div class="side-list">
-            <h4> 類別</h4>
-            <ul>
-                <li> <a [ngClass]="{'active': name==='crossbody bag'}" href="/tc/women/crossbody%20bag">斜背袋 </a>
-                </li>
-                <li> <a [ngClass]="{'active': name==='top handle'}" href="/tc/women/top%20handle">單手柄包</a> </li>
-                <li> <a [ngClass]="{'active': name==='tote bag'}" href="/tc/women/tote%20bag">手挽袋</a></li>
-                <li> <a [ngClass]="{'active': name==='clutch'}" href="/tc/women/clutch">手拿包</a> </li>
-                <li> <a [ngClass]="{'active': name==='bucket bags'}" href="/tc/women/bucket%20bags">水桶袋</a>
-                </li>
-                <li> <a [ngClass]="{'active': name==='backpack'}" href="/tc/women/backpack">背包</a> </li>
-                <li> <a [ngClass]="{'active': name==='all'}" href="/tc/women/all">全部</a></li>
-            </ul>
-            <h4>系列</h4>
-            <ul>
-                <li><a href="/tc/new/all"> 新品</a></li>
-                <li><a href="/tc/sale/all"> 特價</a></li>
-                <li> <a href="/tc/handbags/ZHU">ZHU</a> </li>
-                <li> <a href="/tc/handbags/EJ">EJ</a> </li>
-            </ul>
-        </div>
-        <div class="right-list">
-            <app-bag-list [parameter]="paramSystem"></app-bag-list>
-        </div>
+    <div class="right-list">
+        <app-bag-list></app-bag-list>
     </div>
-</section>
+</div>

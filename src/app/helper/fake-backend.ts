@@ -227,7 +227,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return error('There is no order #' + id);
             }
             return ok({
-                order: { order }
+                order
             });
         }
         function getOrderByGuestId() {

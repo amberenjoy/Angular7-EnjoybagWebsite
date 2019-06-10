@@ -13,7 +13,8 @@ export class UserRegisterPageComponent implements OnInit {
   page = 'register';
   returnUrl: string;
 
-  constructor(private title: Title,
+  constructor(
+    private title: Title,
     private router: Router,
     private authenticationService: AuthenticationService,
   ) { }

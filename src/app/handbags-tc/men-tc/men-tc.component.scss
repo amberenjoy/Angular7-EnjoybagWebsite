@@ -2,96 +2,94 @@ li {
     list-style: none;
 }
 
-section {
-    position: relative;
-    margin: 0 auto;
-    max-width: 1530px;
-    padding: 0 20px 40px;
-    nav {
-        padding: 10px 1px;
-        a {
-            display: inline-block;
-            padding: 5px 0 1px;
-            margin-right: 20px;
-            border-bottom: 1px solid #999;
-            font-size: .75rem;
-            text-transform: uppercase;
-            position: relative;
-            &:hover {
-                color: crimson;
-            }
-            &::after {
-                content: '/';
-                position: absolute;
-                right: -13px;
-            }
-        }
-        span {
-            display: inline-block;
-            padding: 5px 0 2px;
-            margin-right: 10px;
-            font-size: .75rem;
-            text-transform: uppercase;
-            color: #999;
-        }
-    }
-    .banner {
-        width: 100%;
-        height: 400px;
-        text-align: center;
-        position: relative;
-        background: url(../../../assets/images/20181101/banner.jpg) 0% 50%;
-        background-size: 100%;
-        h2 {
-            font-size: 60px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            margin: 0;
-            transform: translate(-50%, -50%);
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 1px 1px 1px #555;
-            font-family: 'Josefin Sans', sans-serif;
-        }
-    }
-    .body-flex {
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-    }
-    .side-list {
-        width: 20%;
+nav {
+    padding: 10px 1px;
+    a {
         display: inline-block;
-        vertical-align: top;
-        padding: 31px 20px 31px 0;
-        max-width: 220px;
-        h4 {
-            padding: 10px 15px;
-            border-bottom: 1px solid #ccc;
-            text-transform: uppercase;
-            background: rgba(218, 218, 218, 0.23);
-            &:first-child {
-                border-top: 1px solid rgb(228, 228, 228);
-            }
-        }
-        ul {
-            li {
-                border-bottom: 1px solid rgb(228, 228, 228);
-                padding: 10px 15px;
-                color: #999;
-                font: 14px sans-serif;
-            }
-        }
-        a:hover,
-        a.active {
+        padding: 5px 0 1px;
+        margin-right: 20px;
+        border-bottom: 1px solid #999;
+        font-size: .75rem;
+        text-transform: uppercase;
+        position: relative;
+        &:hover {
             color: crimson;
         }
+        &::after {
+            content: '/';
+            position: absolute;
+            right: -13px;
+        }
     }
-    .right-list {
-        width: 80%;
+    span {
         display: inline-block;
+        padding: 5px 0 2px;
+        margin-right: 10px;
+        font-size: .75rem;
+        text-transform: uppercase;
+        color: #999;
     }
+}
+
+.banner {
+    width: 100%;
+    height: 400px;
+    text-align: center;
+    position: relative;
+    background: url(../../../assets/images/20181101/banner.jpg) 0% 50%;
+    background-size: 100%;
+    h2 {
+        font-size: 60px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        margin: 0;
+        transform: translate(-50%, -50%);
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow: 1px 1px 1px #555;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+}
+
+.body-flex {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.side-list {
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 31px 20px 31px 0;
+    max-width: 220px;
+    h4 {
+        padding: 10px 15px;
+        border-bottom: 1px solid #ccc;
+        text-transform: uppercase;
+        background: rgba(218, 218, 218, 0.23);
+        &:first-child {
+            border-top: 1px solid rgb(228, 228, 228);
+        }
+    }
+    ul {
+        li {
+            border-bottom: 1px solid rgb(228, 228, 228);
+            padding: 10px 15px;
+            color: #999;
+            font: 14px sans-serif;
+        }
+    }
+    a:hover,
+    a.active {
+        color: crimson;
+    }
+}
+
+.right-list {
+    width: 80%;
+    display: inline-block;
 }

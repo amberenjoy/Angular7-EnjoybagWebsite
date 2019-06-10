@@ -1,3 +1,73 @@
-<p>
-  faq-tc works!
-</p>
+<section>
+    <div class="banner">
+        <h2>樂意為您提供幫助</h2>
+    </div>
+    <div class="terms-body">
+        <div class="terms-topic">
+            <h3>分類查詢</h3>
+            <br>
+            <div class="flex">
+                <a [routerLink]="[ './delivery' ]" [routerLinkActive]="['is-active']">送貨及退貨</a>
+                <a [routerLink]="[ './membership' ]" [routerLinkActive]="['is-active']">會員制度</a>
+                <a [routerLink]="[ './tc' ]" [routerLinkActive]="['is-active']">私隱政策</a>
+                <a [routerLink]="[ './privacy-policy' ]" [routerLinkActive]="['is-active']">條款或細則</a>
+                <a [routerLink]="[ './maintenance' ]" [routerLinkActive]="['is-active']">產品維修</a>
+                <a [routerLink]="[ './product-care' ]" [routerLinkActive]="['is-active']">產品護理</a>
+                <a [routerLink]="[ './payment' ]" [routerLinkActive]="['is-active']">支付方式</a>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+        <div class="terms-content">
+            <h3 class="text-center">常見問題</h3>
+            <br>
+            <div class="single-term">
+                <h4 (click)="infoStatus[0]=!infoStatus[0]">ENJOY有實體店嗎？</h4>
+                <div class="single-question" [hidden]="!infoStatus[0]">
+                    <span>我們於荃灣設有產品展覽廳，現場設產品試身，即場購物及禮盒包裝服務。歡迎致電預約參觀。</span><br /><br />
+                    <b>展覽廳地址： </b>
+                    <br />
+                    <span> 香港新界荃灣海盛路9號 有線電視大樓 33樓 3308室</span><br /><br />
+                    <b>辦公時間：</b>
+                    <br />
+                    <span>星期一至五：上午10時至下午6時</span><br />
+                    <span>星期六: 上午10時至下午1時</span><br />
+                    <span>星期日及公共假期休息</span>
+                    <br /><br />
+                    <b>客戶服務：</b><br />
+                    <span>查詢電話: +852 3572 8158</span><br />
+                    <span>查詢電郵: </span> <a href="mailto:customer@enjoybag.com.hk">customer@enjoybag.com.hk</a>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[1]=!infoStatus[1]">我可以在哪裡選購ENJOY產品?</h4>
+                <div class="single-question" [hidden]="!infoStatus[1]">
+                    <span>
+            除了於本網站及荃灣展覽廳，您亦可在網上商店Zalora HK選購部分指定ENJOY貨品。 </span>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[2]=!infoStatus[2]">下單後，我可自行取貨嗎？</h4>
+                <div class="single-question" [hidden]="!infoStatus[2]">
+                    <span> 當您於訂單選擇自行取貨後，服務團隊將以電郵及電話短訊聯絡您，告知取貨的陳列室地址及取貨期限。陳列室接受現金付款、VISA/MASTER信用卡付款及微信支付。請留意未付款的貨品只會為您預留一個月。
+          </span>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[3]=!infoStatus[3]">如何取得ENJOY最新推廣及優惠資訊？</h4>
+                <div class="single-question" [hidden]="!infoStatus[3]">
+                    <span> 歡迎訂閱電子報，讚好Enjoy臉書專頁、Instagram專頁、微信公眾號追蹤我們以獲得最新推廣及優惠資訊。</span>
+                </div>
+            </div>
+            <div class="single-term">
+                <h4 (click)="infoStatus[4]=!infoStatus[4]">確認訂單後可更改送貨地址或取消訂單嗎？
+                </h4>
+                <div class="single-question" [hidden]="!infoStatus[4]">
+                    <span> 如於確認訂單後發現地址錯誤或打算取消訂單，請儘快以電郵或電話方式聯絡客戶服務團隊 並提供訂單編號。在貨品寄出前我們樂意為您取消訂單或更改送貨地址，唯貨品寄出後將無法取消訂單。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #contact>
+        <app-contact-tc></app-contact-tc>
+    </div>
+</section>

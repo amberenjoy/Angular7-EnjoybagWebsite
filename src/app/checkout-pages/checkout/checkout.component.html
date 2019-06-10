@@ -81,7 +81,7 @@
                     </div>
                   </div>
                   <div id="paypal-button-container" class="paypal-btn"></div>
-                  <div *ngIf="paypalLoad">
+                  <div *ngIf="paypalLoad" class="payment-info">
                     <div *ngIf="paypalResult" class="loader">
                       <div class="bar"></div>
                       <div class="bar"></div>
@@ -89,7 +89,8 @@
                       <div class="bar"></div>
                       <div class="bar"></div>
                     </div>
-                    <span *ngIf="paypalResult===false">{{paymentMessage.status}} <br> {{paymentMessage.message}}</span>
+                    <span *ngIf="paypalResult===false&&paymentStatus">{{paymentStatus}} <br>
+                      {{paymentMessage}}</span>
                   </div>
                 </div>
 

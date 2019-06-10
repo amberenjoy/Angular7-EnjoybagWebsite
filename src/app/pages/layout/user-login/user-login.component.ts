@@ -33,7 +33,7 @@ export class UserLoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
     this.authenticationService.currentUser.subscribe(user => {
