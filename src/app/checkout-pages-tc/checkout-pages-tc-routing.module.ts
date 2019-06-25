@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'step-2',
     component: CheckoutComponent,
     canActivate: [CheckoutEnterGuard],
-    // canDeactivate: [CheckoutUnPlaceOrderGuard]
+    canDeactivate: [CheckoutUnPlaceOrderGuard]
   },
   {
     path: 'track-order/:id',

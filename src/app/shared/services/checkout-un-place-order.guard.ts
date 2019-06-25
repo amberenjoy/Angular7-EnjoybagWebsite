@@ -11,6 +11,6 @@ export class CheckoutUnPlaceOrderGuard implements CanDeactivate<CheckoutComponen
   canDeactivate(
     component: CheckoutComponent
   ) {
-    return false;
+    return component.canDeactivate();
   }
 }

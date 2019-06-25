@@ -45,7 +45,7 @@ export class BagListComponent implements OnInit {
 
   ngOnInit() {
     // get currency
-    this.userCurrency = localStorage.getItem('currency');
+    this.userCurrency = localStorage.getItem('currency') || 'HKD';
     this.userLanguage = localStorage.getItem('language').toUpperCase();
     this.route.params.subscribe(res => {
       console.log(res);
@@ -84,10 +84,10 @@ export class BagListComponent implements OnInit {
         this.dataService.getQuerylist(this.parameterSearch, this.userLanguage, this.userCurrency).subscribe(results => {
 
           this.bagCollections = results;
-          if (this.bagCollections['count'] !== '0') {
+          if (this.bagCollections['count'.toString()] !== '0') {
             this.initCollection(this.bagCollections);
           }
-          this.result = this.bagCollections['count'];
+          this.result = this.bagCollections['count'.toString()];
           this.passResult.emit(this.result); // pass result to search page
         });
       }
@@ -98,29 +98,29 @@ export class BagListComponent implements OnInit {
   initCollection(collections) {
     let i: number;
     // if only has one collection, the json format is object not array, so ngfor will have error
-    if (!collections['collection'].length) {
+    if (!collections['collection'.toString()].length) {
       this.collections = [];
-      this.collections.push(collections['collection']);
+      this.collections.push(collections['collection'.toString()]);
     } else {
-      this.collections = collections['collection'];
+      this.collections = collections['collection'.toString()];
     }
     // if only has one product in collection, the json format is object not array, so ngfor will have error
     for (i = 0; i < this.collections.length; i++) {
-      if (this.collections[i]['product'].length) {
+      if (this.collections[i]['product'.toString()].length) {
         this.collectionList.push(this.collections[i]);
       } else {
-        const copyProduct = this.collections[i]['product'];
-        this.collections[i]['product'] = [];
+        const copyProduct = this.collections[i]['product'.toString()];
+        this.collections[i]['product'.toString()] = [];
         this.collectionList.push(this.collections[i]);
-        this.collectionList[i]['product'].push(copyProduct);
+        this.collectionList[i]['product'.toString()].push(copyProduct);
       }
       // for lazy loading more than 8 skus
       this.collectionList[i].more = false;
       // for lazy loading images
-      for (let a = 0; a < this.collections[i]['product'].length; a++) {
-        this.collections[i]['product'][a].image = {
-          url: 'https://www.enjoybag.com.hk/photo/' + this.collections[i]['product'][a].productcode + '_1_c.jpg',
-          second: 'https://www.enjoybag.com.hk/photo/' + this.collections[i]['product'][a].productcode + '_2_c.jpg',
+      for (let a = 0; a < this.collections[i]['product'.toString()].length; a++) {
+        this.collections[i]['product'.toString()][a].image = {
+          url: 'https://www.enjoybag.com.hk/photo/' + this.collections[i]['product'.toString()][a].productcode + '_1_c.jpg',
+          second: 'https://www.enjoybag.com.hk/photo/' + this.collections[i]['product'.toString()][a].productcode + '_2_c.jpg',
           show: false
         };
       }

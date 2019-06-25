@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
         this.router.navigate(['/en/products/search'], { queryParams: { qry: value } });
       });
     } else {
-      this.searchForm.controls['email'.toString()].setErrors({ 'incorrect': true });
+      this.searchForm.controls['searchName'.toString()].setErrors({ incorrect: true });
     }
   }
 }

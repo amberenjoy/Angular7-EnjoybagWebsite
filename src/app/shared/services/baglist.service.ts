@@ -15,44 +15,45 @@ export class BaglistService {
 
   getBaglist(key, language, currency) {
     const bagNew = 'https://www.enjoybag.com.hk/wcapps/enjoywebsite.nsf/xmlv.xsp?key=' + key + '&lang=' + language + '&cur=' + currency;
-    return this.http.get(bagNew, { headers: headers, responseType: 'text' }).pipe(map(res => {
+    return this.http.get(bagNew, { headers, responseType: 'text' }).pipe(map(res => {
       console.log('get data from server');
       const parser = new DOMParser();
       const xml = parser.parseFromString(res, 'text/xml');
       const obj = this.ngxXml2jsonService.xmlToJson(xml);
-      return obj['product'];
+      return obj['product'.toString()];
     }), retry(2), catchError(this.handleError));
   }
   getBagType(name, language, currency) {
     const bagType = 'https://www.enjoybag.com.hk/wcapps/enjoywebsite.nsf/xmlv.xsp?type=' + name + '&lang=' + language + '&cur=' + currency;
-    return this.http.get(bagType, { headers: headers, responseType: 'text' }).pipe(map(res => {
+    return this.http.get(bagType, { headers, responseType: 'text' }).pipe(map(res => {
       console.log('get data from server');
       const parser = new DOMParser();
       const xml = parser.parseFromString(res, 'text/xml');
       const obj = this.ngxXml2jsonService.xmlToJson(xml);
-      return obj['product'];
+      return obj['product'.toString()];
     }), retry(2), catchError(this.handleError));
   }
   getQuerylist(qry, language, currency) {
     const bagSearch = 'https://www.enjoybag.com.hk/wcapps/enjoywebsite.nsf/xmlv.xsp?search=' + qry + '&color=&stype=&lang=' + language +
       '&cur=' + currency;
-    return this.http.get(bagSearch, { headers: headers, responseType: 'text' }).pipe(
+    return this.http.get(bagSearch, { headers, responseType: 'text' }).pipe(
       map(res => {
         const parser = new DOMParser();
         const xml = parser.parseFromString(res, 'text/xml');
         const obj = this.ngxXml2jsonService.xmlToJson(xml);
-        return obj['product'];
+        return obj['product'.toString()];
       }), retry(2), catchError(this.handleError));
   }
   getBag(sku, language, currency) {
     const bagDetail = 'https://www.enjoybag.com.hk/wcapps/enjoywebsite.nsf/xml.xsp?sku=' + sku + '&lang=' + language + '&cur=' + currency;
     const bagDetailfake = 'assets/data/333840056219.xml';
-    return this.http.get(bagDetail, { headers: headers, responseType: 'text' }).pipe(
+    return this.http.get(bagDetail, { headers, responseType: 'text' }).pipe(
       map(res => {
+        console.log(res);
         const parser = new DOMParser();
         const xml = parser.parseFromString(res, 'text/xml');
         const obj = this.ngxXml2jsonService.xmlToJson(xml);
-        return obj['product'];
+        return obj['product'.toString()];
       }), retry(2), catchError(this.handleError));
   }
 

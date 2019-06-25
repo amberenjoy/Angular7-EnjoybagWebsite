@@ -132,7 +132,10 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
-
+  canDeactivate() {
+    localStorage.removeItem('cartToShipping');
+    return confirm('Do you want to leave? If you leave, you have to complete this form again.');
+  }
   initUserShipForm() {
     this.shipForm = this.formBuilder.group({
       delivery: this.formBuilder.group({

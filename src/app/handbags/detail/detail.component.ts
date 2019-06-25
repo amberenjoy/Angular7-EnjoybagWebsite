@@ -58,6 +58,7 @@ export class DetailComponent implements OnInit {
         this.loading = false;
         this.bag = results;
         this.getAllInfo(this.bag);
+
       });
       this.key = params.key || params.name || params.line;
       if (!this.key || this.key === 'all') {

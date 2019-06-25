@@ -28,6 +28,7 @@ export class CheckoutComponent implements OnInit {
   paypalResult: boolean;
   paymentMessage = '';
   paymentStatus = '';
+
   user: User;
   delivery: number;
   logined: boolean;
@@ -94,13 +95,14 @@ export class CheckoutComponent implements OnInit {
   }
   @HostListener('window:beforeunload', ['$event'])
   beforeUnloadHander(event) {
+    console.log('route change');
     return false;
   }
 
   ngOnInit() {
-    this.router.routeReuseStrategy.shouldReuseRoute = (() => {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
-    });
+    };
     this.userCurrency = localStorage.getItem('currency') || 'HKD';
     this.cartTotal = JSON.parse(localStorage.getItem('cartToShipping'));
     this.order.subtotal = this.cartTotal.subtotal;
@@ -129,6 +131,11 @@ export class CheckoutComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  canDeactivate() {
+    localStorage.removeItem('cartToShipping');
+    return confirm('Do you want to leave? If you leave, you have to complete this form again.');
   }
 
   initUserShipForm() {
@@ -272,7 +279,6 @@ export class CheckoutComponent implements OnInit {
           },
           onCancel: (data, actions) => {
             // Show a cancel page or return to cart
-            console.log('canceled', actions);
             this.paypalResult = false;
             this.paymentStatus = 'Transaction Canceled!';
           }
