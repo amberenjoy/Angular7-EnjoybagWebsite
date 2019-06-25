@@ -47,7 +47,7 @@ export class BaglistService {
   getBag(sku, language, currency) {
     const bagDetail = 'https://www.enjoybag.com.hk/wcapps/enjoywebsite.nsf/xml.xsp?sku=' + sku + '&lang=' + language + '&cur=' + currency;
     const bagDetailfake = 'assets/data/333840056219.xml';
-    return this.http.get(bagDetail, { headers, responseType: 'text' }).pipe(
+    return this.http.get(bagDetailfake, { headers, responseType: 'text' }).pipe(
       map(res => {
         console.log(res);
         const parser = new DOMParser();
