@@ -116,14 +116,14 @@ export class BagListComponent implements OnInit {
       }
       // for lazy loading more than 8 skus
       this.collectionList[i].more = false;
-      // for lazy loading images
-      for (let a = 0; a < this.collections[i]['product'.toString()].length; a++) {
-        this.collections[i]['product'.toString()][a].image = {
-          url: 'https://www.enjoybag.com.hk/photo/' + this.collections[i]['product'.toString()][a].productcode + '_1_c.jpg',
-          second: 'https://www.enjoybag.com.hk/photo/' + this.collections[i]['product'.toString()][a].productcode + '_2_c.jpg',
-          show: false
+      this.collections[i]['product'.toString()].forEach(element => {
+        element.image = {
+          url: 'https://www.enjoybag.com.hk/photo/' + element.productcode + '_1_c.jpg',
+          second: 'https://www.enjoybag.com.hk/photo/' + element.productcode + '_2_c.jpg',
+          show: false,
+          secondShow: false
         };
-      }
+      });
     }
     this.loading = false;
   }

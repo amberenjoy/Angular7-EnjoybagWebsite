@@ -9,50 +9,66 @@
                 <h1>{{collection.product.length}} Items</h1>
             </div>
             <div class="box-wrapper">
-                <a *ngFor="let bag of collection.product| slice:0:8; let index=index" class="item" [routerLink]="['./', bag.productcode]" routerLinkActive="active">
+                <a *ngFor="let bag of collection.product| slice:0:8; let index=index" class="item"
+                    [routerLink]="['./', bag.productcode]" routerLinkActive="active">
                     <div class="box" (deferLoad)="bag.image.show = true">
                         <!-- {{bag.productcode}} -->
-                        <div class="imgHover" *ngIf="bag.image.show">
-                            <img [hidden]="!imageLoader" src="assets/images/icon.png" />
-                            <img [hidden]="imageLoader" (load)="this.imageLoader = false;" [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
-                            <img [src]="bag.image.second" class="img-bag-2" onError="this.src='assets/images/hidden.png'">
+                        <div class="imgHover">
+                            <img src="assets/images/icon.png" />
+                            <div *ngIf="bag.image.show">
+                                <img (mouseover)="bag.image.secondShow=true" class="img-bag"
+                                    [ngClass]="{'fade-in': !this.imageLoader}" (load)="this.imageLoader = false;"
+                                    [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
+                                <img *ngIf="bag.image.secondShow" [src]="bag.image.second" class="img-bag img-bag-2"
+                                    onError="this.src='assets/images/hidden.png'">
+                            </div>
+
                         </div>
                         <div class="bag-info">
                             <h4>{{bag.productname}}</h4>
                             <p [ngClass]="{'del': bag.discountprice!='0'}"> {{bag.price| currency: userCurrency}}</p>
-                            <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}</p>
+                            <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}
+                            </p>
                             <p *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}</p>
                         </div>
                     </div>
                 </a>
                 <ng-container *ngIf="collection.more===true">
-                    <a *ngFor="let bag of collection.product| slice:8; let index=index" class="item" [routerLink]="['./', bag.productcode]" routerLinkActive="active">
+                    <a *ngFor="let bag of collection.product| slice:8; let index=index" class="item"
+                        [routerLink]="['./', bag.productcode]" routerLinkActive="active">
                         <div class="box" (deferLoad)="bag.image.show = true">
                             <!-- {{bag.productcode}}  src="" -->
-                            <div class="imgHover" *ngIf="bag.image.show">
-                                <img [hidden]="!imageLoader" src="assets/images/icon.png" />
-                                <img [hidden]="imageLoader" (load)="this.imageLoader = false;" [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
-                                <img [src]="bag.image.second" class="img-bag-2" onError="this.src='assets/images/hidden.png'">
+                            <div class="imgHover">
+                                <img src="assets/images/icon.png" />
+                                <div *ngIf="bag.image.show">
+                                    <img (mouseover)="bag.image.secondShow=true" class="img-bag"
+                                        [ngClass]="{'fade-in': !this.imageLoader}" (load)="this.imageLoader = false;"
+                                        [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
+                                    <img *ngIf="bag.image.secondShow" [src]="bag.image.second" class="img-bag img-bag-2"
+                                        onError="this.src='assets/images/hidden.png'">
+                                </div>
                             </div>
                             <div class="bag-info">
                                 <h4>{{bag.productname}}</h4>
                                 <p [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</p>
-                                <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}</p>
+                                <p [hidden]="bag.discountprice=='0'">&nbsp;
+                                    {{bag.discountprice| currency: userCurrency}}</p>
                                 <p *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}</p>
                             </div>
                         </div>
                     </a>
                 </ng-container>
-                <a class="item" *ngIf="collection.product.length<4 && collection.product.length %4 ==3">
+                <!-- <a class="item" *ngIf="collection.product.length<4 && collection.product.length %4 ==3">
                     <div class="imgHover">
                         <img src="assets/images/cradle.jpg">
-                        <img src="assets/images/group.jpg" class="img-bag-2">
+                        <img src="assets/images/group.jpg" class="img-bag img-bag-2">
                         <a [routerLink]="['/en/products/new/all']">More New Arrivals</a>
                     </div>
-                </a>
+                </a> -->
             </div>
             <div class="box-more" *ngIf="collection.product.length>8 && collection.more==false">
-                <button (click)="collection.more=true">View All Collection Items ( {{collection.product.length}} )</button>
+                <button (click)="collection.more=true">View All Collection Items ( {{collection.product.length}}
+                    )</button>
             </div>
         </div>
     </div>
