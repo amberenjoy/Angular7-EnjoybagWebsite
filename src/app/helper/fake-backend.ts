@@ -8,17 +8,6 @@ import { v4 as uuid } from 'uuid';
 const users = JSON.parse(localStorage.getItem('users')) || [];
 const userTokenList = JSON.parse(localStorage.getItem('userTokenList')) || [];
 const orders = JSON.parse(localStorage.getItem('orders')) || [];
-const coupon = [
-    {
-        code: 'SALEAPRIL', amount: '-300', discount: '', limit: 500, validFrom: '20190401', validTo: '20190523',
-        reused: -1, used: 1, users: []
-    },
-    {
-        code: 'SALEMAY', amount: '', discount: '50%', limit: 1000, validFrom: '20190620', validTo: '20190702',
-        reused: 1, used: 0, users: []
-    },
-];
-localStorage.setItem('couponList', JSON.stringify(coupon));
 const couponList = JSON.parse(localStorage.getItem('couponList')) || [];
 
 @Injectable()

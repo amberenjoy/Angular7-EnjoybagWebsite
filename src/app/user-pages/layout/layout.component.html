@@ -1,0 +1,29 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 12:22:51
+ * @LastEditTime: 2019-08-16 15:01:28
+ * @LastEditors: Please set LastEditors
+ -->
+<section>
+  <div class="banner">
+
+  </div>
+  <div>
+    <h3 class="text-center">
+      <span>Welcome, {{user.firstname}} - {{level}} <i class="fa fa-question" (click)="goToMembershipTC()"></i></span>
+      <br>
+      <a (click)="logout()">Log Out</a>
+    </h3>
+    <div class="grid">
+      <a [routerLink]="[ './'+user.id+'/profile' ]" routerLinkActive="active"><i class="fa fa-user"></i>My Profile</a>
+      <a [routerLink]="[ './'+user.id+'/address-book' ]" routerLinkActive="active"><i class="fa fa-user"></i>Address
+        Book</a>
+      <!-- <a [routerLink]="[ './'+user.id+'/password' ]" routerLinkActive="active"><i class="fa fa-user"></i>Change
+        Password</a> -->
+      <a [routerLink]="[ './'+user.id+'/order-history' ]" routerLinkActive="active"><i class="fa fa-list"></i>Order
+        History</a>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</section>

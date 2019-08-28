@@ -1,0 +1,98 @@
+.container {
+    border: 1px solid #ddd;
+    max-width: 1080px;
+    margin: 3rem auto;
+    padding: 3rem 0;
+    border-radius: 1em;
+
+
+
+    fieldset {
+        display: block;
+        margin: 0 auto 3rem;
+
+        label {
+            color: #333;
+            display: block;
+            font-size: .9rem;
+            line-height: 1.5;
+        }
+
+        input {
+            font-size: .9rem;
+            font-weight: 300;
+            width: 100%;
+            padding: 7px 0 5px;
+            letter-spacing: .1rem;
+            border: none;
+            text-indent: 5px;
+            border-bottom: 1px solid #ccc;
+            background: rgba(243, 243, 243, 0.54);
+
+            &.read {
+                background: white;
+                text-indent: 0;
+            }
+        }
+
+        span {
+            font-size: .8rem;
+            color: crimson;
+        }
+    }
+}
+
+.form {
+    padding: 0 3rem;
+}
+
+.info {
+    color: crimson;
+}
+
+.forms_field {
+    overflow: hidden;
+
+    >div {
+        margin-top: 15px;
+
+        label {
+            color: #888 !important;
+            font-size: .8rem !important;
+        }
+    }
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .half {
+        width: 48%;
+    }
+}
+
+.nextBtn {
+    font-size: 1rem;
+    padding: 12px 18px;
+    border-radius: 34px;
+    border: none;
+    color: #fff;
+    margin: 0 1em;
+    cursor: pointer;
+    background-color: crimson;
+}
+
+.cancel {
+    background-color: #888;
+}
+
+
+.invalid_feedback {
+    color: #fff;
+    font-size: 14px;
+    background: crimson;
+    display: inline-block;
+    padding: 3px 5px 1px;
+}

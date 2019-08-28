@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:12
+ * @LastEditTime: 2019-08-20 10:01:28
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +27,7 @@ export class CartComponent implements OnInit {
   logined: boolean;
   currentUser: User;
   userCurrency: string;
-  promoBonus: any = {};
+  couponBonus: any = {};
   @ViewChild('cashCode', { static: false }) cashCode: ElementRef;
   message: string;
 
@@ -43,7 +50,7 @@ export class CartComponent implements OnInit {
         this.logined = false;
       }
     });
-    this.cartService.findUserCart().subscribe(res => {
+    this.cartService.getUserCart().subscribe(res => {
       this.items = res;
     });
   }
@@ -57,13 +64,21 @@ export class CartComponent implements OnInit {
   applyCode() {
     this.message = '';
     this.loading = true;
-    const code = this.cashCode.nativeElement.value;
-    this.checkoutService.getVoucher(code).subscribe(res => {
-      this.promoBonus = res.data;
+    const code = this.cashCode.nativeElement.value.toLowerCase();
+    this.checkoutService.verifyCode(code, this.subtotal()).subscribe(res => {
       this.loading = false;
-    }, error => {
+      if (res.status) {
+        if (res.type === 'fixed amount') {
+          this.couponBonus.amount = res.amount;
+        } else {
+          this.couponBonus.discount = res.amount;
+        }
+      } else {
+        this.message = res.message;
+      }
+    }, err => {
       this.loading = false;
-      this.message = error.error.message;
+      this.message = err;
     });
   }
 
@@ -80,10 +95,10 @@ export class CartComponent implements OnInit {
   }
 
   total() {
-    if (this.promoBonus.amount || this.promoBonus.discount) {
+    if (this.couponBonus.amount || this.couponBonus.discount) {
       let subtotal = this.subtotal();
-      const discount = parseFloat(this.promoBonus.discount || '0%');
-      const amount = this.promoBonus.amount || ('-' + JSON.stringify((subtotal * discount / 100)));
+      const discount = parseFloat(this.couponBonus.discount || '0%');
+      const amount = this.couponBonus.amount || ('-' + JSON.stringify((subtotal * discount / 100)));
       subtotal = subtotal + parseInt(amount, 10);
       return subtotal;
     } else {
@@ -95,8 +110,8 @@ export class CartComponent implements OnInit {
     // check sku is valid and stock
     const checkoutPrice = {
       subtotal: this.subtotal(),
-      bonus: this.promoBonus.amount || '',
-      discount: this.promoBonus.discount || '',
+      bonus: this.couponBonus.amount || '',
+      discount: this.couponBonus.discount || '',
       total: this.total()
     };
     localStorage.setItem('cartToShipping', JSON.stringify(checkoutPrice));

@@ -1,0 +1,8 @@
+<section>
+  <h3 mat-dialog-title>Sorry!</h3>
+  <div mat-dialog-content>
+    <button class="close" (click)="onNoClick()"><i class="fa fa-close " aria-hidden="true "></i></button>
+    <p>{{title}} <br> </p>
+    <p *ngIf="requireLogin">Please <a [routerLink]="[ '/en/register']" (click)="onNoClick()">login</a> again.</p>
+  </div>
+</section>

@@ -1,16 +1,14 @@
-
 export class User {
   id: string;
-  username: string;
+  firstname: string;
   lastname: string;
   email: string;
-  phone: number;
-  areacode: number;
-  cartlist: string;
-  birthmonth: number;
   region: string;
+  areacode: number;
+  phone: number;
+  birthmonth: number;
   level: string;
+  cartlist: string;
   orders: Array<any>;
-  address: Array<any>;
   token?: string;
 }

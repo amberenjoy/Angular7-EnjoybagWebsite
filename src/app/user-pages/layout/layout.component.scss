@@ -1,0 +1,93 @@
+$font-stack:'Source Sans Pro',
+sans-serif;
+
+section {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1530px;
+    padding: 0 20px 50px;
+    min-height: 60vh;
+    overflow: hidden;
+}
+
+.banner {
+    width: 100%;
+    height: 170px;
+    background: url("../../../assets/images/sale-bg.jpg") 50% 35% no-repeat /cover;
+}
+
+h3 {
+    font-size: 1.2em;
+    margin: 50px 0;
+
+    span {
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    a {
+        text-decoration: underline;
+        display: inline-block;
+        margin: 20px 0 0;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 1rem;
+        color: crimson
+    }
+
+    i {
+        color: #aaa;
+        position: relative;
+        margin-left: 5px;
+        font-size: 1em;
+        transform: scale(0.8);
+        cursor: pointer;
+
+        &::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            border-radius: 50%;
+            right: -6px;
+            top: -1px;
+            border: 1px solid #aaa;
+        }
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    max-width: 1080px;
+    margin: 0 auto;
+
+    a {
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        padding: 2em 0;
+        border-radius: 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &.active {
+            background: crimson;
+            color: #fff;
+
+            i {
+                color: #fff;
+
+            }
+        }
+    }
+
+    i {
+        color: crimson;
+        font-size: 1.3em;
+        margin-right: .6em;
+    }
+}

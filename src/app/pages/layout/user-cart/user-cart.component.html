@@ -1,9 +1,22 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-08-28 15:18:39
+ * @LastEditors: Please set LastEditors
+ -->
 <div class="drop-login drop-cart text-center" *ngIf="items.length===0" id="emptyCart">
     Your bag is empty.
 </div>
 <div class="drop-login drop-cart" *ngIf="items.length!=0" id="bagInfo">
+    <div class="bottom" *ngIf="userLevel!=='Basic'">
+        <p>{{userLevel}} Level Price - {{discount}}% Off</p>
+        <hr>
+    </div>
     <div class="bag" *ngFor="let item of items">
-        <a [routerLink]="['/en/products',item.product.sku]"><img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="" onError="this.src='assets/images/icon.png'"></a>
+        <a [routerLink]="['/en/products',item.product.sku]"><img
+                src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt=""
+                onError="this.src='assets/images/icon.png'"></a>
         <div>
             <p>{{item.product.name}} </p>
             <p>Qty: {{item.qty}}</p>
@@ -14,6 +27,6 @@
     </div>
     <div class="bottom">
         <p>Subtotal: <span>{{subtotal()| currency:userCurrency}}</span></p>
-        <a [routerLink]="['/en/checkout/step-1/mycart']">checkout</a>
+        <a [routerLink]="['/en/checkout/shopping-bag']">checkout</a>
     </div>
 </div>

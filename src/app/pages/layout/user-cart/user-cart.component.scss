@@ -1,33 +1,37 @@
-.drop-cart {
-    .bag {
-        display: flex;
-        border-bottom: 1px solid #999;
-        padding-bottom: 5px;
-        padding-top: 10px;
-        justify-content: space-between;
-        align-items: center;
-        div {
-            padding: 0 0 0 15px;
-            font-size: .85rem;
-            line-height: 1.2;
-            text-align: right;
-            p {
-                margin: 8px 0;
-            }
+p {
+    font-size: .85em;
+}
+
+.bag {
+    display: flex;
+    border-bottom: 1px solid #aaa;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+
+    div {
+        padding: 0 0 0 15px;
+        line-height: 1.2;
+        text-align: right;
+
+        p {
+            margin: 5px 0;
         }
-        &:first-child {
-            padding-top: 0;
-        }
-        img {
-            width: 85px;
-        }
+    }
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    img {
+        width: 90px;
     }
 }
 
+
 .bottom {
-    margin-top: 15px;
     text-align: right;
-    font-size: .85rem;
+
     a {
         display: inline-block;
         margin-top: 15px;
@@ -35,7 +39,7 @@
         background: #2f2f2f;
         padding: 8px 20px;
         color: #fff;
-        font-size: 1rem;
+
         &:hover {
             color: #fff !important;
             background: crimson;

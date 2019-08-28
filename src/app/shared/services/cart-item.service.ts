@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:16
+ * @LastEditTime: 2019-08-16 10:05:30
+ * @LastEditors: Please set LastEditors
+ */
 import { Injectable } from '@angular/core';
 import { BaglistService } from './baglist.service';
 import { Item } from './../models/item';
@@ -5,6 +12,7 @@ import { Product } from './../models/product';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -15,13 +23,14 @@ export class CartItemService {
     cart: Item[] = [];
     subjectUserCartCurrent = new BehaviorSubject([]);
     countUserCart = new BehaviorSubject(0);
+    level: string;
 
     constructor(private dataService: BaglistService, private http: HttpClient) {
         this.userCurrency = localStorage.getItem('currency') || '';
         this.userLanguage = (localStorage.getItem('language') || '').toUpperCase();
     }
 
-    findUserCart(): Observable<Item[]> {
+    findUserCart() {
         const user = JSON.parse(localStorage.getItem('user'));
         this.cart = [];
         let cartArray = [];
@@ -73,9 +82,11 @@ export class CartItemService {
             }
         }
         this.subjectUserCartCurrent.next(this.cart);
+        // return this.subjectUserCartCurrent.asObservable();
+    }
+    getUserCart(): Observable<any> {
         return this.subjectUserCartCurrent.asObservable();
     }
-
     getCartQty(): Observable<number> {
         let count = 0;
         const user = JSON.parse(localStorage.getItem('user')) || [];
@@ -88,23 +99,11 @@ export class CartItemService {
         this.countUserCart.next(count);
         return this.countUserCart.asObservable();
     }
-
     addUserItem(bag, logined: boolean) {
-        console.log(logined);
         if (logined) {
             const user = JSON.parse(localStorage.getItem('user'));
             const cartlist = user.cartlist + '-' + bag;
-            const token = user.token;
-            const id = user.id;
-            let headers: HttpHeaders = new HttpHeaders();
-            headers = headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            headers = headers.append('Authorization', token);
-            return this.http.post<any>(`/` + id + `/cart`, { cartlist }, { headers }).subscribe(() => {
-                user.cartlist = cartlist;
-                localStorage.setItem('user', JSON.stringify(user));
-                this.findUserCart();
-                this.getCartQty();
-            });
+            this.callCartApi(user, cartlist);
         } else {
             const guestCartList = localStorage.getItem('cartList') || '';
             const cartlist = guestCartList + '-' + bag;
@@ -126,17 +125,7 @@ export class CartItemService {
             filtered.forEach(each => {
                 user.cartlist = user.cartlist + '-' + each;
             });
-            const cartlist = user.cartlist;
-            const id = user.id;
-            let headers: HttpHeaders = new HttpHeaders();
-            headers = headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            headers = headers.append('Authorization', user.token);
-            return this.http.post<any>(`/` + id + `/cart`, { cartlist }, { headers }).subscribe(() => {
-                user.cartlist = cartlist;
-                localStorage.setItem('user', JSON.stringify(user));
-                this.findUserCart();
-                this.getCartQty();
-            });
+            this.callCartApi(user, user.cartlist);
         } else {
             const guestCartList = localStorage.getItem('cartList') || '';
             const skuArray = guestCartList.split('-');
@@ -157,20 +146,26 @@ export class CartItemService {
     completeOrder() {
         const user = JSON.parse(localStorage.getItem('user'));
         const cartlist = '';
+        this.callCartApi(user, cartlist);
+    }
+    callCartApi(user, cartlist) {
         const id = user.id;
         let headers: HttpHeaders = new HttpHeaders();
-        headers = headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
-            .append('Authorization', user.token);
-        return this.http.post<any>(`/` + id + `/cart`, { cartlist }, { headers }).subscribe(() => {
+        headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
+        return this.http.put<any>(`${environment.apiUrl}/users/${id}/cart`, { cartlist }, { headers }).subscribe(res => {
+            this.level = res.level;
             user.cartlist = cartlist;
             localStorage.setItem('user', JSON.stringify(user));
             this.findUserCart();
             this.getCartQty();
+        }, (err) => {
+            console.log(err);
+            this.subjectUserCartCurrent.next([]);
+            this.countUserCart.next(0);
         });
     }
     removeCart() {
         this.subjectUserCartCurrent.next([]);
         this.countUserCart.next(0);
     }
-
 }

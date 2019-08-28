@@ -1,0 +1,149 @@
+.container {
+    border: 1px solid #ddd;
+    max-width: 1080px;
+    margin: 3rem auto;
+    padding: 3rem 0;
+    border-radius: 1em;
+
+    form {
+        padding: 0 3rem;
+    }
+
+    fieldset {
+        display: block;
+        margin: 0 auto 20px;
+
+        label {
+            color: #333;
+            display: block;
+            font-size: .9em;
+            line-height: 1.5;
+        }
+
+        input {
+            font-size: .9em;
+            font-weight: 300;
+            width: 100%;
+            padding: 7px 0 5px;
+            letter-spacing: .1rem;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: rgba(243, 243, 243, 0.54);
+
+            &.read {
+                background: white;
+            }
+        }
+
+        span {
+            font-size: .8rem;
+            color: crimson;
+        }
+    }
+}
+
+.forms_field {
+    overflow: hidden;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .half {
+        width: 48%;
+    }
+}
+
+
+
+.forms_mobile {
+    input {
+        display: inline-block;
+    }
+}
+
+.short {
+    width: 60px !important;
+    margin-right: 10px;
+}
+
+.forms_month {
+    .flex {
+        align-items: center;
+    }
+}
+
+
+
+.styled-checkbox {
+    position: absolute; // take it out of document flow
+    opacity: 0; // hide it
+
+    &+label {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        margin-left: 30px;
+    }
+
+    // Box.
+    &+label:before {
+        content: '';
+        margin-right: 10px;
+        display: inline-block;
+        vertical-align: text-top;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border: 1px solid #888;
+        transition: all .3s;
+        margin-left: -30px;
+    }
+
+    // Box hover
+    &:hover+label:before,
+    &:checked+label:before {
+        background: crimson;
+        border-color: crimson;
+    }
+
+    // Checkmark. Could be replaced with an image
+    &:checked+label:after {
+        content: '';
+        position: absolute;
+        left: 4px;
+        top: 8px;
+        margin-left: -30px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        transform: rotate(45deg);
+    }
+}
+
+.nextBtn {
+    font-size: 1rem;
+    padding: 12px 18px;
+    border-radius: 34px;
+    border: none;
+    color: #fff;
+    margin: 10px;
+    cursor: pointer;
+    background-color: crimson;
+}
+
+.cancel {
+    background-color: #888;
+}
+
+
+.invalid_feedback {
+    color: #fff;
+    font-size: 14px;
+    background: crimson;
+    display: inline-block;
+    padding: 3px 5px 1px;
+}

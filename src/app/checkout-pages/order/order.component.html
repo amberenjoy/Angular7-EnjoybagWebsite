@@ -1,25 +1,12 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-08-28 15:52:18
+ * @LastEditors: Please set LastEditors
+ -->
 <section [ngClass]="{'print': print}">
-    <div class="banner" *ngIf="order.status==='Placed Order'">
-        <h3>A few steps to place this order</h3>
-        <ul>
-            <li class="step active">
-                <div>
-                    <a>Shopping bag</a>
-                </div>
-            </li>
-            <li class="step active">
-                <div>
-                    <a>Checkout</a>
-                </div>
-            </li>
-            <li class="step active completed">
-                <div>
-                    <a>Place your order</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="banner" *ngIf="order.status!=='Placed Order'&&order.status!=='Canceled'">
+    <div class="banner" *ngIf="order.status!=='Canceled'">
         <h3>A few steps to complete this order</h3>
         <ul>
             <li class="step active">
@@ -27,14 +14,29 @@
                     <a>Order Placed</a>
                 </div>
             </li>
-            <li class="step active">
+            <li class="step" [ngClass]="{'active': order.status==='Processing'}">
                 <div>
-                    <a>Processing Order</a>
+                    <a>Processing </a>
                 </div>
             </li>
-            <li class="step">
+            <li class="step" [ngClass]="{'active': order.status==='Delivered'}">
                 <div>
-                    <a>Delivered</a>
+                    <a>Order Delivered</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="banner" *ngIf="order.status==='Canceled'">
+        <h3>A few steps to complete this order</h3>
+        <ul>
+            <li class="step active">
+                <div>
+                    <a>Order Placed</a>
+                </div>
+            </li>
+            <li class="step" [ngClass]="{'active': order.status==='Canceled'}">
+                <div>
+                    <a>Order Canceled </a>
                 </div>
             </li>
 
@@ -43,121 +45,131 @@
     <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
-    <div class="body" id="invoice" *ngIf="!error&&order">
-        <div class="header" *ngIf="order.status==='Placed Order'">
+    <div class="body" *ngIf="!error&&order">
+        <div class="header" *ngIf="order.status==='Order Placed'">
             <div class="text-center">
                 <div class="info-right text-right">
                     <button class="nextBtn" (click)="cancelModal=true">Cancel Order</button>
                 </div>
                 <h2 *ngIf="!print">Thanks</h2>
-                <div class="text-center" *ngIf="print">
-                    <br>
-                    <br>
-                    <br>
-                    <img src="assets/images/logo.png" alt=" " class="logo">
-                </div>
-                <p class="order-id"> Order No*: <span class="strong">{{order.id | uppercase}}</span> </p>
-                <p class="text-center small">Your order has been placed successfully. <br> When we receive your payment, we will wrap up your stuff for shipping.
+                <p class="order-id text-center">Your order has been placed successfully. <br> When we receive your
+                    payment, we will wrap up your stuff for shipping.
                 </p>
-                <br>
             </div>
         </div>
-        <div class="header" *ngIf="order.status!=='Placed Order'">
-            <h2 class="text-center" *ngIf="!print">Thanks</h2>
-            <div class="text-center" *ngIf="print">
-                <img src="assets/images/logo.png" alt=" " class="logo">
-                <br>
-                <br>
-            </div>
-            <p class="order-id text-center">Your order has been successfully <span class="strong">{{order.status}}</span> .
+        <div class="header" *ngIf="order.status!=='Order Placed'">
+            <h2 *ngIf="!print" class="text-center">Thanks</h2>
+            <p class="order-id text-center">Your order has been successfully <span
+                    class="strong">{{order.status}}</span> .
                 <br> For your reference, here's a summary of your order.
             </p>
-            <br>
         </div>
         <div class="container">
-            <div class="flex bg">
-                <div class="full info">
-                    <p class="order-info"><span>Username:</span>
-                        <span>{{order.billing.username | uppercase}}</span> </p>
-                    <p class="order-info">
-                        <span>Phone:</span><span>{{order.billing.areacode}}-{{order.billing.phone}}</span></p>
-                    <p class="order-info"><span>Email:</span><span> {{order.billing.email}}</span></p>
-
-                    <p class="order-info">
-                        <span>Address:</span>
-                        <span>{{order.billing.building}}, <br>
-              {{order.billing.street}}, {{order.billing.district}},<br>{{order.billing.city}}</span>
-                    </p>
-                    <p class="order-info">
-                        <span>Customer Note:</span>
-                        <span> <i *ngIf="order.comment">{{order.comment}}</i><i *ngIf="!order.comment">None</i> </span>
-                    </p>
-                </div>
+            <div class="flex">
                 <div class="full">
-                    <p class="order-info"> <span>Order No </span><span>{{order.id| uppercase}}</span></p>
-                    <p class="order-info"> <span>Order Date </span><span> {{order.created_at}}</span></p>
-                    <p class="order-info"> <span>Order Status </span><span class="bg"> {{order.status}}</span></p>
-                    <p class="order-info"> <span>Payment </span>
-                        <span>{{order.payment.paymentMethod}}</span> -
-                        <span class="bg"> {{order.payment.status}}</span>
+                    <p class="order-info"> <span>Order No*：</span><span class="bg">{{order.id}}</span></p>
+                    <p class="order-info"> <span>Order Date：</span><span> {{order.createAt}}</span></p>
+                    <p class="order-info"> <span>Order Status：</span><span class="bg"> {{order.status}}</span></p>
+                    <p class="order-info">
+                        <span>Payment：</span>
+                        <span>{{order.payment.paymentMethod}}</span>
+                        <span class="bg">&nbsp; ( {{order.payment.paymentStatus}} )</span>
                     </p>
                     <p *ngIf="order.payment.transaction_id" class="order-info">
-                        <span>Transaction ID:</span>
+                        <span>Transaction ID：</span>
                         <span> {{order.payment.transaction_id}}</span>
                     </p>
                     <p class="order-info">
-                        <span>Shipping Method </span>
-                        <span>{{order.delivery.deliveryMethod}}</span> <br>
-                        <span>{{order.delivery.status}}</span> <br>
+                        <span>Shipping Method：</span>
+                        <span>{{order.delivery.deliveryMethod}}</span>
+                        <span class="bg" *ngIf="order.delivery.deliveryStatus">&nbsp; (
+                            {{order.delivery.deliveryStatus}} )</span>
+                    </p>
+                    <p class="order-info" *ngIf="order.delivery.date">
+                        <span></span>
                         <span>{{order.delivery.date}}</span>
+                    </p>
+                </div>
+                <div class="full ">
+                    <p class="order-info">
+                        <span>User：</span>
+                        <span> {{order.billing.firstname }}
+                            {{order.billing.lastname }}</span>
+                    </p>
+                    <p class="order-info">
+                        <span>Phone：</span>
+                        <span>{{order.billing.areacode}}-{{order.billing.phone}}</span>
+                    </p>
+                    <p class="order-info"><span>Email：</span><span> {{order.billing.email}}</span></p>
+                    <p class="order-info" *ngIf="order.address.building">
+                        <span>Address：</span>
+                        <span>{{order.address.building}},
+                            {{order.address.street}},<br>
+                            {{order.address.district}},
+                            {{order.address.city}}
+                        </span>
+                    </p>
+                    <p class="order-info"
+                        *ngIf="order.billing.oldAddress&&!order.address.building&&order.delivery.deliveryMethod!=='Self Pick-Up'">
+                        <span>Address：</span>
+                        <span>{{order.billing.oldAddress}}</span>
+                    </p>
+                    <p class="order-info" *ngIf="order.comment">
+                        <span>Customer Note：</span>
+                        <span> <i>{{order.comment}}</i> </span>
                     </p>
                 </div>
 
             </div>
-        </div>
-        <div class="container ">
-            <div class="flex" *ngFor="let item of order.orderItems">
-                <div class="four">
-                    <img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="">
+
+            <div class="flex">
+                <div class="half">
+                    <div class="flex-half" *ngFor="let item of order.orderItems">
+                        <div class="four">
+                            <img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="">
+                        </div>
+                        <div class="four">
+                            <p>{{item.product.name}}</p>
+                            <span class="small">#{{item.product.sku}}</span>
+                            <span class="small">{{item.product.color}}</span>
+                        </div>
+                        <div class="four">
+                            <p class="text-center">Qty: {{item.qty}}</p>
+                        </div>
+                        <div class="four">
+                            <p class="text-right" [ngClass]="{'del': item.product.dis>0}">
+                                {{item.product.price | currency:userCurrency}}
+                            </p>
+                            <p class="text-right" *ngIf="item.product.dis>0">{{item.product.dis|currency:userCurrency}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="four">
-                    <p>{{item.product.name}}</p>
-                    <span class="small">#{{item.product.sku}}</span>
-                    <span class="small">Color: {{item.product.color}}</span>
-                </div>
-                <div class="four">
-                    <p class="text-center">Qty: {{item.qty}}</p>
-                </div>
-                <div class="four">
-                    <p class="text-right" [ngClass]="{'del': item.product.dis>0}">{{item.product.price | currency:userCurrency}}
-                    </p>
-                    <p class="text-right" *ngIf="item.product.dis>0">{{item.product.dis|currency:userCurrency}}</p>
+                <div class="half total flex-half">
+                    <div class=" text-right">
+                        <span class="small"> Total Items ({{order.orderItems.length}}) :</span>
+                        <span class="small"> Tax : </span>
+                        <span class="small" *ngIf="order.bonus>0||order.discount>0"> Bonus/Discount :</span>
+                        <span class="small"> Shipping :</span>
+                        <h4> TOTAL : </h4>
+                    </div>
+                    <div class="text-right">
+                        <span class="small">{{order.subtotal | currency:userCurrency}}</span>
+                        <span class="small"> {{order.tax | currency:userCurrency}} </span>
+                        <span class="small" *ngIf="order.bonus>0||order.discount>0">
+                            <i *ngIf="order.bonus>0">- {{order.bonus | currency:userCurrency}}</i>
+                            <i class="small" *ngIf="order.discount>0">{{order.discount}} Off</i>
+                        </span>
+                        <span class="small"> {{order.shipping | currency:userCurrency}} </span>
+                        <h4> {{order.total | currency:userCurrency}} </h4>
+                    </div>
                 </div>
             </div>
-            <div class="flex total">
-                <div class=" text-right">
-                    <span class="small"> Total Items ({{order.orderItems.length}}) :</span>
-                    <span class="small" *ngIf="order.bonus>0||order.discount!=''"> Bonus/Discount :</span>
-                    <span class="small"> Tax : </span>
-                    <span class="small"> Shipping :</span>
-                    <h4> Total : </h4>
-                </div>
-                <div class="text-right">
-                    <span class="small">{{order.subtotal | currency:userCurrency}}</span>
-                    <span class="small" *ngIf="order.bonus>0||order.discount!=''">
-            <span *ngIf="order.bonus">- {{order.bonus | currency:userCurrency}}</span>
-                    <span class="small" *ngIf="order.discount">{{order.discount}} Off</span>
-                    </span>
-                    <span class="small"> {{order.tax | currency:userCurrency}} </span>
-                    <span class="small"> {{order.shipping | currency:userCurrency}} </span>
-                    <h4> {{order.total | currency:userCurrency}} </h4>
-                </div>
-            </div>
-            <div class="header text-center btn" *ngIf="order.status==='Placed Order'">
+            <div class="header text-center " *ngIf="order.status==='Order Placed'">
                 <a class="nextBtn crimson" [routerLink]="['/en/home']">Continue Shopping</a>
                 <a *ngIf="logined" class="nextBtn" [routerLink]="['/en/myEnjoybag']">View Account</a>
             </div>
-            <div class="header text-center btn" *ngIf="order.status!=='Placed Order'">
+            <div class="header text-center" *ngIf="order.status!=='Order Placed'">
                 <button class="nextBtn crimson" (click)="printInvoice()">Print Receipt</button>
             </div>
             <p class="small ">Ref No*: EW0000352</p>
@@ -171,13 +183,6 @@
             </p>
         </div>
     </div>
-    <div class="footer text-center">
-        <h3>Need Help ?</h3>
-        <br>
-        <p>For any further infos, please <a [routerLink]="['/en/FAQ']" fragment="Contact" href="en/FAQ#contact">Contact
-        Us</a>.</p>
-    </div>
-    <router-outlet name="invoice"></router-outlet>
 </section>
 <div class="modal" *ngIf="cancelModal">
     <div class="modal-body">
@@ -186,15 +191,18 @@
             <div>
                 <p>Reasons for cancellation ( Optional ):</p>
                 <div class="radio">
-                    <input id="radio-1" name="radio" type="radio" value="Changed my mind" (change)="reasonChange('Changed my mind')">
+                    <input id="radio-1" name="radio" type="radio" value="Changed my mind"
+                        (change)="reasonChange('Changed my mind')">
                     <label for="radio-1" class="radio-label">Changed my mind</label>
                 </div>
                 <div class="radio">
-                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address" (change)="reasonChange(' Wrong shipping address ')">
+                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address"
+                        (change)="reasonChange(' Wrong shipping address ')">
                     <label for="radio-2" class="radio-label">Wrong shipping address</label>
                 </div>
                 <div class="radio">
-                    <input id="radio-3" name="radio" type="radio" value="Duplicate order" (change)="reasonChange(' Duplicate order')">
+                    <input id="radio-3" name="radio" type="radio" value="Duplicate order"
+                        (change)="reasonChange(' Duplicate order')">
                     <label for="radio-3" class="radio-label">Duplicate order</label>
                 </div>
                 <div class="radio">

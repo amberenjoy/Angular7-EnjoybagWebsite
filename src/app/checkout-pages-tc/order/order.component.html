@@ -19,7 +19,7 @@
             </li>
         </ul>
     </div>
-    <div class="banner" *ngIf="order.status!=='Placed Order'&&order.status!=='Canceled'">
+    <div class="banner" *ngIf="order.status!=='Placed Order'&&order.status!=='Order Canceled'">
         <h3>完成訂單</h3>
         <ul>
             <li class="step active">
@@ -86,7 +86,7 @@
                     <p class="order-info">
                         <span>地址:</span>
                         <span>{{order.billing.building}}, <br>
-              {{order.billing.street}}, {{order.billing.district}},<br>{{order.billing.city}}</span>
+                            {{order.billing.street}}, {{order.billing.district}},<br>{{order.billing.city}}</span>
                     </p>
                     <p class="order-info">
                         <span>訂單備註:</span>
@@ -129,7 +129,8 @@
                     <p class="text-center">數量: {{item.qty}}</p>
                 </div>
                 <div class="four">
-                    <p class="text-right" [ngClass]="{'del': item.product.dis>0}">{{item.product.price | currency:userCurrency}}
+                    <p class="text-right" [ngClass]="{'del': item.product.dis>0}">
+                        {{item.product.price | currency:userCurrency}}
                     </p>
                     <p class="text-right" *ngIf="item.product.dis>0">{{item.product.dis|currency:userCurrency}}</p>
                 </div>
@@ -145,8 +146,8 @@
                 <div class="text-right">
                     <span class="small">{{order.subtotal | currency:userCurrency}}</span>
                     <span class="small" *ngIf="order.bonus>0||order.discount!=''">
-            <span *ngIf="order.bonus">- {{order.bonus | currency:userCurrency}}</span>
-                    <span class="small" *ngIf="order.discount">{{order.discount}} Off</span>
+                        <span *ngIf="order.bonus">- {{order.bonus | currency:userCurrency}}</span>
+                        <span class="small" *ngIf="order.discount">{{order.discount}} Off</span>
                     </span>
                     <span class="small"> {{order.tax | currency:userCurrency}} </span>
                     <span class="small"> {{order.shipping | currency:userCurrency}} </span>
@@ -186,15 +187,18 @@
             <div>
                 <p>取消原因 ( 選填 ):</p>
                 <div class="radio">
-                    <input id="radio-1" name="radio" type="radio" value="Changed my mind" (change)="reasonChange('Changed my mind')">
+                    <input id="radio-1" name="radio" type="radio" value="Changed my mind"
+                        (change)="reasonChange('Changed my mind')">
                     <label for="radio-1" class="radio-label">我改變主意了</label>
                 </div>
                 <div class="radio">
-                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address" (change)="reasonChange(' Wrong shipping address ')">
+                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address"
+                        (change)="reasonChange(' Wrong shipping address ')">
                     <label for="radio-2" class="radio-label">送貨信息錯誤</label>
                 </div>
                 <div class="radio">
-                    <input id="radio-3" name="radio" type="radio" value="Duplicate order" (change)="reasonChange(' Duplicate order')">
+                    <input id="radio-3" name="radio" type="radio" value="Duplicate order"
+                        (change)="reasonChange(' Duplicate order')">
                     <label for="radio-3" class="radio-label">訂單重複了</label>
                 </div>
                 <div class="radio">

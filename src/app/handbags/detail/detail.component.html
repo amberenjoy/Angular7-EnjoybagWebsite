@@ -7,74 +7,69 @@
     <span> {{bag.collection}}</span>
 </nav>
 <div class="bagBody" *ngIf="!loading">
-    <div class="sliderImg">
-        <div class="wrapper">
-            <div id="slider">
-                <div class="inner">
-                    <div class="item zoom-image" *ngFor="let i of bagPhotoArray; index as id" (deferLoad)="i.show = true">
-                        <div *ngIf="i.show">
-                            <img [src]="i.url" alt="bag-photo" class="img-responsive imgBig" (click)="openModal(id)">
-                        </div>
-                    </div>
-                </div>
+    <div class="grid">
+        <div class="text-center">
+            <img [src]="bagPhotoArray[0].url" alt="" (click)="openModal(0)">
+        </div>
+        <div class="info">
+            <h4>{{bag.productname}}</h4>
+            <div class="grid">
+                <p>
+                    <span [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</span>
+                    <span
+                        *ngIf="bag.discountprice!=='0'">&nbsp;&nbsp;{{bag.discountprice| currency: userCurrency}}</span>
+                </p>
+                <p class="text-right">
+                    <span *ngIf="bag.discountprice!=='0'">{{bag.discountpriceper}}</span>
+                </p>
+            </div>
+            <div class="color-area">
+                <a [routerLink]="['..', bag.productcode]" class="color active"
+                    [ngStyle]="{'background':'#'+ bag.colorpick.slice(2,8)}">
+                    <span>{{bag.color}}</span>
+                </a>
+                <span>{{bag.color}}</span>
+                <p>
+                    <a *ngFor="let other of otherColorList" [routerLink]="['..', other.productcode]" class="color"
+                        [ngStyle]="{'background':'#'+ other.colorpick.slice(2,8)}"><span>{{other.color}}</span>
+                    </a>
+                </p>
+            </div>
+            <p [hidden]="bag.StockQty > 5 || bag.StockQty == 0">Last Qty: {{bag.StockQty}}</p>
+            <p [hidden]="bag.StockQty !=0 ">Out of Stock </p>
+            <div class="promo-info">
+                <span>Enjoy free standard delivery on local orders over HK$500.00.</span>
+                <span>Place your order today and receive it within 3-5 working days.</span>
+            </div>
+            <button class="add-to-cart" (click)="addToCart(bag)">Add to Cart</button>
+            <div class="text-center">
+                <ul class="social-icons">
+                    <li><a><i class="fa fa-facebook-official facebook" (click)="facebookSharing(shareObj)"></i></a>
+                    </li>
+                    <li><a><i class="fa fa-twitter-square twitter"></i></a></li>
+                    <!-- <li><a><i class="fa fa-google-plus-official google-plus"></i></a></li>
+                                    <li><a><i class="fa fa-weibo weibo"></i></a></li> -->
+                </ul>
             </div>
         </div>
     </div>
-    <div class="details">
-        <h4>{{bag.productname}}</h4>
-        <p class="price">
-            <span [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</span>
-            <span *ngIf="bag.discountprice!=='0'">{{bag.discountprice| currency: userCurrency}}</span>
-            <span *ngIf="bag.discountprice!=='0'">{{bag.discountpriceper}}</span>
-        </p>
-        <div>
-            <a [routerLink]="['..', bag.productcode]" class="color active" [ngStyle]="{'background':'#'+ bag.colorpick.slice(2,8)}">
-                <span>{{bag.color}}</span>
-            </a>
-            <a *ngFor="let other of otherColorList" [routerLink]="['..', other.productcode]" class="color" [ngStyle]="{'background':'#'+ other.colorpick.slice(2,8)}"><span>{{other.color}}</span></a>
-        </div>
-        <p [hidden]="bag.StockQty > 5 || bag.StockQty == 0">( Last Qty: {{bag.StockQty}} )</p>
-        <p [hidden]="bag.StockQty !=0 ">( Out of Stock )</p>
-        <div>
-            <button class="add-to-cart" (click)="addToCart(bag)">Add to Cart</button>
-        </div>
-        <div class="tab-container">
-            <label>Description</label>
-            <div class="tab-content">
-                <p>
-                    <li class="first-tab">{{bag.Description}}</li>
-                </p>
-            </div>
-            <label>Details</label>
-            <div class="tab-content">
-                <p>
-                    <li *ngFor="let a of bagDetail">{{a}}</li>
-                </p>
-            </div>
-            <label>Materials</label>
-            <div class="tab-content">
-                <p>
-                    <li *ngFor="let a of bagMaterial">{{a}}</li>
+    <div class="grid">
+        <div class="info info-2">
+            <h5>Description</h5>
+            <div>
+                <p> <span>{{bag.Description}}</span> <br>
+                    <span *ngFor="let a of bagDetail">{{a}}</span>
+                    <span *ngFor="let a of bagMaterial">{{a}}</span>
                 </p>
             </div>
         </div>
-        <div class="other-info">
-            <p>
-                <i class="fa fa-truck"></i>Enjoy Free Standard Delivery on local orders over HK$500.00
-            </p>
-
-            <p>
-                <i class="fa fa-gift"></i>Receive an exclusive key holder ( HK$108.00 ) with min. purchase of HK$500.00*
-            </p>
+        <div class="text-center">
+            <img [src]="bagPhotoArray[1].url" alt="bag-photo" (click)="openModal(1)">
         </div>
-        <div class="social-container">
-            <ul class="social-icons">
-                <li><a><i class="fa fa-facebook-official facebook" (click)="facebookSharing(shareObj)"></i></a>
-                </li>
-                <li><a><i class="fa fa-twitter-square twitter"></i></a></li>
-                <!-- <li><a><i class="fa fa-google-plus-official google-plus"></i></a></li>
-                    <li><a><i class="fa fa-weibo weibo"></i></a></li> -->
-            </ul>
+    </div>
+    <div class="flex">
+        <div class="half" *ngFor="let i of bagPhotoArray.slice(2); index as id" (deferLoad)="i.show = true">
+            <img [src]="i.url" alt="bag-photo" class="img-responsive" (click)="openModal(id)">
         </div>
     </div>
 </div>

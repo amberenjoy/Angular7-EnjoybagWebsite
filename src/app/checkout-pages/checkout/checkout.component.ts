@@ -1,13 +1,23 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-08-28 15:49:46
+ * @LastEditors: Please set LastEditors
+ */
+import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { UserService } from '../../shared/services/user.service';
 import { CartItemService } from '../../shared/services/cart-item.service';
 import { CheckoutService } from '../../shared/services/checkout.service';
 import { User } from './../../shared/models/user';
 import { Order } from '../../shared/models/order';
 import { Item } from '../../shared/models/item';
+import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 declare let paypal: any;
 
@@ -16,55 +26,51 @@ declare let paypal: any;
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
-export class CheckoutComponent implements OnInit {
-
-  shipForm: FormGroup;
-  shipAddress = false;
-  agreeTc = false;
+export class CheckoutComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
   userCurrency: string;
+  shipForm: FormGroup;
+  shipAddress = false;  // add new address
+  defaultAddress: boolean;  // check if has default or previous address
+  agreeTc = false;
   cartTotal: any;
-  paypalLoad = false;
-  paypalShow = false;
-  paypalResult: boolean;
-  paymentMessage = '';
-  paymentStatus = '';
-
-  user: User;
-  delivery: number;
+  paymentObject = {
+    paypalLoad: false,
+    paymentMessage: '',
+    paymentStatus: ''
+  };
   logined: boolean;
-  items: Item[] = [];
+  user: User;
   order: Order = {
-    id: '',
-    status: '',
     orderItems: [],
-    comment: '',
+    comment: null,
     billing: {
-      username: '',
-      email: '',
-      phone: '',
-      areacode: 0,
-      building: '',
-      street: '',
-      district: '',
-      region: ''
+      firstname: null,
+      lastname: null,
+      email: null,
+      phone: null,
+      areacode: null,
+      oldAddress: null
+    },
+    address: {
+      building: null,
+      street: null,
+      district: null,
+      city: null
     },
     delivery: {
-      deliveryMethod: '',
-      status: '',
-      date: ''
+      deliveryMethod: null,
     },
     payment: {
-      status: 'Unpaid',
-      paymentMethod: '',
-      transaction_id: ''
+      transaction_id: null,
+      paymentMethod: null,
+      paymentStatus: 'Unpaid'
     },
-    created_at: '',
-    tax: 0,
+    subtotal: null,
     shipping: 0,
-    bonus: 0,
-    discount: '',
-    subtotal: 0,
-    total: 0
+    bonus: null,
+    discount: null,
+    total: null
   };
 
   constructor(
@@ -72,15 +78,17 @@ export class CheckoutComponent implements OnInit {
     private route: ActivatedRoute,
     private elementRef: ElementRef,
     private formBuilder: FormBuilder,
+    private title: Title,
     private cartService: CartItemService,
     private authenticationService: AuthenticationService,
+    private userService: UserService,
     private checkoutService: CheckoutService,
   ) { }
 
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    // Do whatever you wish with the DOM element.
-    const domElement = this.elementRef.nativeElement.querySelector(`.body-right`);
+    const domElement = this.elementRef.nativeElement.querySelector('.body-right');
     const distance = domElement.offsetTop + domElement.offsetParent.offsetTop - 70;
     if ((window.pageYOffset || document.body.scrollTop) > distance) {
       const marginAdd = window.pageYOffset - distance;
@@ -90,116 +98,140 @@ export class CheckoutComponent implements OnInit {
 
   @HostListener('window:unload', ['$event'])  // when user change routes
   unloadHandler(event) {
-    console.log('change route');
     localStorage.removeItem('cartToShipping');
   }
   @HostListener('window:beforeunload', ['$event'])
   beforeUnloadHander(event) {
-    console.log('route change');
     return false;
   }
 
   ngOnInit() {
+    this.title.setTitle('Complete shipping and payment information | Enjoybag HK');
+    this.userCurrency = localStorage.getItem('currency') || 'HKD';
+
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
-    this.userCurrency = localStorage.getItem('currency') || 'HKD';
-    this.cartTotal = JSON.parse(localStorage.getItem('cartToShipping'));
-    this.order.subtotal = this.cartTotal.subtotal;
-    this.order.bonus = this.cartTotal.bonus;
-    this.order.discount = this.cartTotal.discount;
-    this.cartService.findUserCart().subscribe(res => {
-      this.items = res;
-    });
-    this.authenticationService.currentUser.subscribe(user => {
+
+    const cartTotal = JSON.parse(localStorage.getItem('cartToShipping'));
+    localStorage.removeItem('cartToShipping'); // check if leave this page auto delete or need delete
+
+    this.order.subtotal = cartTotal.subtotal;
+    this.order.bonus = cartTotal.bonus;
+    this.order.discount = cartTotal.discount;
+    this.order.total = cartTotal.total;
+
+    this.initShipForm();
+
+    this.subscription = this.authenticationService.currentUser.subscribe(user => {
       if (user) {
         this.logined = true;
+        this.userService.getUserInfo().subscribe(res => {
+          this.shipForm.controls['billing'.toString()].reset(res);
+          if (res.oldAddress) {
+            this.defaultAddress = true;
+          }
+        });
+        this.userService.getUserAddressBook().subscribe(res => {
+          this.shipForm.controls['address'.toString()].reset(res[0]);
+        });
       } else {
         this.logined = false;
-        this.router.navigate(['/en/register']);
+        this.route.queryParams.subscribe(param => {
+          if (!param.client) {
+            this.router.navigate(['../shopping-bag'], { relativeTo: this.route });
+          }
+        });
       }
     });
-    this.checkoutService.getShipping().subscribe(
-      res => {
-        this.user = res.data;
-        this.initUserShipForm();
-        if (res.anonymousId) {
-          this.router.navigate([], { queryParams: { where: res.anonymousId } });
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+
+    this.cartService.getUserCart().subscribe(res => {
+      this.order.orderItems = res;
+    });
+
+    this.formControlValueChanged();
+    this.loadPaypal();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   canDeactivate() {
-    localStorage.removeItem('cartToShipping');
-    return confirm('Do you want to leave? If you leave, you have to complete this form again.');
+    if (!this.order.id && this.logined) {
+      return confirm('Do you want to leave? If you leave, you have to complete this form again.');
+    } else {
+      return true;
+    }
   }
 
-  initUserShipForm() {
+  initShipForm() {
     this.shipForm = this.formBuilder.group({
-      delivery: this.formBuilder.group({
-        deliveryMethod: ['', Validators.required]
-      }),
-      payment: this.formBuilder.group({
-        paymentMethod: ['', [Validators.required]],
-        transaction_id: ''
-      }),
+      deliveryMethod: ['Self Pick-Up', Validators.required],
+      paymentMethod: [null, Validators.required],
       billing: this.formBuilder.group({
-        username: [this.user.username, [Validators.required]],
-        lastname: [this.user.lastname],
-        email: [this.user.email, [Validators.required, Validators.email]],
-        areacode: [this.user.areacode, [Validators.required]],
-        phone: [this.user.phone, [Validators.required]],
-        region: [this.user.region],
-        building: [this.user.address['building'.toString()]],
-        street: [this.user.address['street'.toString()]],
-        district: [this.user.address['district'.toString()]],
-        city: [this.user.address['city'.toString()]],
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        areacode: ['852', Validators.required],
+        phone: ['', Validators.required],
+        oldAddress: [null]
       }),
-      comment: ['']
+      address: this.formBuilder.group({
+        building: [null],
+        street: [null],
+        district: [null],
+        city: ['Hong Kong'],
+      }),
+      comment: [null]
     });
   }
 
-  deliveryChange(entry): void {
-    if (entry === true) {
-      this.delivery = 0;
-      this.shipForm.get('billing.building').clearValidators();
-      this.shipForm.get('billing.street').clearValidators();
-      this.shipForm.get('billing.district').clearValidators();
-      this.shipForm.get('billing.city').clearValidators();
-    } else {
-      this.delivery = 30;
-      this.shipForm.get('billing.building').setValidators([Validators.required]);
-      this.shipForm.get('billing.street').setValidators([Validators.required]);
-      this.shipForm.get('billing.district').setValidators([Validators.required]);
-      this.shipForm.get('billing.city').setValidators([Validators.required]);
-    }
+  formControlValueChanged() {
+    this.shipForm.get('deliveryMethod').valueChanges.subscribe((mode: string) => {
+      if (mode === 'Standard Delivery') {
+        this.order.shipping = 30;
+        if (!this.defaultAddress) {
+          this.shipForm.get('address.building').setValidators([Validators.required]);
+          this.shipForm.get('address.street').setValidators([Validators.required]);
+          this.shipForm.get('address.district').setValidators([Validators.required]);
+          this.shipForm.get('address.city').setValidators([Validators.required]);
+        }
+      } else if (mode === 'Self Pick-Up') {
+        this.order.shipping = 0;
+        this.shipForm.get('address.building').clearValidators();
+        this.shipForm.get('address.street').clearValidators();
+        this.shipForm.get('address.district').clearValidators();
+        this.shipForm.get('address.city').clearValidators();
+      }
+      this.order.total = this.order.total + this.order.shipping;
+      this.shipForm.get('address.building').updateValueAndValidity();
+      this.shipForm.get('address.street').updateValueAndValidity();
+      this.shipForm.get('address.district').updateValueAndValidity();
+      this.shipForm.get('address.city').updateValueAndValidity();
+    });
   }
 
-  paymentChange(entry): void {
-    this.order.payment.paymentMethod = entry;
-    if (entry === 'By Paypal') {
-      this.paypalLoad = true;
-      this.loadPaypal();
+  onAddressChange() {
+    this.shipAddress = !this.shipAddress;
+    if (this.shipAddress) {
+      this.shipForm.get('address.building').setValidators([Validators.required]);
+      this.shipForm.get('address.street').setValidators([Validators.required]);
+      this.shipForm.get('address.district').setValidators([Validators.required]);
+      this.shipForm.get('address.city').setValidators([Validators.required]);
     } else {
-      this.paypalLoad = false;
+      this.shipForm.get('address.building').clearValidators();
+      this.shipForm.get('address.street').clearValidators();
+      this.shipForm.get('address.district').clearValidators();
+      this.shipForm.get('address.city').clearValidators();
     }
-  }
-
-  orderTotal() {
-    let ordertotal = 0;
-    ordertotal = this.cartTotal.total + this.delivery;
-    return ordertotal;
+    this.shipForm.get('address.building').updateValueAndValidity();
+    this.shipForm.get('address.street').updateValueAndValidity();
+    this.shipForm.get('address.district').updateValueAndValidity();
+    this.shipForm.get('address.city').updateValueAndValidity();
   }
 
   loadPaypal() {
-    const itemAmount = this.cartTotal.subtotal;
-    const shippingFee = this.delivery;
-    const payAmount = this.orderTotal();
-    const dis = this.cartTotal.subtotal - this.cartTotal.total;
     const orderItems = [];
     const singleItem = {
       name: '',
@@ -211,10 +243,11 @@ export class CheckoutComponent implements OnInit {
       },
       quantity: ''
     };
-    this.items.forEach((each) => {
+
+    this.order.orderItems.forEach((each) => {
       singleItem.name = each.product.name;
       singleItem.sku = JSON.stringify(each.product.sku);
-      if (each.product.off) {
+      if (Number(each.product.dis) > 0) {
         singleItem.price = each.product.dis;
       } else {
         singleItem.price = each.product.price;
@@ -222,11 +255,12 @@ export class CheckoutComponent implements OnInit {
       singleItem.quantity = JSON.stringify(each.qty);
       singleItem.unit_amount.value = singleItem.price;
       orderItems.push(singleItem);
-      console.log(orderItems);
     });
-    this.loadExternalScript(
-      'https://www.paypal.com/sdk/js?client-id=AYQTo6YvxDFI5065dY1h7ycgwnSPTunZfEUYe2U1a-58I09ExZpAKZ-oI0eOadCM26_9w5NFswq5d_Nv&currency=HKD')
+
+    // tslint:disable-next-line:max-line-length
+    this.loadExternalScript('https://www.paypal.com/sdk/js?client-id=AYQTo6YvxDFI5065dY1h7ycgwnSPTunZfEUYe2U1a-58I09ExZpAKZ-oI0eOadCM26_9w5NFswq5d_Nv&currency=HKD')
       .then(() => {
+        console.log('load paypal');
         paypal.Buttons({
           env: 'sandbox',
           style: {
@@ -238,7 +272,8 @@ export class CheckoutComponent implements OnInit {
           },
           commit: true,
           onClick: (e) => {
-            this.paypalResult = true;
+            this.paymentObject.paypalLoad = true;
+            this.shipForm.get('paymentMethod').setValue('By Paypal');
           },
           createOrder: (data, actions) => {
             // Set up the transaction
@@ -246,11 +281,11 @@ export class CheckoutComponent implements OnInit {
               purchase_units: [{
                 description: 'Enjoybag HK',
                 amount: {
-                  value: payAmount, currency: 'HKD',
+                  value: this.cartTotal.total + this.order.shipping, currency: 'HKD',
                   breakdown: {
-                    item_total: { value: JSON.stringify(itemAmount), currency_code: 'HKD' },
-                    shipping: { value: JSON.stringify(shippingFee), currency_code: 'HKD' },
-                    discount: { value: JSON.stringify(dis), currency_code: 'HKD' }
+                    item_total: { value: JSON.stringify(this.order.subtotal), currency_code: 'HKD' },
+                    shipping: { value: JSON.stringify(this.order.shipping), currency_code: 'HKD' },
+                    discount: { value: JSON.stringify(this.cartTotal.subtotal - this.cartTotal.total), currency_code: 'HKD' }
                   }
                 },
                 items: orderItems
@@ -262,65 +297,56 @@ export class CheckoutComponent implements OnInit {
             // Authorize the transaction
             return actions.order.capture().then(details => {
               console.log('onApprove - you can get full order details inside onApprove: ', details);
-              this.paypalResult = false;
-              this.paymentStatus = 'Payment Success! ';
-              this.paymentMessage = ' Transaction completed by' + details.payer.name.given_name
+              this.paymentObject.paypalLoad = false;
+              this.paymentObject.paymentStatus = 'Paid Successfully !';
+              this.paymentObject.paymentMessage = ' Transaction completed by ' + details.payer.name.given_name
                 + ' - Transaction ID:' + data.orderID;
               this.order.payment.transaction_id = data.orderID;
-              this.order.payment.status = 'Paid';
+              this.order.payment.paymentStatus = 'Paid';
             });
           },
           onError: (err) => {
             console.log('OnError', err);
-            this.paypalResult = false;
+            this.paymentObject.paypalLoad = false;
             // payment faild please click paypal again
-            this.paymentStatus = 'Ooops! Paypal failed to load. ';
-            this.paymentMessage = 'Please click the paypal button again!';
+            this.paymentObject.paymentStatus = 'Ooops! Paypal failed to load.';
+            this.paymentObject.paymentMessage = 'Please click the paypal button again!';
           },
           onCancel: (data, actions) => {
             // Show a cancel page or return to cart
-            this.paypalResult = false;
-            this.paymentStatus = 'Transaction Canceled!';
+            this.paymentObject.paypalLoad = false;
+            this.paymentObject.paymentStatus = 'Transaction Canceled !';
           }
         }).render('#paypal-button-container');
-      }).then(() => {
-        this.paypalShow = true;
       });
-  }
 
-  checkAgreeTc() {
-    this.agreeTc = !this.agreeTc;
   }
 
   placeOrder() {
     if (this.shipForm.invalid) {
       return;
     }
+
     this.order.billing = this.shipForm.value.billing;
-    this.order.comment = this.shipForm.value.comment;
-    this.order.delivery = this.shipForm.value.delivery;
-    this.order.shipping = this.delivery;
-    this.order.total = this.orderTotal();
-    this.order.created_at = new Date().toLocaleDateString();
-    this.order.orderItems = this.items;
-    if (this.logined) {
-      this.checkoutService.placeOrder(this.order).subscribe(data => {
-        this.cartService.completeOrder();
-        localStorage.removeItem('cartToShipping');
-        this.router.navigate(['en/checkout/track-order', data.orderID]);
-      });
-    } else {
-      this.checkoutService.placeOrder(this.order).subscribe(res => {
-        localStorage.removeItem('cartList');
-        localStorage.removeItem('cartToShipping');
-        this.router.navigate(['en/checkout/track-order', res.data.orderID],
-          { queryParams: { where: res.anonymousId } }
-        );
-      });
+    if (this.shipAddress) {
+      this.order.address = this.shipForm.value.address;
     }
+    this.order.comment = this.shipForm.value.comment;
+    this.order.payment.paymentMethod = this.shipForm.value.paymentMethod;
+    this.order.delivery.deliveryMethod = this.shipForm.value.deliveryMethod;
+
+    this.checkoutService.placeOrder(this.order).subscribe(res => {
+      if (this.logined) {
+        this.cartService.completeOrder();
+      } else {
+        localStorage.removeItem('cartList');
+      }
+      this.order.id = res.id;
+      this.router.navigate(['en/checkout/track-order', res.id]);
+    });
   }
 
-  private loadExternalScript(scriptUrl: string) {
+  loadExternalScript(scriptUrl: string) {
     return new Promise((resolve, reject) => {
       const scriptElement = document.createElement('script');
       scriptElement.src = scriptUrl;
@@ -328,4 +354,5 @@ export class CheckoutComponent implements OnInit {
       document.body.appendChild(scriptElement);
     });
   }
+
 }

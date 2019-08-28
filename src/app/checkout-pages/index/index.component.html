@@ -1,0 +1,38 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-24 16:19:29
+ * @LastEditTime: 2019-08-26 12:07:43
+ * @LastEditors: Please set LastEditors
+ -->
+<section>
+  <h1 class="text-center">
+    <a [routerLink]="[ '/en/home']" class="left previousBtn">Return to store</a>
+    <a [routerLink]="[ '/en/home' ]"><img src="assets/images/logo.png" alt=" "></a>
+    <a *ngIf="username" [routerLink]="[ '/en/myEnjoybag']" class="right"><i aria-hidden="true"
+        class="fa fa-user"></i>&nbsp;&nbsp;{{username}}</a>
+  </h1>
+
+  <router-outlet></router-outlet>
+  <div class="footer text-center">
+    <h3>Need Help ?</h3>
+    <div class="footer-box">
+      <p>For any further infos, please contact our friendly Customer Service team - remember we'll need your order
+        number.</p>
+      <div class="flex">
+        <div>
+          <p class="icon"><i class="fa fa-envelope"></i> <span>Email</span></p>
+          <p><a href="mailto:customer@enjoybag.com.hk">Click here</a> to send us an email.</p>
+        </div>
+        <div>
+          <p class="icon"><i class="fa fa-phone"></i> <span>Phone</span></p>
+          <p>+852 3572 8158</p>
+        </div>
+        <div>
+          <p class="icon"><i class="fa fa-question"></i> <span>FAQ</span></p>
+          <p>Find the answers you need in our <a [routerLink]="[ '/en/FAQ']">FAQs</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+section {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1330px;
+    padding: 1.4em 2em 5em;
+    min-height: 80vh;
+    overflow-x: hidden;
+
+    h1 {
+        border-bottom: 1px solid #ddd;
+        position: relative;
+
+        img {
+            width: 130px;
+            padding-bottom: 1em;
+        }
+    }
+
+    p {
+        font-size: .9em;
+    }
+}
+
+.left {
+    position: absolute;
+    left: 2em;
+    top: 18%;
+}
+
+.right {
+    position: absolute;
+    right: 2em;
+    top: 18%;
+    color: crimson;
+    text-transform: capitalize;
+}
+
+.previousBtn {
+    border-bottom: 1px solid #333;
+    color: #333;
+}
+
+
+
+.footer {
+    padding: 50px 0 10px;
+
+    h3 {
+        font-size: 1.6em;
+        margin-bottom: 1rem;
+    }
+
+    a {
+        color: crimson;
+        border-bottom: 1px solid crimson;
+    }
+
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+        border: none;
+        border-top: 1px solid #eee;
+        justify-content: center;
+        flex-wrap: nowrap;
+        padding: 1rem 0 0;
+
+        div {
+            width: 33.33%;
+            padding: 0 1rem;
+
+            p {
+                max-width: 310px;
+                margin: .5rem auto;
+                line-height: 1.4;
+            }
+        }
+    }
+
+    .icon {
+        font-weight: 500;
+
+        i {
+            display: inline-block;
+            color: crimson;
+            font-size: 1.1rem;
+            padding-right: .5rem;
+        }
+
+        span {
+            font-size: 1rem;
+        }
+    }
+}
+
+.footer-box {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+
+    >p {
+        width: 90%;
+        margin: 0 auto 1rem;
+    }
+}

@@ -1,42 +1,27 @@
 <nav><a [routerLink]="[ '../../home' ]">Home</a><a [routerLink]="[ '../','all' ]">Women</a><span>{{name}}</span>
 </nav>
-<div class="banner" [ngClass]="{ 
-      'banner-all': name==='all', 'banner-cross': name==='crossbody bag',
-  'banner-top': name==='top handle', 'banner-tote': name==='tote bag',
-  'banner-clutch': name==='clutch', 'banner-bucket': name==='bucket bags',
-   'banner-backpack': name==='backpack'}">
-    <h2 *ngIf="name==='all'">Women's Bags</h2>
-    <h2 *ngIf="name!=='all'">{{name}}</h2>
+<div class="banner" [ngClass]="name.split(' ')[0]">
+  <h2 *ngIf="name==='all'">Women's Bags</h2>
+  <h2 *ngIf="name!=='all'">{{name}}</h2>
 </div>
 <div class="body-flex">
-    <div class="side-list">
-        <h4> By Categories</h4>
-        <ul>
-            <li> <a [ngClass]="{'active': name==='top handle'}" [routerLink]="['../','top handle']">Top
-          Handles</a> </li>
-            <li> <a [ngClass]="{'active': name==='crossbody bag'}" [routerLink]="['../','crossbody bag']">Crossbody
-          Bags</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='tote bag'}" [routerLink]="['../','tote bag']">Tote Bags</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='clutch'}" [routerLink]="['../','clutch']">Clutches</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='bucket bags'}" [routerLink]="['../','bucket bags']"> Bucket
-          Bags</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='backpack'}" [routerLink]="['../','backpack']">Backpacks</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> View All</a></li>
-        </ul>
-        <h4> By Collections</h4>
-        <ul>
-            <li><a [routerLink]="['/en/products/new/all']"> New Arrivals</a></li>
-            <li><a [routerLink]="['/en/products/sale/all']"> Best Sellers</a></li>
-            <li> <a [routerLink]="['/en/products/collections/ZHU']">ZHU</a> </li>
-            <li> <a [routerLink]="['/en/products/collections/EJ']">EJ</a> </li>
-        </ul>
-    </div>
-    <div class="right-list">
-        <app-bag-list></app-bag-list>
-    </div>
+  <div class="side-list">
+    <h4> By Categories</h4>
+    <ul>
+      <li *ngFor="let category of categories">
+        <a [ngClass]="{'active': name===category.name}" [routerLink]="['../',category.name]">{{category.name}}</a>
+      </li>
+      <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> View All</a></li>
+    </ul>
+    <h4> By Collections</h4>
+    <ul>
+      <li><a [routerLink]="['/en/products/new/all']"> New Arrivals</a></li>
+      <li><a [routerLink]="['/en/products/sale/all']"> Best Sellers</a></li>
+      <li> <a [routerLink]="['/en/products/collections/ZHU']">ZHU</a> </li>
+      <li> <a [routerLink]="['/en/products/collections/EJ']">EJ</a> </li>
+    </ul>
+  </div>
+  <div class="right-list">
+    <app-bag-list></app-bag-list>
+  </div>
 </div>

@@ -1,0 +1,29 @@
+section {
+    position: relative;
+    padding: 1em;
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        line-height: 1.5;
+
+        a {
+            color: crimson;
+            border-bottom: 1px solid crimson;
+        }
+    }
+}
+
+.close {
+    font-size: 2em;
+    border: none;
+    background: #fff;
+    color: crimson;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    cursor: pointer;
+}

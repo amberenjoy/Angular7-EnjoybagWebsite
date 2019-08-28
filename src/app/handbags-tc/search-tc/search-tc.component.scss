@@ -3,8 +3,9 @@
     height: 220px;
     text-align: center;
     position: relative;
-    background: url(../../../assets/images/20181101/bg-cover.jpg) 0% 50%;
+    background: url(../../../assets/images/bg-cover.jpg) 0% 50%;
     background-size: 100%;
+
     h2 {
         font-size: 3rem;
         position: absolute;
@@ -26,6 +27,7 @@ h3 {
     font-size: 1.6rem;
     font-family: 'Josefin Sans', sans-serif;
     line-height: 1.5;
+
     span {
         color: crimson
     }

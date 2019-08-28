@@ -1,10 +1,17 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-08-19 17:30:00
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Item } from '../../shared/models/item';
-import { User } from '../../shared/models/user';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { UserService } from '../../shared/services/user.service';
 import { CartItemService } from '../../shared/services/cart-item.service';
 import { CheckoutService } from './../../shared/services/checkout.service';
 
@@ -14,36 +21,47 @@ import { CheckoutService } from './../../shared/services/checkout.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  checkForm: FormGroup;
+
   items: Item[] = [];
   loading = false;
+  userLevel: string;
   logined: boolean;
-  currentUser: User;
+  discount = 0;
   userCurrency: string;
-  promoBonus: any = {};
-  @ViewChild('cashCode', { static: false }) cashCode: ElementRef;
+  checkForm: FormGroup;
+  couponBonus = {
+    amount: 0,
+    discount: 0
+  };
   message: string;
 
+  @ViewChild('cashCode', { static: false }) cashCode: ElementRef;
+
   constructor(
-    private cartService: CartItemService,
-    private authenticationService: AuthenticationService,
     private title: Title,
     private router: Router,
+    private authenticationService: AuthenticationService,
+    private cartService: CartItemService,
+    private userService: UserService,
     private checkoutService: CheckoutService
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('Checkout - Shopping Cart | Enjoybag HK');
     this.userCurrency = localStorage.getItem('currency') || 'HKD';
-    this.title.setTitle('Shopping Cart | Enjoybag HK');
+
     this.authenticationService.currentUser.subscribe(user => {
       if (user) {
-        this.currentUser = user;
         this.logined = true;
+        this.userService.getUserLevel(user.level).subscribe(res => {
+          this.userLevel = res.level;
+          this.discount = res.promotion;
+        });
       } else {
         this.logined = false;
       }
     });
-    this.cartService.findUserCart().subscribe(res => {
+    this.cartService.getUserCart().subscribe(res => {
       this.items = res;
     });
   }
@@ -53,17 +71,29 @@ export class CartComponent implements OnInit {
     this.items.splice(index, 1);
     this.cartService.removeUserItem(item.product.sku, this.logined);
   }
-
+  changeCode() {
+    this.message = '';
+    this.couponBonus.discount = 0;
+    this.couponBonus.amount = 0;
+  }
   applyCode() {
     this.message = '';
     this.loading = true;
-    const code = this.cashCode.nativeElement.value;
-    this.checkoutService.getVoucher(code).subscribe(res => {
-      this.promoBonus = res.data;
+    const code = this.cashCode.nativeElement.value.toLowerCase();
+    this.checkoutService.verifyCode(code, this.subtotal()).subscribe(res => {
       this.loading = false;
-    }, error => {
+      if (res.status) {
+        if (res.type === 'fixed amount') {
+          this.couponBonus.amount = res.amount;
+        } else {
+          this.couponBonus.discount = res.amount;
+        }
+      } else {
+        this.message = res.message;
+      }
+    }, err => {
       this.loading = false;
-      this.message = error.error.message;
+      this.message = err;
     });
   }
 
@@ -73,37 +103,29 @@ export class CartComponent implements OnInit {
       if (bag.product.dis !== '0') {
         subtotal = subtotal + bag.qty * Number(bag.product.dis);
       } else {
-        subtotal = subtotal + bag.qty * Number(bag.product.price);
+        subtotal = subtotal + bag.qty * Number(bag.product.price) * (1 - this.discount / 100);
       }
     });
     return subtotal;
   }
 
   total() {
-    if (this.promoBonus.amount || this.promoBonus.discount) {
-      let subtotal = this.subtotal();
-      const discount = parseFloat(this.promoBonus.discount || '0%');
-      const amount = this.promoBonus.amount || ('-' + JSON.stringify((subtotal * discount / 100)));
-      subtotal = subtotal + parseInt(amount, 10);
-      return subtotal;
-    } else {
-      return this.subtotal();
-    }
+    return this.subtotal() * (1 - this.couponBonus.discount / 100) - this.couponBonus.amount;
   }
 
   goToShipping() {
     // check sku is valid and stock
     const checkoutPrice = {
       subtotal: this.subtotal(),
-      bonus: this.promoBonus.amount || '',
-      discount: this.promoBonus.discount || '',
+      bonus: this.couponBonus.amount,
+      discount: this.couponBonus.discount,
       total: this.total()
     };
     localStorage.setItem('cartToShipping', JSON.stringify(checkoutPrice));
     if (this.logined) {
-      this.router.navigate(['en/checkout/step-2']);
+      this.router.navigate(['en/checkout/shipping-payment']);
     } else {
-      this.router.navigate(['en/checkout/step-2'], { queryParams: { client: 'guest' } });
+      this.router.navigate(['en/checkout/shipping-payment'], { queryParams: { client: 'guest' } });
     }
   }
 }

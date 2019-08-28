@@ -7,7 +7,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 
-import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // import { Ng6SocialButtonModule, SocialServiceConfig } from 'ng6-social-button';
 
 // Configs
@@ -24,7 +25,7 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, PagesModule
+    AppRoutingModule, PagesModule, BrowserAnimationsModule
   ],
   providers: [
     SharedModule

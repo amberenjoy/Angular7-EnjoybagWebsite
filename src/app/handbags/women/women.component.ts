@@ -1,26 +1,31 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { CategoriesService } from '../../shared/services/categories.service';
+import { Category } from '../../shared/models/category';
 @Component({
   selector: 'app-women',
   templateUrl: './women.component.html',
   styleUrls: ['./women.component.scss']
 })
 export class WomenComponent implements OnInit {
+
   name: string;
+  categories: Category[];
 
   constructor(
     private route: ActivatedRoute,
     private title: Title,
-    private _elementRef: ElementRef
+    private elementRef: ElementRef,
+    private categoriesService: CategoriesService
   ) { }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const domElement = this._elementRef.nativeElement.querySelector(`.side-list`);
+    const domElement = this.elementRef.nativeElement.querySelector(`.side-list`);
     const distance = domElement.offsetTop;
-    const stopElement = this._elementRef.nativeElement.querySelector(`.right-list`).offsetHeight +
-      this._elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
+    const stopElement = this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight +
+      this.elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
 
     if (window.pageYOffset > distance) {
       const marginAdd = window.pageYOffset - distance;
@@ -35,8 +40,14 @@ export class WomenComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.name = params.name;
-      this.title.setTitle('Designer ' + this.name.charAt(0).toUpperCase() + this.name.slice(1) + ' for Women | Enjoybag HK');
+      this.title.setTitle('Designer ' + this.name.charAt(0).toUpperCase() + this.name.slice(1) + 's for Women | Enjoybag HK');
     });
+
+
+    this.categoriesService.getCategories().subscribe(res => {
+      this.categories = res;
+    });
+
   }
 
 }

@@ -1,32 +1,42 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:16
+ * @LastEditTime: 2019-08-28 12:05:42
+ * @LastEditors: Please set LastEditors
+ */
 import { Item } from './item';
 
 export class Order {
-    id: string;
-    status: string;
+    id?: string;
+    status?: string;
     orderItems: Item[];
     comment: string;
     billing: {
-        username: string;
+        firstname: string;
+        lastname: string;
         email: string;
         phone: string;
         areacode: number;
+        oldAddress?: number;
+    };
+    address: {
         building: string;
         street: string;
         district: string;
-        region: string
-    };
+        city: string
+    }
     delivery: {
         deliveryMethod: string;
-        status: string;
-        date: string;
+        deliveryStatus?: string;
+        dispatchedDate?: string;
     };
     payment: {
-        status: string;
+        paymentStatus?: string;
         transaction_id: string;
         paymentMethod: string
     };
-    created_at: string;
-    tax: number;
+    tax?: number;
     shipping: number;
     subtotal: number;
     bonus: number;

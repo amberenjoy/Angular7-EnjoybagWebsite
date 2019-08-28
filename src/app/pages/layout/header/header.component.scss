@@ -1,6 +1,7 @@
 $font-stack:'Source Sans Pro',
 sans-serif;
 $primary-color: #333;
+
 @mixin transform($value) {
     -webkit-transform: ($value);
     -moz-transform: ($value);
@@ -18,7 +19,7 @@ $primary-color: #333;
 header {
     font: 100% $font-stack;
     color: $primary-color;
-    box-shadow: 1px 1px 2px 0px #e4e4e4;
+    box-shadow: 0px 1px 1px 0px #eee;
     position: relative;
     z-index: 999;
 }
@@ -35,6 +36,7 @@ header {
     text-align: right;
     position: relative;
     height: 20px;
+
     a {
         color: #fff;
         display: inline-block;
@@ -45,6 +47,7 @@ header {
         left: 0;
         font-size: 14px;
         @include transform(translate(0, -50%));
+
         i {
             font-size: 12px;
         }
@@ -58,13 +61,16 @@ header {
     padding: 0 20px;
     align-items: center;
     position: relative;
+
     a {
         display: inline-block;
         text-align: center;
+
         img {
             width: 140px;
             vertical-align: middle;
         }
+
         &:hover {
             color: crimson;
         }
@@ -74,18 +80,22 @@ header {
 .head-body-left {
     text-align: left;
     width: 50%;
+
     ul {
         display: flex;
         flex-wrap: nowrap;
         line-height: 60px;
+
         li {
             padding: 0 20px 0 0;
             font-size: 14px;
             cursor: pointer;
+
             i {
                 font-size: 10px;
                 @include transition(all 0.3s 0.05s);
             }
+
             &:hover {
                 >a {
                     color: crimson;
@@ -93,9 +103,11 @@ header {
             }
         }
     }
+
     a.active {
         color: crimson;
     }
+
     .drop {
         position: absolute;
         overflow: hidden;
@@ -104,63 +116,76 @@ header {
         margin: 0 auto;
         left: 0;
         visibility: hidden;
+
         div {
             background: #fcfcfc;
-            @include transform(translate(0, -118%));
-            @include transition(all 0.2s 0.05s);
             position: relative;
             display: flex;
             align-items: flex-start;
+            justify-content: space-between;
+            padding: 3em;
             z-index: 1;
+            @include transform(translate(0, -118%));
+            @include transition(all 0.2s 0.05s);
+
             .nav-img {
-                width: 40%;
-                padding: 40px 40px 35px;
+                width: 32%;
                 display: block;
                 text-align: center;
+                padding: 0;
+                margin: 0 2%;
                 line-height: 1;
+
                 img {
                     margin: 0 auto;
                     display: block;
                     width: 100%;
-                    max-width: 495px;
                 }
+
                 a {
                     border-bottom: 1px solid crimson;
                     padding: 10px 0 5px;
                 }
             }
+
             ul {
                 width: 20%;
                 display: block;
                 line-height: 1;
-                padding: 40px 40px 35px;
+
                 li {
                     display: block;
-                    padding-bottom: 20px;
+                    padding-bottom: 1em;
+
                     h4 {
                         text-transform: uppercase;
                         padding-bottom: 5px;
                         border-bottom: 1px solid #ddd;
                         color: #999
                     }
+
+                    a {
+                        text-transform: capitalize;
+                    }
                 }
             }
         }
-        &.close {
-            @include transform(translate(0, -118%));
-        }
     }
+
     @for $i from 1 through 4 {
         li:nth-child(#{$i}) {
             &:hover {
                 color: crimson;
             }
+
             &:hover>div {
                 visibility: visible;
             }
+
             &:hover div>div {
                 @include transform(translate(0, 1px));
             }
+
             &:hover i {
                 @include transform(rotate(180deg));
             }
@@ -173,44 +198,55 @@ header {
     float: right;
     display: flex;
     justify-content: flex-end;
+
     .select-box {
         position: relative;
         display: inline-block;
         padding-left: 10px;
+
         &__current {
             position: relative;
             cursor: pointer;
             outline: none;
             width: 70px;
+
             &:focus {
                 &+.select-box__list {
                     opacity: 1;
                     animation-name: none;
+
                     .select-box__option {
                         cursor: pointer;
                     }
                 }
+
                 i {
+                    top: 3px;
                     @include transform(rotate(180deg));
                     @include transition(all 0.3s 0.05s);
                 }
             }
         }
+
         i {
             position: absolute;
             top: 0;
             right: 5px;
         }
+
         &__value {
             display: flex;
             line-height: 20px;
         }
+
         &__input {
             display: none;
+
             &:checked+.select-box__input-text {
                 display: block;
             }
         }
+
         &__input-text {
             display: none;
             width: 100%;
@@ -218,15 +254,16 @@ header {
             padding: 0 26px 0 5px;
             color: #fff;
         }
+
         &__list {
             position: absolute;
             padding: 1px 0 0 0;
-            background: #333;
+            background: $primary-color;
             color: #fff;
             list-style: none;
             opacity: 0;
             top: 30px;
-            left: 5px;
+            left: 10px;
             width: 70px;
             text-align: center;
             z-index: 4;
@@ -237,18 +274,22 @@ header {
             animation-timing-function: step-start;
             @include transition(all 0.3s 0.05s);
         }
+
         &__option {
             display: block;
-            padding: 5px 0 5px 5px;
+            padding: 5px;
+
             &:hover,
             &:focus {
                 background-color: crimson;
             }
         }
+
         @keyframes HideList {
             from {
                 transform: scaleY(1);
             }
+
             to {
                 transform: scaleY(0);
             }
@@ -260,11 +301,13 @@ header {
     text-align: right;
     width: 50%;
     position: relative;
+
     &>div {
         display: inline-block;
         padding: 0 0 0 20px;
         cursor: pointer;
         @include transition(all 0.3s 0.05s);
+
         &>a {
             color: #999;
             font-size: 18px;
@@ -273,10 +316,12 @@ header {
             padding: 4px 3px 0;
             vertical-align: middle;
         }
+
         &:hover>a,
         .crimson {
             color: crimson;
         }
+
         &:nth-child(2) {
             i {
                 font-size: 22px;
@@ -290,6 +335,12 @@ header {
     position: relative;
 }
 
+.head:hover {
+    .drop-login {
+        box-shadow: 0px 1px 1px 0px #ccc;
+    }
+}
+
 .head-login:hover {
     .drop-login {
         opacity: 1;
@@ -301,13 +352,16 @@ header {
     a {
         position: relative;
     }
+
     i {
         font-size: 14px;
     }
+
     .fa-shopping-bag:before {
         margin-right: 8px;
         font-size: 18px;
     }
+
     span {
         position: absolute;
         top: 10px;
@@ -315,11 +369,13 @@ header {
         color: crimson;
         font-size: .8rem;
     }
+
     .cart-num {
         position: absolute;
         top: 9px;
         right: -7px;
     }
+
     &:hover {
         .drop-login {
             opacity: 1;
@@ -340,13 +396,12 @@ header {
     max-width: 1530px;
     width: 96vw;
     background: #fcfcfc;
-    box-shadow: 0px 1px 1px 1px #ececec;
     z-index: 3;
     text-align: left;
     cursor: auto;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.5s 0.05s;
+    transition: all 0.3s 0.05s;
 }
 
 app-login {
@@ -357,7 +412,6 @@ app-login {
 .drop-cart {
     width: 260px;
     padding: 20px;
-    box-shadow: 0px 1px 1px 1px #ececec;
 }
 
 app-user-cart {

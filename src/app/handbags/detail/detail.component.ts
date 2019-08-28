@@ -1,3 +1,4 @@
+import { DialogComponent } from './../../pages/layout/dialog/dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -76,6 +77,7 @@ export class DetailComponent implements OnInit {
         this.logined = false;
       }
     });
+
   }
 
   getAllInfo(bag) {
@@ -128,7 +130,6 @@ export class DetailComponent implements OnInit {
       stock: bag.StockQty,
       color: bag.color
     };
-    // check user login or not
     this.cartItem.addUserItem(thisBag.sku, this.logined);
   }
 

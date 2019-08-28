@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './../helper/jwt.interceptor';
 import { ErrorInterceptor } from './../helper/error.interceptor';
 import { SharedModule } from '../shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { LandingComponent } from './landing/landing.component';
 import { LandingTcComponent } from './landing-tc/landing-tc.component';
@@ -27,12 +28,11 @@ import { UserLoginComponent } from './layout/user-login/user-login.component';
 import { UserLoginTcComponent } from './layout/user-login-tc/user-login-tc.component';
 import { UserRegisterComponent } from './layout/user-register/user-register.component';
 import { UserRegisterPageComponent } from './user-register-page/user-register-page.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { UserProfileTcComponent } from './user-profile-tc/user-profile-tc.component';
 import { UserRegisterTcComponent } from './layout/user-register-tc/user-register-tc.component';
 import { UserRegisterPageTcComponent } from './user-register-page-tc/user-register-page-tc.component';
 import { FaqComponent } from './faq/faq.component';
 import { FaqTcComponent } from './faq-tc/faq-tc.component';
+import { DialogComponent } from './layout/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,26 +43,27 @@ import { FaqTcComponent } from './faq-tc/faq-tc.component';
     ContactComponent, ContactTcComponent,
     SearchComponent, SearchTcComponent,
     UserCartComponent, UserCartTcComponent,
-    UserProfileComponent, UserProfileTcComponent,
     UserRegisterPageComponent, UserRegisterComponent,
     UserLoginComponent, UserLoginTcComponent,
     UserRegisterTcComponent, UserRegisterPageTcComponent,
-    FaqComponent, FaqTcComponent,
+    FaqComponent, FaqTcComponent, DialogComponent,
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   exports: [
     ContactComponent, ContactTcComponent
   ],
   providers: [
     SharedModule,
-    fakeBackendProvider,
+    // fakeBackendProvider,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  ]
+  ],
+  entryComponents: [DialogComponent],
 })
 export class PagesModule { }

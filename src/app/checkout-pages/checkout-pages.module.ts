@@ -8,9 +8,10 @@ import { CheckoutPagesRoutingModule } from './checkout-pages-routing.module';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
-  declarations: [CartComponent, OrderComponent, CheckoutComponent],
+  declarations: [CartComponent, OrderComponent, CheckoutComponent, IndexComponent],
   imports: [
     CommonModule,
     CheckoutPagesRoutingModule,

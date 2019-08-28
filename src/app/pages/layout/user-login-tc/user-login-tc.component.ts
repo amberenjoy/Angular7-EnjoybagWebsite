@@ -83,7 +83,7 @@ export class UserLoginTcComponent implements OnInit {
             this.router.navigate(['tc/myEnjoybag']);
           } else {
             this.logined = true;
-            this.cartService.findUserCart().subscribe();
+            this.cartService.findUserCart();
             const localCartList = localStorage.getItem('cartList');
             if (localCartList) {
               const cartArray = localCartList.split('-');
@@ -93,7 +93,7 @@ export class UserLoginTcComponent implements OnInit {
                 this.cartService.addUserItem(each, true);
               }
             } else {
-              this.cartService.findUserCart().subscribe();
+              this.cartService.findUserCart();
             }
             this.cartService.getCartQty().subscribe(res => {
               this.cartNum = res;

@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { UserService } from '../../../shared/services/user.service';
-import { User } from '../../../shared/models/user';
 
 @Component({
   selector: 'app-user-register',
@@ -12,11 +11,13 @@ import { User } from '../../../shared/models/user';
 })
 
 export class UserRegisterComponent implements OnInit {
+
   regForm: FormGroup;
   submitted = false;
   loading = false;
-  areacode = '';
   success: boolean;
+  error: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -30,31 +31,22 @@ export class UserRegisterComponent implements OnInit {
       this.router.navigate(['/en/myEnjoybag']);
     }
     this.regForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      region: ['', Validators.required],
-      username: ['', Validators.required],
-      lastname: ['', Validators.required],
-      areacode: [this.areacode, Validators.required],
-      phone: ['', Validators.required],
-      address: this.formBuilder.group({
-        building: [''],
-        street: [''],
-        district: [''],
-        city: ['']
-      }),
-      birthmonth: [''],
-      newsletter: [''],
-      cartlist: [''],
-      lang: ['EN'],
-      istest: ['Y']
+      firstname: [null, Validators.required],
+      lastname: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      region: ['Hong Kong', Validators.required],
+      areacode: [852, Validators.required],
+      phone: [null, Validators.required],
+      birthmonth: [null],
+      newsletter: false
     });
   }
 
   regionChange(entry): void {
-    this.areacode = entry;
-    this.regForm.controls['areacode'.toString()].setValue(this.areacode);
+    this.regForm.controls['areacode'.toString()].setValue(entry);
   }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.regForm.controls;
@@ -68,26 +60,20 @@ export class UserRegisterComponent implements OnInit {
       return;
     }
 
-    if (this.regForm.value['newsletter'.toString()] === true) {
-      this.regForm.value['newsletter'.toString()] = 'Y';
-    } else {
-      this.regForm.value['newsletter'.toString()] = 'N';
-    }
-
     this.loading = true;
     this.userService.register(this.regForm.value)
       .pipe(first())
-      .subscribe(
-        data => {
-          this.loading = false;
-          this.regForm.reset();
-          this.submitted = false;
-          this.success = true;
-          console.log('Registration successful', true);
-        },
-        error => {
-          this.loading = false;
-          this.success = false;
-        });
+      .subscribe(data => {
+        this.loading = false;
+        this.success = true;
+        this.submitted = false;
+        this.regForm.reset();
+        this.regForm.controls['areacode'.toString()].setValue(852);
+        this.regForm.controls['region'.toString()].setValue('Hong Kong');
+      }, error => {
+        this.success = false;
+        this.loading = false;
+        this.error = error;
+      });
   }
 }

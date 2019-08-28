@@ -18,39 +18,7 @@ export class OrderComponent implements OnInit {
   error = false;
   reason = '';
   logined: boolean;
-  order: Order = {
-    id: '',
-    status: '',
-    orderItems: [],
-    comment: '',
-    billing: {
-      username: '',
-      email: '',
-      phone: '',
-      areacode: 0,
-      building: '',
-      street: '',
-      district: '',
-      region: ''
-    },
-    delivery: {
-      deliveryMethod: '',
-      status: '',
-      date: '',
-    },
-    payment: {
-      status: '',
-      paymentMethod: '',
-      transaction_id: ''
-    },
-    created_at: '',
-    tax: 0,
-    shipping: 0,
-    subtotal: 0,
-    bonus: 0,
-    discount: '',
-    total: 0
-  };
+  order: Order;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,38 +39,7 @@ export class OrderComponent implements OnInit {
         this.router.navigate(['/tc/myEnjoybag']);
       }
     });
-    this.route.queryParams.subscribe(query => {
-      if (query.where) {
-        this.orderService.getOrderByGuestId(this.order.id).subscribe(res => {
-          this.order = res;
-          console.log(this.order);
-          this.order.orderItems = res.orderItems;
-          this.loading = false;
-          if (this.order.status === 'Placed Order') {
-            this.title.setTitle('Place your order | Enjoybag HK');
-          } else {
-            this.title.setTitle('Complete your order | Enjoybag HK');
-          }
-        }, error => {
-          this.error = true;
-          this.loading = false;
-        });
-      } else {
-        this.orderService.getOrderById(this.order.id).subscribe(res => {
-          this.order = res;
-          this.order.orderItems = res.orderItems;
-          this.loading = false;
-          if (this.order.status === 'Placed Order') {
-            this.title.setTitle('Place your order | Enjoybag HK');
-          } else {
-            this.title.setTitle('Complete your order | Enjoybag HK');
-          }
-        }, error => {
-          this.error = true;
-          this.loading = false;
-        });
-      }
-    });
+
   }
 
   reasonChange(entry): void {
@@ -110,10 +47,10 @@ export class OrderComponent implements OnInit {
   }
 
   cancelOrder(id) {
-    console.log(this.reason);
     this.orderService.cancelOrder(id, this.reason).subscribe(res => {
       console.log(res);
       this.cancelModal = false;
+      this.router.navigate(['tc/track-order', this.order.id]);
     });
   }
 

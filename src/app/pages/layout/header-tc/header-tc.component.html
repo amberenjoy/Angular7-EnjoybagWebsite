@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-08-12 16:00:11
+ * @LastEditors: Please set LastEditors
+ -->
 <header>
     <div class="head-top">
         <div class="head-top-body">
@@ -10,45 +17,54 @@
                             <p class="select-box__input-text ">EN</p>
                         </div>
                         <div class="select-box__value ">
-                            <input class="select-box__input " type="radio" id="TC" value="TC" name="language " checked />
+                            <input class="select-box__input " type="radio" id="TC" value="TC" name="language "
+                                checked />
                             <p class="select-box__input-text ">中­</p>
                         </div>
                         <i class="fa fa-chevron-down " aria-hidden="true "></i>
                     </div>
                     <ul class="select-box__list ">
                         <li>
-                            <label class="select-box__option " for="EN" aria-hidden="aria-hidden " (click)="changeLanguage('en')">EN</label>
+                            <label class="select-box__option " for="EN" aria-hidden="aria-hidden "
+                                (click)="changeLanguage('en')">EN</label>
                         </li>
                         <li>
-                            <label class="select-box__option " for="TC" aria-hidden="aria-hidden " (click)="changeLanguage('tc')">中­­</label>
+                            <label class="select-box__option " for="TC" aria-hidden="aria-hidden "
+                                (click)="changeLanguage('tc')">中­­</label>
                         </li>
                     </ul>
                 </div>
                 <div class="select-box ">
                     <div class="select-box__current" tabindex="0">
                         <div class="select-box__value ">
-                            <input class="select-box__input select-box__currency " type="radio" id="HKD" value="HKD" name="currency" [checked]="userCurrency === 'HKD' ? true : false" />
+                            <input class="select-box__input select-box__currency " type="radio" id="HKD" value="HKD"
+                                name="currency" [checked]="userCurrency === 'HKD' ? true : false" />
                             <p class="select-box__input-text">HKD</p>
                         </div>
                         <div class="select-box__value">
-                            <input class="select-box__input  select-box__currency " type="radio" id="RMB" value="RMB" name="currency" [checked]="userCurrency === 'RMB' ? true : false" />
+                            <input class="select-box__input  select-box__currency " type="radio" id="RMB" value="RMB"
+                                name="currency" [checked]="userCurrency === 'RMB' ? true : false" />
                             <p class="select-box__input-text">RMB</p>
                         </div>
                         <div class="select-box__value">
-                            <input class="select-box__input  select-box__currency " type="radio" id="USD" value="USD" name="currency" [checked]="userCurrency === 'USD' ? true : false" />
+                            <input class="select-box__input  select-box__currency " type="radio" id="USD" value="USD"
+                                name="currency" [checked]="userCurrency === 'USD' ? true : false" />
                             <p class="select-box__input-text">USD</p>
                         </div>
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </div>
                     <ul class="select-box__list ">
                         <li>
-                            <label class="select-box__option " for="HKD" aria-hidden="aria-hidden " (click)="changeCurrency('HKD')">HKD</label>
+                            <label class="select-box__option " for="HKD" aria-hidden="aria-hidden "
+                                (click)="changeCurrency('HKD')">HKD</label>
                         </li>
                         <li>
-                            <label class="select-box__option " for="RMB" aria-hidden="aria-hidden " (click)="changeCurrency('RMB')">RMB</label>
+                            <label class="select-box__option " for="RMB" aria-hidden="aria-hidden "
+                                (click)="changeCurrency('RMB')">RMB</label>
                         </li>
                         <li>
-                            <label class="select-box__option " for="USD" aria-hidden="aria-hidden " (click)="changeCurrency('USD')">USD</label>
+                            <label class="select-box__option " for="USD" aria-hidden="aria-hidden "
+                                (click)="changeCurrency('USD')">USD</label>
                         </li>
                     </ul>
                 </div>
@@ -56,71 +72,73 @@
 
         </div>
     </div>
+
     <div [ngClass]="{'fixed-top': fixed}">
         <div class="head-body">
             <nav class="head-body-left ">
                 <ul>
                     <li><a [routerLink]="[ 'products/new/all' ]" routerLinkActive="active">新品</a>
                     </li>
-                    <li><a [ngClass]="{'active': navActive}" [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">女裝<i class="fa fa-chevron-down " aria-hidden="true "></i></a>
+                    <li><a [ngClass]="{'active': navActive}" [routerLink]="[ 'products/women/all' ]"
+                            routerLinkActive="active">女裝 <i class="fa fa-chevron-down " aria-hidden="true "></i></a>
                         <div class="drop">
                             <div>
                                 <ul>
                                     <li>
-                                        <h4>類別</h4>
+                                        <h4>类别</h4>
                                     </li>
-                                    <li><a [routerLink]="[ 'products/women/top handle' ]" routerLinkActive="active">單手柄袋</a> </li>
-                                    <li><a [routerLink]="[ 'products/women/crossbody bag' ]" routerLinkActive="active">斜背袋</a>
-                                    </li>
-                                    <li><a [routerLink]="[ 'products/women/tote bag' ]" routerLinkActive="active">手挽袋</a></li>
-                                    <li><a [routerLink]="[ 'products/women/clutch' ]" routerLinkActive="active">手拿包</a></li>
-                                    <li><a [routerLink]="[ 'products/women/bucket bags' ]" routerLinkActive="active">水桶袋</a></li>
-                                    <li><a [routerLink]="[ 'products/women/backpack' ]" routerLinkActive="active">背包</a></li>
-                                    <li><a [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">全部</a></li>
+                                    <li *ngFor="let category of categories"><a
+                                            [routerLink]="[ 'products/women/'+ category.name  ]"
+                                            routerLinkActive="active">{{category.chineseName}}</a> </li>
+                                    <li><a [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">女装</a></li>
                                 </ul>
                                 <ul>
                                     <li>
                                         <h4>系列</h4>
                                     </li>
-                                    <li><a [routerLink]="[ 'products/collections/ZHU' ]" routerLinkActive="active">ZHU 系列</a>
+                                    <li><a [routerLink]="[ 'products/collections/ZHU' ]" routerLinkActive="active">ZHU
+                                            系列</a>
                                     </li>
-                                    <li><a [routerLink]="[ 'products/collections/EJ' ]" routerLinkActive="active">EJ 系列</a> </li>
+                                    <li><a [routerLink]="[ 'products/collections/EJ' ]" routerLinkActive="active">EJ
+                                            系列</a> </li>
                                     <li><a [routerLink]="[ 'products/new/all' ]">新品</a> </li>
-                                    <li><a [routerLink]="[ 'products/sale/all' ]">打折區</a> </li>
+                                    <li><a [routerLink]="[ 'products/sale/all' ]">打折区</a> </li>
                                 </ul>
                                 <div class="nav-img ">
                                     <img src="../../../assets/images/bucket.jpg " alt=" ">
-                                    <a [routerLink]="[ 'products/collections/EJ' ]" routerLinkActive="active">EJ 系列</a>
+                                    <a [routerLink]="[ 'products/collections/EJ' ]" routerLinkActive="active">EJ
+                                        系列</a>
                                 </div>
                                 <div class="nav-img ">
                                     <img src="../../../assets/images/tote.jpg" alt=" ">
-                                    <a [routerLink]="[ 'products/collections/ZHU' ]" routerLinkActive="active">ZHU 系列</a>
+                                    <a [routerLink]="[ 'products/collections/ZHU' ]" routerLinkActive="active">ZHU
+                                        系列</a>
                                 </div>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <a [routerLink]="[ 'products/men/all']" routerLinkActive="active">男裝</a>
+                        <a [routerLink]="[ 'products/men/all']" routerLinkActive="active">男装</a>
                     </li>
-                    <li><a [ngClass]="{'active': navActiveAcce}" [routerLink]="[ 'products/accessories/all' ]" routerLinkActive="active">銀包配飾 <i class="fa fa-chevron-down " aria-hidden="true "></i></a>
+                    <li><a [ngClass]="{'active': navActiveAcce}" [routerLink]="[ 'products/accessories/all' ]"
+                            routerLinkActive="active">饰物 <i class="fa fa-chevron-down " aria-hidden="true "></i></a>
                         <div class="drop">
                             <div>
                                 <ul>
                                     <li>
-                                        <h4>類別</h4>
+                                        <h4>类别</h4>
                                     </li>
-                                    <li><a [routerLink]="[ 'products/accessories/chain wallet']" routerLinkActive="active">鏈條包</a></li>
-                                    <li><a [routerLink]="[ 'products/accessories/wallet']" routerLinkActive="active">錢包</a></li>
-                                    <li><a [routerLink]="[ 'products/accessories/cosmetic bag']" routerLinkActive="active">化妝包</a></li>
-                                    <li><a [routerLink]="[ 'products/accessories/cardholder']" routerLinkActive="active">卡片套</a></li>
-                                    <li><a [routerLink]="[ 'products/accessories/belt']" routerLinkActive="active">腰帶</a></li>
-                                    <li><a [routerLink]="[ 'products/accessories/bracelet']" routerLinkActive="active">手鏈</a></li>
-                                    <li><a [routerLink]="[ 'products/accessories/charm']" routerLinkActive="active">小件</a> </li>
-                                    <li><a [routerLink]="[ 'products/accessories/all']" routerLinkActive="active">全部</a></li>
+                                    <li *ngFor="let slg of categoriesSLG">
+                                        <a [routerLink]="[ 'products/accessories/'+ slg.name ]"
+                                            routerLinkActive="active">{{slg.chineseName}}</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="[ 'products/accessories/all']" routerLinkActive="active">饰物</a>
+                                    </li>
                                 </ul>
                                 <div class="nav-img ">
                                     <img src="../../../assets/images/header-men.jpg " alt=" ">
-                                    <a [routerLink]="[ 'products/men']" routerLinkActive="active">禮贈與他</a>
+                                    <a [routerLink]="[ 'products/men']" routerLinkActive="active">礼赠所爱</a>
                                 </div>
                                 <div class="nav-img ">
                                     <img src="../../../assets/images/header-new.jpg " alt=" ">
@@ -130,27 +148,30 @@
                         </div>
                     </li>
                     <li>
-                        <a [routerLink]="[ 'products/discount/all']" routerLinkActive="active">打折區</a>
+                        <a [routerLink]="[ 'products/discount/all']" routerLinkActive="active">打折区</a>
                     </li>
                 </ul>
             </nav>
             <a [routerLink]="[ 'home' ]"><img src="assets/images/logo.png" alt=" "></a>
             <div class="head-body-right ">
                 <div class="head head-search ">
-                    <app-search-tc></app-search-tc>
+                    <app-search></app-search>
                 </div>
                 <div class="head head-login">
-                    <a [routerLink]="[ '/tc/register']" *ngIf="!logined"> <i class="fa fa-user" aria-hidden="true"></i></a>
-                    <a [routerLink]="[ '/tc/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}"> <i class="fa fa-user" aria-hidden="true"></i></a>
+                    <a [routerLink]="[ '/en/register']" *ngIf="!logined"> <i class="fa fa-user"
+                            aria-hidden="true"></i></a>
+                    <a [routerLink]="[ '/en/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}"> <i
+                            class="fa fa-user" aria-hidden="true"></i></a>
                     <div class="drop-login">
-                        <app-user-login-tc></app-user-login-tc>
+                        <app-user-login></app-user-login>
                     </div>
                 </div>
-                <div class=" head head-cart">
-                    <a id="cartIcon" [ngClass]="{'crimson': cartNum>0}"><i class="fa fa-shopping-bag" aria-hidden="true"></i>
-            <span id="cartNum" *ngIf="cartNum>0">{{cartNum}}</span></a>
+                <div class="head head-cart">
+                    <a id="cartIcon" [ngClass]="{'crimson': cartNum>0}"><i class="fa fa-shopping-bag"
+                            aria-hidden="true"></i>
+                        <span id="cartNum" *ngIf="cartNum>0">{{cartNum}}</span></a>
                     <div class="drop-login drop-cart" id="cartInfo">
-                        <app-user-cart-tc></app-user-cart-tc>
+                        <app-user-cart></app-user-cart>
                     </div>
                 </div>
             </div>

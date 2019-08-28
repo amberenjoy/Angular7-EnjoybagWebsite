@@ -4,6 +4,8 @@ import { CartItemService } from '../../../shared/services/cart-item.service';
 import { Item } from '../../../shared/models/item';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
+import { CategoriesService } from '../../../shared/services/categories.service';
+import { Category } from '../../../shared/models/category';
 
 @Component({
   selector: 'app-header',
@@ -21,18 +23,35 @@ export class HeaderComponent implements OnInit {
   items: Item[] = [];
   navActive = false;
   navActiveAcce = false;
+  categories: Category[];
+  categoriesSLG: Category[];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
-    private cartService: CartItemService
+    private cartService: CartItemService,
+    private categoriesService: CategoriesService
   ) { }
 
   ngOnInit() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+
+    // get women nav category
+    this.categoriesService.getCategories().subscribe(res => {
+      this.categories = res;
+      this.categories.forEach(element => {
+        element.name = element.name.toLowerCase();
+      });
+    });
+    this.categoriesService.getSLGCategories().subscribe(res => {
+      this.categoriesSLG = res;
+      this.categoriesSLG.forEach(element => {
+        element.name = element.name.toLowerCase();
+      });
+    });
     // get language
     this.userLanguage = localStorage.getItem('language') || '';
     if (!this.userLanguage) {

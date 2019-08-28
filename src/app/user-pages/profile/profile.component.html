@@ -1,0 +1,75 @@
+<div class="container ">
+  <form *ngIf="profileForm" [formGroup]="profileForm">
+    <fieldset>
+      <div class="flex">
+        <div class="half">
+          <label> First Name</label>
+          <input type="text" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}" formControlName="firstname">
+        </div>
+        <div class="half">
+          <label> Last Name</label>
+          <input type="text" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}" formControlName="lastname">
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="forms_field">
+        <label> Email </label>
+        <input type="text" formControlName="email" [readonly]="true" class="read" />
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="flex">
+        <div class="half">
+          <div class="forms_field forms_mobile">
+            <label> Mobile </label>
+            <div class="flex">
+              <input type="text" pattern="[0-9]+" formControlName="areacode" class="short" [readonly]="!changeInput"
+                [ngClass]="{'read': !changeInput}">
+              <input type="text" pattern="[0-9]+" formControlName="phone" [readonly]="!changeInput"
+                [ngClass]="{'read': !changeInput}">
+            </div>
+            <div>
+              <div *ngIf="f.areacode.errors " class="invalid_feedback ">
+                <div *ngIf=" f.areacode.errors.required"> Area code is required. </div>
+                <div *ngIf="f.areacode.errors.pattern"> Area code is incorrect. </div>
+              </div>
+              <div *ngIf="f.phone.errors" class="invalid_feedback ">
+                <div *ngIf="f.phone.errors.required"> Phone number is required </div>
+                <div *ngIf="f.phone.errors.pattern"> Phone number is incorrect </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="half">
+          <div class="forms_field forms_month">
+            <label> Birth Month </label>
+            <div class="flex">
+              <input type="text" pattern="^(0?[1-9]|1[012])$" formControlName="birthmonth" class="short"
+                [readonly]="!changeInput" [ngClass]="{'read': !changeInput}"
+                [ngClass]="{ 'is-invalid': f.birthmonth.errors }" />
+              <span>Enjoy special discount during birthday month.</span>
+              <div *ngIf="f.birthmonth.errors" class="invalid_feedback">
+                <div *ngIf="f.birthmonth.errors.pattern">Please input correct birthmonth</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="forms_field">
+        <input class="styled-checkbox" id="edm" type="checkbox" disabled formControlName="newsletter">
+        <label for="edm">
+          Subscribe our newsletter to be the first to hear about exclusive offers.
+        </label>
+      </div>
+    </fieldset>
+    <div class="text-center">
+      <button class="nextBtn" (click)="changeInfo()" [hidden]="changeInput">Update Information</button>
+      <button class="nextBtn" (click)="saveInfo()" [hidden]="!changeInput">Save Changes</button>
+      <button class="nextBtn cancel" (click)="cancelUpdate()" [hidden]="!changeInput">Cancel</button>
+    </div>
+    <p class="text-center ">{{message}}</p>
+  </form>
+</div>

@@ -49,7 +49,6 @@ export class BaglistService {
     const bagDetailfake = 'assets/data/333840056219.xml';
     return this.http.get(bagDetailfake, { headers, responseType: 'text' }).pipe(
       map(res => {
-        console.log(res);
         const parser = new DOMParser();
         const xml = parser.parseFromString(res, 'text/xml');
         const obj = this.ngxXml2jsonService.xmlToJson(xml);

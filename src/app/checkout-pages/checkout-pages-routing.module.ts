@@ -5,21 +5,28 @@ import { OrderComponent } from './order/order.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutEnterGuard } from '../shared/services/checkout-enter.guard';
 import { CheckoutUnPlaceOrderGuard } from '../shared/services/checkout-un-place-order.guard';
+import { IndexComponent } from './index/index.component';
 
 const routes: Routes = [
   {
-    path: 'step-1/mycart',
-    component: CartComponent,
-  },
-  {
-    path: 'step-2',
-    component: CheckoutComponent,
-    canActivate: [CheckoutEnterGuard],
-    canDeactivate: [CheckoutUnPlaceOrderGuard]
-  },
-  {
-    path: 'track-order/:id',
-    component: OrderComponent,
+    path: '',
+    component: IndexComponent,
+    children: [
+      {
+        path: 'shopping-bag',
+        component: CartComponent
+      },
+      {
+        path: 'shipping-payment',
+        component: CheckoutComponent,
+        canActivate: [CheckoutEnterGuard],
+        canDeactivate: [CheckoutUnPlaceOrderGuard]
+      },
+      {
+        path: 'track-order/:id',
+        component: OrderComponent,
+      }
+    ]
   }
 ];
 

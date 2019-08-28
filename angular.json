@@ -32,6 +32,30 @@
             "scripts": []
           },
           "configurations": {
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -61,11 +85,16 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo:build"
+            "browserTarget": "demo:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
               "browserTarget": "demo:build:production"
+            },
+            "test": {
+              "browserTarget": "demo:build:test",
+              "proxyConfig": "src/proxy.conf.json"
             }
           }
         },
@@ -118,6 +147,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "demo"
 }

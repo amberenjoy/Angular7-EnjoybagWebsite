@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-08-28 15:02:48
+ * @LastEditors: Please set LastEditors
+ */
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../shared/services/order.service';
 import { Title } from '@angular/platform-browser';
 import { Order } from '../../shared/models/order';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, OnDestroy {
   cancelModal = false;
   userCurrency: string;
   loading = true;
@@ -18,38 +27,43 @@ export class OrderComponent implements OnInit {
   reason = '';
   logined: boolean;
   order: Order = {
-    id: '',
-    status: '',
+    id: null,
+    status: null,
     orderItems: [],
-    comment: '',
+    comment: null,
     billing: {
-      username: '',
-      email: '',
-      phone: '',
-      areacode: 0,
-      building: '',
-      street: '',
-      district: '',
-      region: ''
+      firstname: null,
+      lastname: null,
+      email: null,
+      phone: null,
+      areacode: null,
+      oldAddress: null
+    },
+    address: {
+      building: null,
+      street: null,
+      district: null,
+      city: null
     },
     delivery: {
-      deliveryMethod: '',
-      status: '',
-      date: '',
+      deliveryMethod: null,
+      deliveryStatus: null,
+      dispatchedDate: null,
     },
     payment: {
-      status: '',
-      paymentMethod: '',
-      transaction_id: ''
+      paymentStatus: null,
+      transaction_id: null,
+      paymentMethod: null
     },
-    created_at: '',
-    tax: 0,
-    shipping: 0,
-    subtotal: 0,
-    bonus: 0,
-    discount: '',
-    total: 0
+    tax: null,
+    shipping: null,
+    subtotal: null,
+    bonus: null,
+    discount: null,
+    total: null
   };
+  orderId: string;
+  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,48 +74,42 @@ export class OrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('Complete your order | Enjoybag HK');
     this.userCurrency = localStorage.getItem('currency') || 'HKD';
-    this.order.id = this.route.snapshot.paramMap.get('id');
-    this.authenticationService.currentUser.subscribe(user => {
+
+    this.router.routeReuseStrategy.shouldReuseRoute = (() => {
+      return false;
+    });
+
+    this.orderId = this.route.snapshot.paramMap.get('id');
+    this.subscription = this.authenticationService.currentUser.subscribe(user => {
       if (user) {
         this.logined = true;
+        this.orderService.getUserOrderById(this.orderId).subscribe(res => {
+          this.order = res;
+          this.order.orderItems = res.orderItems;
+          this.loading = false;
+        }, error => {
+          this.error = true;
+          this.loading = false;
+        });
       } else {
         this.logined = false;
-        this.router.navigate(['/en/myEnjoybag']);
-      }
-    });
-    this.route.queryParams.subscribe(query => {
-      if (query.where) {
-        this.orderService.getOrderByGuestId(this.order.id).subscribe(res => {
-          this.order = res;
-          console.log(this.order);
-          this.order.orderItems = res.orderItems;
-          this.loading = false;
-          if (this.order.status === 'Placed Order') {
-            this.title.setTitle('Place your order | Enjoybag HK');
-          } else {
-            this.title.setTitle('Complete your order | Enjoybag HK');
-          }
-        }, error => {
-          this.error = true;
-          this.loading = false;
-        });
-      } else {
-        this.orderService.getOrderById(this.order.id).subscribe(res => {
+        this.orderService.getGuestOrderById(this.orderId).subscribe(res => {
           this.order = res;
           this.order.orderItems = res.orderItems;
           this.loading = false;
-          if (this.order.status === 'Placed Order') {
-            this.title.setTitle('Place your order | Enjoybag HK');
-          } else {
-            this.title.setTitle('Complete your order | Enjoybag HK');
-          }
         }, error => {
           this.error = true;
           this.loading = false;
         });
       }
     });
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 
   reasonChange(entry): void {
@@ -109,11 +117,17 @@ export class OrderComponent implements OnInit {
   }
 
   cancelOrder(id) {
-    console.log(this.reason);
-    this.orderService.cancelOrder(id, this.reason).subscribe(res => {
-      console.log(res);
-      this.cancelModal = false;
-    });
+    if (this.logined) {
+      this.orderService.cancelOrder(id, this.reason).subscribe(res => {
+        this.cancelModal = false;
+        this.router.navigate(['en/checkout/track-order', this.order.id], { queryParams: { action: 'canceled' } });
+      });
+    } else {
+      this.orderService.cancelGuestOrder(id, this.reason).subscribe(res => {
+        this.cancelModal = false;
+        this.router.navigate(['en/checkout/track-order', this.order.id], { queryParams: { action: 'canceled' } });
+      });
+    }
   }
 
   printInvoice() {
@@ -124,7 +138,5 @@ export class OrderComponent implements OnInit {
     });
     // WindowPrt.print();
     // WindowPrt.close();
-    // this.router.navigate(['en/print-invoice', this.order.id]);
-    // this.router.navigate([{ outlets: { invoice: null } }]);
   }
 }

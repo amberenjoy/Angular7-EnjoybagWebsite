@@ -4,6 +4,7 @@ li {
 
 nav {
     padding: 10px 1px;
+
     a {
         display: inline-block;
         padding: 5px 0 1px;
@@ -12,15 +13,18 @@ nav {
         font-size: .75rem;
         text-transform: uppercase;
         position: relative;
+
         &:hover {
             color: crimson;
         }
+
         &::after {
             content: '/';
             position: absolute;
             right: -13px;
         }
     }
+
     span {
         display: inline-block;
         padding: 5px 0 2px;
@@ -36,8 +40,9 @@ nav {
     height: 400px;
     text-align: center;
     position: relative;
-    background: url(../../../assets/images/20181101/banner.jpg) 0% 50%;
+    background: url(../../../assets/images/men-banner.jpg) 0% 50%;
     background-size: 100%;
+
     h2 {
         font-size: 60px;
         position: absolute;
@@ -66,15 +71,18 @@ nav {
     vertical-align: top;
     padding: 31px 20px 31px 0;
     max-width: 220px;
+
     h4 {
         padding: 10px 15px;
         border-bottom: 1px solid #ccc;
         text-transform: uppercase;
         background: rgba(218, 218, 218, 0.23);
+
         &:first-child {
             border-top: 1px solid rgb(228, 228, 228);
         }
     }
+
     ul {
         li {
             border-bottom: 1px solid rgb(228, 228, 228);
@@ -83,6 +91,7 @@ nav {
             font: 14px sans-serif;
         }
     }
+
     a:hover,
     a.active {
         color: crimson;

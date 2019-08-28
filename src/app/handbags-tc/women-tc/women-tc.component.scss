@@ -1,5 +1,6 @@
 nav {
     padding: 10px 1px;
+
     a {
         display: inline-block;
         padding: 5px 0 1px;
@@ -8,15 +9,18 @@ nav {
         font-size: .75rem;
         text-transform: uppercase;
         position: relative;
+
         &:hover {
             color: crimson;
         }
+
         &::after {
             content: '/';
             position: absolute;
             right: -13px;
         }
     }
+
     span {
         display: inline-block;
         padding: 5px 0 2px;
@@ -32,6 +36,7 @@ nav {
     height: 400px;
     text-align: center;
     position: relative;
+
     h2 {
         font-size: 2rem;
         position: absolute;
@@ -43,36 +48,43 @@ nav {
         text-transform: uppercase;
         font-family: 'Josefin Sans', sans-serif;
     }
+
     &-all {
-        background: url(../../../assets/images/20181101/cradle-2.jpg) 100% 70% no-repeat;
+        background: url(../../../assets/images/cradle-2.jpg) 100% 70% no-repeat;
         background-size: contain;
         background-color: #fff7f9;
     }
+
     &-cross {
         background: url(../../../assets/images/cross.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #fffaf5;
     }
+
     &-top {
         background: url(../../../assets/images/top.jpg) 100% 32% no-repeat;
         background-size: contain;
         background-color: #f9f9f9;
     }
+
     &-tote {
         background: url(../../../assets/images/tote.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #fffcf7;
     }
+
     &-clutch {
         background: url(../../../assets/images/clutch.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #f9f9f9;
     }
+
     &-bucket {
         background: url(../../../assets/images/bucket.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #f6f7f9;
     }
+
     &-backpack {
         background: url(../../../assets/images/backpack.jpg) 100% 50% no-repeat;
         background-size: contain;
@@ -96,13 +108,16 @@ nav {
     max-width: 220px;
     height: max-content;
     transition: all .05s ease;
+
     h4 {
         padding: 10px 15px;
         text-transform: uppercase;
         background: rgba(218, 218, 218, 0.23);
     }
+
     ul {
         margin-bottom: 30px;
+
         li {
             border-bottom: 1px solid rgb(228, 228, 228);
             padding: 10px 15px;
@@ -110,6 +125,7 @@ nav {
             font: 14px sans-serif;
         }
     }
+
     a:hover,
     a.active {
         color: crimson;

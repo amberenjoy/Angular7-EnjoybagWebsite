@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { CartItemService } from '../../shared/services/cart-item.service';
 import { CheckoutService } from '../../shared/services/checkout.service';
+import { UserService } from './../../shared/services/user.service';
 import { User } from './../../shared/models/user';
 import { Order } from '../../shared/models/order';
 import { Item } from '../../shared/models/item';
@@ -31,42 +32,11 @@ export class CheckoutComponent implements OnInit {
     message: string
   };
   user: User;
+  id: string;
   delivery: number;
   logined: boolean;
   items: Item[] = [];
-  order: Order = {
-    id: '',
-    status: '',
-    orderItems: [],
-    comment: '',
-    billing: {
-      username: '',
-      email: '',
-      phone: '',
-      areacode: 0,
-      building: '',
-      street: '',
-      district: '',
-      region: ''
-    },
-    delivery: {
-      deliveryMethod: '',
-      status: '',
-      date: ''
-    },
-    payment: {
-      status: 'Unpaid',
-      paymentMethod: '',
-      transaction_id: ''
-    },
-    created_at: '',
-    tax: 0,
-    shipping: 0,
-    bonus: 0,
-    discount: '',
-    subtotal: 0,
-    total: 0
-  };
+  order: Order;
 
   constructor(
     private router: Router,
@@ -75,6 +45,7 @@ export class CheckoutComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cartService: CartItemService,
     private authenticationService: AuthenticationService,
+    private userService: UserService,
     private checkoutService: CheckoutService,
   ) { }
 
@@ -108,7 +79,7 @@ export class CheckoutComponent implements OnInit {
     this.order.subtotal = this.cartTotal.subtotal;
     this.order.bonus = this.cartTotal.bonus;
     this.order.discount = this.cartTotal.discount;
-    this.cartService.findUserCart().subscribe(res => {
+    this.cartService.getUserCart().subscribe(res => {
       this.items = res;
     });
     this.authenticationService.currentUser.subscribe(user => {
@@ -116,21 +87,13 @@ export class CheckoutComponent implements OnInit {
         this.logined = true;
       } else {
         this.logined = false;
-        this.router.navigate(['/tc/register']);
+        this.router.navigate(['/en/register']);
       }
     });
-    this.checkoutService.getShipping().subscribe(
-      res => {
-        this.user = res.data;
-        this.initUserShipForm();
-        if (res.anonymousId) {
-          this.router.navigate([], { queryParams: { where: res.anonymousId } });
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.userService.getUserInfo().subscribe(res => {
+      this.user = res;
+      this.initUserShipForm();
+    });
   }
   canDeactivate() {
     localStorage.removeItem('cartToShipping');
@@ -146,18 +109,18 @@ export class CheckoutComponent implements OnInit {
         transaction_id: ''
       }),
       billing: this.formBuilder.group({
-        username: [this.user.username, [Validators.required]],
+        firstname: [this.user.firstname, [Validators.required]],
         lastname: [this.user.lastname],
         email: [this.user.email, [Validators.required, Validators.email]],
         areacode: [this.user.areacode, [Validators.required]],
         phone: [this.user.phone, [Validators.required]],
         region: [this.user.region],
-        building: [this.user.address['building'.toString()]],
-        street: [this.user.address['street'.toString()]],
-        district: [this.user.address['district'.toString()]],
-        city: [this.user.address['city'.toString()]],
+        building: [null],
+        street: [null],
+        district: [null],
+        city: [null],
       }),
-      comment: ['']
+      comment: [null]
     });
   }
 
@@ -264,7 +227,7 @@ export class CheckoutComponent implements OnInit {
               this.paymentMessage.status = 'Payment Success! ';
               this.paymentMessage.message = ' Transaction completed by' + details.payer.name.given_name + ' - Transaction ID:' + data.orderID;
               this.order.payment.transaction_id = data.orderID;
-              this.order.payment.status = 'Paid';
+              this.order.payment.paymentStatus = 'Paid';
             });
           },
           onError: (err) => {
@@ -298,21 +261,20 @@ export class CheckoutComponent implements OnInit {
     this.order.delivery = this.shipForm.value.delivery;
     this.order.shipping = this.delivery;
     this.order.total = this.orderTotal();
-    this.order.created_at = new Date().toLocaleDateString();
     this.order.orderItems = this.items;
+    console.log(this.order);
     if (this.logined) {
-      this.checkoutService.placeOrder(this.order).subscribe(data => {
+      this.checkoutService.placeOrder(this.order).subscribe(res => {
         this.cartService.completeOrder();
+        this.order.id = res.id;
         localStorage.removeItem('cartToShipping');
-        this.router.navigate(['tc/checkout/track-order', data.orderID]);
+        this.router.navigate(['tc/checkout/track-order', res.id]);
       });
     } else {
       this.checkoutService.placeOrder(this.order).subscribe(res => {
         localStorage.removeItem('cartList');
         localStorage.removeItem('cartToShipping');
-        this.router.navigate(['tc/checkout/track-order', res.data.orderID],
-          { queryParams: { where: res.anonymousId } }
-        );
+        this.router.navigate(['tc/checkout/track-order', res.id]);
       });
     }
   }

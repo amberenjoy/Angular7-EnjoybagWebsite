@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-08-12 12:53:45
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,6 +29,7 @@ export class UserLoginComponent implements OnInit {
   failed = false;
   user: User;
   cartNum: number;
+  error: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,9 +60,10 @@ export class UserLoginComponent implements OnInit {
     });
 
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'.toString()];
   }
   // convenience getter for easy access to form fields
@@ -72,36 +81,41 @@ export class UserLoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
           this.user = data;
-          if (this.route.routeConfig.path === 'register' || this.router.url.split('/')[2] === 'register') {
+
+          // check where user login
+          if (this.returnUrl) {
+            console.log(this.returnUrl);
+            this.router.navigate([this.returnUrl]);
+          } else if (this.route.routeConfig.path === 'register' || this.router.url.split('/')[2] === 'register') {
             this.router.navigate(['/en/myEnjoybag']);
           } else {
             this.logined = true;
-            this.cartService.findUserCart().subscribe();
-            const localCartList = localStorage.getItem('cartList');
-            if (localCartList) {
-              const cartArray = localCartList.split('-');
-              cartArray.shift();
-              localStorage.removeItem('cartList');
-              for (const each of cartArray) {
-                this.cartService.addUserItem(each, true);
-              }
-            } else {
-              this.cartService.findUserCart().subscribe();
-            }
-            this.cartService.getCartQty().subscribe(res => {
-              this.cartNum = res;
-            });
           }
+
+          this.cartService.findUserCart();
+          const localCartList = localStorage.getItem('cartList');
+          if (localCartList) {
+            const cartArray = localCartList.split('-');
+            cartArray.shift();
+            localStorage.removeItem('cartList');
+            for (const each of cartArray) {
+              this.cartService.addUserItem(each, true);
+            }
+          }
+
+          this.cartService.getCartQty().subscribe(res => {
+            this.cartNum = res;
+          });
         },
         error => {
           this.loading = false;
           this.failed = true;
-          console.log(error);
+          this.error = error;
         }
       );
   }
