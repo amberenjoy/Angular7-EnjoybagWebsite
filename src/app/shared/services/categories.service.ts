@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-22 10:57:11
+ * @LastEditTime: 2019-08-30 12:48:30
+ * @LastEditors: Please set LastEditors
+ */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -33,9 +40,7 @@ export class CategoriesService {
 
   constructor(
     private http: HttpClient
-  ) {
-
-  }
+  ) { }
 
   getBagCategories(className) {
     let headers: HttpHeaders = new HttpHeaders();

@@ -1,5 +1,13 @@
+/*
+* @Description: In User Settings Edit
+* @Author: your name
+* @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-08-30 16:22:03
+ * @LastEditors: Please set LastEditors
+*/
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from './../../../shared/services/user.service';
 
 @Component({
   selector: 'app-contact',
@@ -8,28 +16,29 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;
-  contactName: FormControl;
-  contactEmail: FormControl;
-  contactInfo: FormControl;
-  constructor() {
-  }
-  createFormControls() {
-    this.contactName = new FormControl('', Validators.required);
-    this.contactEmail = new FormControl('', [
-      Validators.required,
-      Validators.pattern('[^ @]*@[^ @]*')
-    ]);
-    this.contactInfo = new FormControl('', Validators.required);
-  }
-  createForm() {
-    this.contactForm = new FormGroup({
-      contactName: this.contactName,
-      contactEmail: this.contactEmail,
-      contactInfo: this.contactInfo
+  message: string;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+  ) { }
+
+  ngOnInit() {
+    this.contactForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      comments: ['', Validators.required]
     });
   }
-  ngOnInit() {
-    this.createFormControls();
-    this.createForm();
+
+  sendComment() {
+    if (this.contactForm.value.invalid) {
+      return;
+    }
+    this.userService.sendComment(this.contactForm.value).subscribe(res => {
+      console.log(res);
+      this.message = res.message;
+    });
   }
+
 }

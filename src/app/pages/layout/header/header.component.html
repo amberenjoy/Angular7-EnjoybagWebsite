@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-08-12 10:16:43
+ * @LastEditTime: 2019-08-30 15:43:04
  * @LastEditors: Please set LastEditors
  -->
 <header>
@@ -88,7 +88,7 @@
                                         <h4>Categories</h4>
                                     </li>
                                     <li *ngFor="let category of categories"><a
-                                            [routerLink]="[ 'products/women/'+ category.name  ]"
+                                            [routerLink]="[ 'products/women/'+ category.url  ]"
                                             routerLinkActive="active">{{category.name}}</a> </li>
                                     <li><a [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">View
                                             All</a></li>
@@ -131,7 +131,7 @@
                                         <h4>Categories</h4>
                                     </li>
                                     <li *ngFor="let slg of categoriesSLG">
-                                        <a [routerLink]="[ 'products/accessories/'+ slg.name ]"
+                                        <a [routerLink]="[ 'products/accessories/'+ slg.url ]"
                                             routerLinkActive="active">{{slg.name}}</a>
                                     </li>
                                     <li>

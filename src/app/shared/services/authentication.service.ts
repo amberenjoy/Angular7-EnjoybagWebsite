@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:16
+ * @LastEditTime: 2019-09-04 16:52:27
+ * @LastEditors: Please set LastEditors
+ */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -20,7 +27,7 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   } // NgZone service to remove outside scope warning
 
-  public get currentUserValue(): User {
+  get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
@@ -32,7 +39,6 @@ export class AuthenticationService {
     };
     return this.http.post<any>(`${environment.apiUrl}/users/auth`, { email, password }, httpOptions)
       .pipe(map(thisUser => {
-        console.log(thisUser);
         // login successful if there's a jwt token in the response
         if (thisUser && thisUser.token) {
           // store thisUser details and jwt token in local storage to keep thisUser logged in between page refreshes
@@ -52,5 +58,15 @@ export class AuthenticationService {
         localStorage.removeItem('user');
         this.currentUserSubject.next(null);
       });
+  }
+
+  loginWithFB(accessToken) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.get(`${environment.apiUrl}/auth/facebook`, { headers })
+      .pipe(map(res => {
+        // remove user from local storage to log user out
+        return res;
+      }));
   }
 }

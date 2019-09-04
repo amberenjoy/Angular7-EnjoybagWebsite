@@ -2,14 +2,14 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-08-28 15:18:39
+ * @LastEditTime: 2019-08-30 12:35:21
  * @LastEditors: Please set LastEditors
  -->
 <div class="drop-login drop-cart text-center" *ngIf="items.length===0" id="emptyCart">
     Your bag is empty.
 </div>
 <div class="drop-login drop-cart" *ngIf="items.length!=0" id="bagInfo">
-    <div class="bottom" *ngIf="userLevel!=='Basic'">
+    <div class="bottom" *ngIf="discount>0">
         <p>{{userLevel}} Level Price - {{discount}}% Off</p>
         <hr>
     </div>

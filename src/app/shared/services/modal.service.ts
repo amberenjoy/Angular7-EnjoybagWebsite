@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-08-12 12:58:17
+ * @LastEditTime: 2019-09-03 16:33:23
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -20,11 +20,11 @@ export class ModalService {
     private router: Router
   ) { }
 
-  openInfoModal() {
+  openInfoModal(err) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '400px',
       data: {
-        title: 'Your session has expired.',
+        title: err.error.message || 'Your session has expired.',
         requireLogin: true
       }
     });
@@ -34,12 +34,12 @@ export class ModalService {
       // this.router.navigateByUrl('/en/register');
     });
   }
-  openWarningModal() { }
-  openErrorModal() {
+
+  openErrorModal(err) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '400px',
       data: {
-        title: 'Something went wrong, please try again.',
+        title: err.error.message,
         requireLogin: false
       }
     });
@@ -48,7 +48,7 @@ export class ModalService {
       console.log('The dialog was closed');
     });
   }
-  openConfirmModal() { }
+
 
   closeModal() {
     this.dialog.closeAll();

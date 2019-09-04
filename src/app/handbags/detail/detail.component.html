@@ -1,9 +1,16 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-02 12:16:09
+ * @LastEditors: Please set LastEditors
+ -->
 <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
     <span class="loader"><span class="loader-inner"></span></span>
 </div>
 <nav *ngIf="!loading">
     <a [routerLink]="[ '../../../../home' ]">Home</a>
-    <a *ngIf="key!=sku&&key!=='search'" [routerLink]="[ '../' ]">{{key}}</a>
+    <a *ngIf="key!=sku&&key!=='search'" [routerLink]="[ '../' ]">{{key.replace('-',' ')}}</a>
     <span> {{bag.collection}}</span>
 </nav>
 <div class="bagBody" *ngIf="!loading">

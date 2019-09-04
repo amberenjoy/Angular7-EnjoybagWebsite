@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-09 12:22:21
+ * @LastEditTime: 2019-09-03 16:35:19
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 

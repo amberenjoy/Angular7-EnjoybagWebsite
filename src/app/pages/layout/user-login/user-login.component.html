@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-08-28 15:56:36
+ * @LastEditTime: 2019-09-03 16:56:27
  * @LastEditors: Please set LastEditors
  -->
 <div class="flex">
@@ -13,8 +13,8 @@
                 <fieldset>
                     <div class="forms_field">
                         <label for="email">Email *</label>
-                        <input formControlName="email" type="text"
-                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" autocomplete="on" />
+                        <input autocomplete="on" formControlName="email" type="email"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                         <div *ngIf="submitted && f.email.errors" class="invalid_feedback">
                             <div *ngIf="f.email.errors.required">email is required</div>
                             <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -30,7 +30,7 @@
                     </div>
                 </fieldset>
                 <div class="forms_buttons">
-                    <button type="button">Forgot password?</button>
+                    <a [routerLink]="[ '/en/forgot-password' ]">Forgot password ?</a>
                     <button type="submit" [disabled]="loading"
                         [ngClass]="{'disabled': f.email.errors||f.password.errors}">
                         <span> Sign in </span>
@@ -67,7 +67,6 @@
                 </div>
             </fieldset>
             <div class="forms_buttons">
-                <button> </button>
                 <button (click)="logout()">Log Out</button>
             </div>
         </ng-container>

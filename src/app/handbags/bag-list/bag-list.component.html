@@ -1,12 +1,19 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-08-30 11:38:04
+ * @LastEditors: Please set LastEditors
+ -->
 <div class="product-list">
     <div class="loader-overlay" *ngIf="loading">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
-    <div *ngIf="!loading">
+    <div *ngIf="!loading&&collections.length>0">
         <div class="grid-layout" *ngFor="let collection of collections">
             <div class="box-top">
-                <h1>{{collection.collectionname.slice(0, -10)}}</h1>
-                <h1>{{collection.product.length}} Items</h1>
+                <h5>{{collection.collectionname.slice(0, -10)}}</h5>
+                <h5>{{collection.product.length}} Items</h5>
             </div>
             <div class="box-wrapper">
                 <a *ngFor="let bag of collection.product| slice:0:8; let index=index" class="item"
@@ -29,7 +36,8 @@
                             <p [ngClass]="{'del': bag.discountprice!='0'}"> {{bag.price| currency: userCurrency}}</p>
                             <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}
                             </p>
-                            <p *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}</p>
+                            <p class="small" *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}
+                            </p>
                         </div>
                     </div>
                 </a>
@@ -53,7 +61,8 @@
                                 <p [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</p>
                                 <p [hidden]="bag.discountprice=='0'">&nbsp;
                                     {{bag.discountprice| currency: userCurrency}}</p>
-                                <p *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}</p>
+                                <p class="small" *ngIf="bag.discountprice!='0'">&nbsp;
+                                    {{bag.discountpriceper| uppercase}}</p>
                             </div>
                         </div>
                     </a>
@@ -71,6 +80,14 @@
                     )</button>
             </div>
         </div>
+    </div>
+    <div *ngIf="collections.length===0">
+        <h3 class="text-center">
+            <span class="strong">Sorry !</span> <br>
+            <span> The products you are looking for are temporarily unavailable.</span> <br>
+            <span>For any enquiries, please drop us a message </span> <br>
+            <a [routerLink]="[ '/en/FAQ']" fragment="Contact">Contact Us</a>
+        </h3>
     </div>
 </div>
 <div class="scroll-btn" [ngClass]="{'show-scrollTop': windowScrolled}">

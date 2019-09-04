@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-08-28 16:10:23
+ * @LastEditTime: 2019-09-03 15:52:47
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -17,6 +17,9 @@ import { environment } from '../../../environments/environment';
 })
 
 export class UserService {
+
+  private currentUserLevelSubject = new BehaviorSubject<any>({});
+
   constructor(private http: HttpClient) { }
 
   register(user: User) {
@@ -93,7 +96,54 @@ export class UserService {
   getUserLevel(id) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
-    return this.http.get<any>(`${environment.apiUrl}/levels/${id}`, { headers }).pipe(map(
+    return this.http.get<any>(`${environment.apiUrl}/levels/${id}`, { headers }).subscribe(
+      res => {
+        console.log(res);
+        this.currentUserLevelSubject.next(res);
+      });
+  }
+
+  currentLevelValue(): Observable<any> {
+    return this.currentUserLevelSubject.asObservable();
+  }
+
+  sendComment(comment) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.post<any>(`${environment.apiUrl}/comments`, comment, { headers }).pipe(map(
+      res => {
+        return res;
+      }
+    ));
+  }
+
+  forgotPassword(email) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.post<any>(`${environment.apiUrl}/password/forgotPassword`, email, { headers }).pipe(map(
+      res => {
+        return res;
+      }
+    ));
+  }
+  resetPasswordLink(token) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.get<any>(`${environment.apiUrl}/password/reset-link`, {
+      headers,
+      params: {
+        resetPasswordToken: token
+      }
+    }).pipe(map(
+      res => {
+        return res;
+      }
+    ));
+  }
+  updatePasswordViaEmail(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.post<any>(`${environment.apiUrl}/password/updatePassword`, user, { headers }).pipe(map(
       res => {
         return res;
       }

@@ -248,9 +248,10 @@ nav {
 .flex {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
     .half {
-        width: 50%;
+        width: 33.33%;
         text-align: center;
     }
 }

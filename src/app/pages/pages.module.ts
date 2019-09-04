@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:16
+ * @LastEditTime: 2019-09-04 16:27:24
+ * @LastEditors: Please set LastEditors
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
@@ -33,6 +40,21 @@ import { UserRegisterPageTcComponent } from './user-register-page-tc/user-regist
 import { FaqComponent } from './faq/faq.component';
 import { FaqTcComponent } from './faq-tc/faq-tc.component';
 import { DialogComponent } from './layout/dialog/dialog.component';
+import { PasswordPageComponent } from './password-page/password-page.component';
+import { UserResetComponent } from './layout/user-reset/user-reset.component';
+
+// import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+
+// const config = new AuthServiceConfig([
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     provider: new FacebookLoginProvider('2203659926599837')
+//   }
+// ]);
+
+// export function provideConfig() {
+//   return config;
+// }
 
 @NgModule({
   declarations: [
@@ -47,6 +69,8 @@ import { DialogComponent } from './layout/dialog/dialog.component';
     UserLoginComponent, UserLoginTcComponent,
     UserRegisterTcComponent, UserRegisterPageTcComponent,
     FaqComponent, FaqTcComponent, DialogComponent,
+    PasswordPageComponent,
+    UserResetComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +86,7 @@ import { DialogComponent } from './layout/dialog/dialog.component';
     SharedModule,
     // fakeBackendProvider,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   entryComponents: [DialogComponent],
 })

@@ -1,0 +1,47 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-03 10:20:31
+ * @LastEditTime: 2019-09-03 16:55:01
+ * @LastEditors: Please set LastEditors
+ -->
+<section>
+  <div class="banner">
+    <h3>Reset Password</h3>
+  </div>
+  <div class="body">
+    <form [formGroup]="resetForm" (ngSubmit)="onSubmit()" [hidden]="message">
+      <fieldset>
+        <div class="forms_field">
+          <label>Email *</label>
+          <input formControlName="email" type="text" [ngClass]="{ 'is-invalid':   submitted &&  f.email.errors }" />
+          <div *ngIf="submitted && f.email.errors" class="invalid_feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+        <div class="forms_field">
+          <label for="password">New Password ( At least 8 characters ) * </label>
+          <input formControlName="password" type="password"
+            [ngClass]="{ 'is-invalid':submitted &&  f.password.errors }" />
+          <div *ngIf=" submitted && f.password.errors" class="invalid_feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="forms_buttons">
+        <button type="submit" [ngClass]="{'disabled': resetForm.invalid}" [disabled]="resetForm.invalid">
+          <span>Update New Password</span>
+          <div class="loader" *ngIf="loading">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </button>
+      </div>
+    </form>
+    <div *ngIf="message" class="text-center info">
+      <p> {{message}}</p>
+      <a [routerLink]="[ '/en/register' ]">Login</a>
+    </div>
+  </div>
+</section>

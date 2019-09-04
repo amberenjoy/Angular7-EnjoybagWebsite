@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-08-12 15:53:33
+ * @LastEditTime: 2019-09-03 14:34:28
  * @LastEditors: Please set LastEditors
  */
 import { NgModule } from '@angular/core';
@@ -16,6 +16,8 @@ import { UserRegisterPageComponent } from './user-register-page/user-register-pa
 import { UserRegisterPageTcComponent } from './user-register-page-tc/user-register-page-tc.component';
 import { FaqComponent } from './faq/faq.component';
 import { FaqTcComponent } from './faq-tc/faq-tc.component';
+import { PasswordPageComponent } from './password-page/password-page.component';
+import { UserResetComponent } from './layout/user-reset/user-reset.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,12 @@ const routes: Routes = [
       },
       {
         path: 'register', component: UserRegisterPageComponent
+      },
+      {
+        path: 'forgot-password', component: PasswordPageComponent
+      },
+      {
+        path: 'reset-password/:token', component: UserResetComponent
       },
       {
         path: 'myEnjoybag', canActivate: [AuthGuard], loadChildren: '../user-pages/user-pages.module#UserPagesModule'

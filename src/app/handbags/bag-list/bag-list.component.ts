@@ -1,6 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, HostListener } from '@angular/core';
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-02 16:27:10
+ * @LastEditors: Please set LastEditors
+ */
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { BaglistService } from '../../shared/services/baglist.service';
-import { DOCUMENT } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-bag-list',
@@ -17,20 +23,18 @@ export class BagListComponent implements OnInit {
   userCurrency: string;
   userLanguage: string;
   bagCollections: {};
-  collections: Array<any> = [];
-  collectionList: Array<any> = [];
+  collections = [];
+  collectionList = [];
   key: string;
   loading = true;
   imageCollection = [];
   imageLoader = true;
-  keyList = ['slg', 'new', 'discount', 'campaign_special', 'gift', 'men', 'women'];
   windowScrolled: boolean;
 
   constructor(
     private dataService: BaglistService,
     private router: Router,
-    private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document: Document
+    private route: ActivatedRoute
   ) { }
 
   @HostListener('window:scroll', [])
@@ -44,20 +48,19 @@ export class BagListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // get currency
+    // get currency and language
     this.userCurrency = localStorage.getItem('currency') || 'HKD';
     this.userLanguage = localStorage.getItem('language').toUpperCase();
+
     this.route.params.subscribe(res => {
-      console.log(res);
       this.parameter = res.name;
       this.parameterKey = res.key;
       this.parameterLine = res.line;
       this.loading = true;
       if (this.parameter) {
-        if (this.parameter === 'all') {   // women men 
+        if (this.parameter === 'all') {   // women men slg
           const urlTree = this.router.url.split('/');
           let key = urlTree[urlTree.length - 2];
-          console.log(key);
           if (key === 'accessories') {
             key = 'slg';
           }
@@ -65,20 +68,28 @@ export class BagListComponent implements OnInit {
             .subscribe(results => {
               this.bagCollections = results;
               this.initCollection(this.bagCollections);
+            }, error => {
+              this.loading = false;
+              this.collections = [];
             });
         } else { // chain wallet crossbody bag
           this.dataService.getBagType(this.parameter, this.userLanguage, this.userCurrency).subscribe(results => {
             this.bagCollections = results;
             this.initCollection(this.bagCollections);
+          }, error => {
+            this.loading = false;
+            this.collections = [];
           });
         }
       } else if (this.parameterKey || this.parameterLine) {
         const line = this.parameterKey || this.parameterLine;
         this.dataService.getBaglist(line, this.userLanguage, this.userCurrency)
           .subscribe(results => {
-
             this.bagCollections = results;
             this.initCollection(this.bagCollections);
+          }, error => {
+            this.loading = false;
+            this.collections = [];
           });
       } else if (this.parameterSearch) {
         this.dataService.getQuerylist(this.parameterSearch, this.userLanguage, this.userCurrency).subscribe(results => {
@@ -89,6 +100,9 @@ export class BagListComponent implements OnInit {
           }
           this.result = this.bagCollections['count'.toString()];
           this.passResult.emit(this.result); // pass result to search page
+        }, error => {
+          this.loading = false;
+          this.collections = [];
         });
       }
     });
@@ -96,14 +110,18 @@ export class BagListComponent implements OnInit {
   }
 
   initCollection(collections) {
+    this.loading = false;
     let i: number;
-    // if only has one collection, the json format is object not array, so ngfor will have error
-    if (!collections['collection'.toString()].length) {
-      this.collections = [];
-      this.collections.push(collections['collection'.toString()]);
-    } else {
-      this.collections = collections['collection'.toString()];
+    if (collections['collection'.toString()]) {
+      // if only has one collection, the json format is object not array, so ngfor will have error
+      if (!collections['collection'.toString()].length) {
+        this.collections = [];
+        this.collections.push(collections['collection'.toString()]);
+      } else {
+        this.collections = collections['collection'.toString()];
+      }
     }
+
     // if only has one product in collection, the json format is object not array, so ngfor will have error
     for (i = 0; i < this.collections.length; i++) {
       if (this.collections[i]['product'.toString()].length) {
@@ -125,7 +143,6 @@ export class BagListComponent implements OnInit {
         };
       });
     }
-    this.loading = false;
   }
 
   scrollTop() {

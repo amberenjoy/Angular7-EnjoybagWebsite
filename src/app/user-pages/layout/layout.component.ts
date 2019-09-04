@@ -1,9 +1,8 @@
-import { Level } from './../../../../../enjoy-admin/src/app/shared/models/level';
 /*
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 12:22:51
- * @LastEditTime: 2019-08-16 15:01:44
+ * @LastEditTime: 2019-08-30 12:25:29
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
@@ -38,7 +37,7 @@ export class LayoutComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(user => {
       if (user) {
         this.user = user;
-        this.userService.getUserLevel(user.level).subscribe(res => {
+        this.userService.currentLevelValue().subscribe(res => {
           this.level = res.level;
         });
       } else {

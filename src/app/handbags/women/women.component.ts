@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-07-05 14:52:14
+ * @LastEditors: your name
+ */
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -43,9 +50,11 @@ export class WomenComponent implements OnInit {
       this.title.setTitle('Designer ' + this.name.charAt(0).toUpperCase() + this.name.slice(1) + 's for Women | Enjoybag HK');
     });
 
-
     this.categoriesService.getCategories().subscribe(res => {
       this.categories = res;
+      this.categories.forEach(each => {
+        each.url = each.name.replace(' ', '-');
+      });
     });
 
   }

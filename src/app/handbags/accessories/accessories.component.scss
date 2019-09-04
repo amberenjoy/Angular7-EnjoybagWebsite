@@ -4,6 +4,7 @@ li {
 
 nav {
     padding: 10px 1px;
+
     a {
         display: inline-block;
         padding: 5px 0 1px;
@@ -12,15 +13,18 @@ nav {
         font-size: .75rem;
         text-transform: uppercase;
         position: relative;
+
         &:hover {
             color: crimson;
         }
+
         &::after {
             content: '/';
             position: absolute;
             right: -13px;
         }
     }
+
     span {
         display: inline-block;
         padding: 5px 0 2px;
@@ -36,6 +40,8 @@ nav {
     height: 400px;
     text-align: center;
     position: relative;
+    background: #fffdfa;
+
     h2 {
         font-size: 2rem;
         position: absolute;
@@ -47,42 +53,44 @@ nav {
         text-transform: uppercase;
         font-family: 'Josefin Sans', sans-serif;
     }
-    &-all {
+
+    &.all {
         background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
         background-size: contain;
         background-color: #f0f0f0;
     }
-    &-chain {
-        background: url(../../../assets/images/chainwallet.jpg) 100% 50% no-repeat;
+
+    &.bag-accessories {
+        background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
         background-size: contain;
-        background-color: #fffaf5;
+        background-color: #f0f0f0;
     }
-    &-wallet {
+
+    &.wallets {
         background: url(../../../assets/images/wallet.jpg) 100% 32% no-repeat;
         background-size: contain;
         background-color: #f9f9f9;
     }
-    &-cosmetic {
+
+    &.cosmetic-bags {
         background: url(../../../assets/images/cosmetic.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #fdfcfd;
     }
-    &-cardholder {
+
+    &.card-holders {
         background: url(../../../assets/images/cardholder.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #fdfcfd;
     }
-    &-charm {
-        background: url(../../../assets/images/charm.jpg) 100% 50% no-repeat;
-        background-size: contain;
-        background-color: #fffcf7;
-    }
-    &-belt {
+
+    &.belts {
         background: url(../../../assets/images/cross.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #f9f9f9;
     }
-    &-bracelet {
+
+    &.bracelets {
         background: url(../../../assets/images/bracelet.jpg) 100% 50% no-repeat;
         background-size: contain;
         background-color: #f6f7f9;
@@ -103,20 +111,29 @@ nav {
     padding: 30px 20px 20px 0;
     max-width: 220px;
     height: max-content;
+
     h4 {
         padding: 10px 15px;
         text-transform: uppercase;
         background: rgba(218, 218, 218, 0.23);
     }
+
     ul {
         margin-bottom: 30px;
+
         li {
             border-bottom: 1px solid rgb(228, 228, 228);
             padding: 10px 15px;
             color: #999;
             font: 14px sans-serif;
+
+            a {
+                text-transform: capitalize;
+            }
+
         }
     }
+
     a:hover,
     a.active {
         color: crimson;

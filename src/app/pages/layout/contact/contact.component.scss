@@ -3,10 +3,12 @@
     box-shadow: 0 0 5px rgba(156, 128, 135, 0.2);
     box-sizing: border-box;
     padding: 40px;
+
     form {
         max-width: 900px;
         margin: 0 auto;
     }
+
     h3 {
         text-align: center;
         letter-spacing: 1px;
@@ -19,10 +21,12 @@
 .login {
     width: 100%;
     display: flex;
+
     >div {
         width: 50%;
         margin-right: 4%;
         position: relative;
+
         &:last-child {
             margin: 0;
         }
@@ -67,6 +71,7 @@
         text-align: left;
         margin-bottom: 10px;
     }
+
     i {
         font-size: 22px;
         width: 30px;
@@ -74,9 +79,11 @@
         color: #dc143c;
         text-align: center;
     }
+
     p {
         display: inline-block;
         margin-bottom: 10px;
+
         a {
             color: crimson;
         }
@@ -95,4 +102,12 @@
     top: 10px;
     padding: 10px;
     right: 0;
+}
+
+.info {
+    text-align: center;
+    background: #fff0f0;
+    padding: 1rem;
+    max-width: 500px;
+    margin: 2rem auto 0;
 }

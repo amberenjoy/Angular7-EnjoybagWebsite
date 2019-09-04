@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-08-30 11:02:25
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CartItemService } from '../../../shared/services/cart-item.service';
@@ -44,12 +51,14 @@ export class HeaderComponent implements OnInit {
       this.categories = res;
       this.categories.forEach(element => {
         element.name = element.name.toLowerCase();
+        element.url = element.name.replace(' ', '-');
       });
     });
     this.categoriesService.getSLGCategories().subscribe(res => {
       this.categoriesSLG = res;
       this.categoriesSLG.forEach(element => {
         element.name = element.name.toLowerCase();
+        element.url = element.name.replace(' ', '-');
       });
     });
     // get language

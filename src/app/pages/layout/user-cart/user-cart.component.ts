@@ -2,7 +2,7 @@
 * @Description: In User Settings Edit
 * @Author: your name
 * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-08-16 15:47:11
+ * @LastEditTime: 2019-08-30 12:53:49
  * @LastEditors: Please set LastEditors
 */
 import { Component, OnInit } from '@angular/core';
@@ -37,9 +37,13 @@ export class UserCartComponent implements OnInit {
     });
     this.authentication.currentUser.subscribe(user => {
       if (user) {
-        this.userService.getUserLevel(user.level).subscribe(res => {
-          this.userLevel = res.level;
-          this.discount = res.promotion;
+        this.userService.currentLevelValue().subscribe(res => {
+          if (res.level) {
+            this.userLevel = res.level;
+            this.discount = res.promotion;
+          } else {
+            this.userService.getUserLevel(user.level);
+          }
         });
       }
     });

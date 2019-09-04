@@ -1,29 +1,32 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-02 15:24:11
+ * @LastEditors: Please set LastEditors
+ -->
 <nav><a [routerLink]="[ '../../home' ]">Home</a><a [routerLink]="[ '../','all' ]">accessories</a><span>{{name}}</span>
 </nav>
-<div class="banner" [ngClass]="{ 'banner-all': name==='all',  'banner-chain': name==='chain wallet',
+<!-- <div class="banner" [ngClass]="{ 'banner-all': name==='all',  'banner-chain': name==='chain wallet',
     'banner-wallet': name==='wallet',  'banner-cosmetic': name==='cosmetic bag',
     'banner-cardholder': name==='cardholder',   'banner-belt': name==='belt',  'banner-bracelet': name==='bracelet', 
     'banner-charm': name==='charm' }">
     <h2 [hidden]="name!='all'">accessories world</h2>
     <h2 [hidden]="name==='all'">{{name}}</h2>
+</div> -->
+<div class="banner" [ngClass]="name.split(' ')[0]">
+    <h2 *ngIf="name==='all'">accessories world</h2>
+    <h2 *ngIf="name!=='all'">{{name.replace('-',' ')}}</h2>
 </div>
 <div class="body-flex">
     <div class="side-list">
         <h4> By Categories</h4>
         <ul>
-            <li> <a [ngClass]="{'active': name==='chain wallet'}" [routerLink]="[ '../','chain wallet']">Chain
-          Wallet</a>
+            <li *ngFor="let category of categories">
+                <a [ngClass]="{'active': name.replace('-',' ')===category.name}"
+                    [routerLink]="['../',category.url]">{{category.name}}</a>
             </li>
-            <li> <a [ngClass]="{'active': name==='wallet'}" [routerLink]="[ '../','wallet']">Wallet</a> </li>
-            <li> <a [ngClass]="{'active': name==='cosmetic bag'}" [routerLink]="[ '../','cosmetic bag']">Cosmetic
-          Bag</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='cardholder'}" [routerLink]="[ '../','cardholder']">Card Holder</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='belt'}" [routerLink]="[ '../','belt']">Belt</a> </li>
-            <li> <a [ngClass]="{'active': name==='bracelet'}" [routerLink]="[ '../','bracelet']">Bracelet</a></li>
-            <li> <a [ngClass]="{'active': name==='charm'}" [routerLink]="[ '../','charm']">Charm</a> </li>
-            <li> <a [routerLink]="[ '../','all']" [ngClass]="{'active': name==='all'}"> View All</a></li>
+            <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> View All</a></li>
         </ul>
         <h4> By Collections</h4>
         <ul>

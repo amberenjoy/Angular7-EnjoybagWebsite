@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-06-03 10:09:50
+ * @LastEditTime: 2019-09-04 14:10:37
+ * @LastEditors: Please set LastEditors
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,14 +16,6 @@ import { SharedModule } from './shared/shared.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// import { Ng6SocialButtonModule, SocialServiceConfig } from 'ng6-social-button';
-
-// Configs
-// export function getAuthServiceConfigs() {
-//   const config = new SocialServiceConfig()
-//     .addFacebook('1032790253567506');
-//   return config;
-// }
 
 @NgModule({
   declarations: [
