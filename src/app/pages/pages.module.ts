@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-09-04 16:27:24
+ * @LastEditTime: 2019-09-05 16:12:00
  * @LastEditors: Please set LastEditors
  */
 import { NgModule } from '@angular/core';
@@ -43,18 +43,18 @@ import { DialogComponent } from './layout/dialog/dialog.component';
 import { PasswordPageComponent } from './password-page/password-page.component';
 import { UserResetComponent } from './layout/user-reset/user-reset.component';
 
-// import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
-// const config = new AuthServiceConfig([
-//   {
-//     id: FacebookLoginProvider.PROVIDER_ID,
-//     provider: new FacebookLoginProvider('2203659926599837')
-//   }
-// ]);
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('1032790253567506')
+  }
+]);
 
-// export function provideConfig() {
-//   return config;
-// }
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -77,7 +77,8 @@ import { UserResetComponent } from './layout/user-reset/user-reset.component';
     PagesRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    SocialLoginModule
   ],
   exports: [
     ContactComponent, ContactTcComponent
@@ -86,7 +87,8 @@ import { UserResetComponent } from './layout/user-reset/user-reset.component';
     SharedModule,
     // fakeBackendProvider,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
   entryComponents: [DialogComponent],
 })

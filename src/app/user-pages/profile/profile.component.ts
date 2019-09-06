@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-07 12:23:06
+ * @LastEditTime: 2019-09-06 14:43:59
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -37,8 +44,8 @@ export class ProfileComponent implements OnInit {
         firstname: [res.firstname, Validators.required],
         lastname: [res.lastname, Validators.required],
         email: [res.email, [Validators.required, Validators.email]],
-        areacode: [res.areacode, Validators.required],
-        phone: [res.phone, Validators.required],
+        areacode: res.areacode,
+        phone: res.phone,
         birthmonth: res.birthmonth,
         newsletter: res.newsletter
       });

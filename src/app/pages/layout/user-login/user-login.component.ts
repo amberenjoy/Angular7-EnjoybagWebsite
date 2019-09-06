@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-04 16:52:40
+ * @LastEditTime: 2019-09-06 14:33:11
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, Input } from '@angular/core';
@@ -14,7 +14,8 @@ import { CartItemService } from '../../../shared/services/cart-item.service';
 import { UserService } from '../../../shared/services/user.service';
 import { CheckoutService } from '../../../shared/services/checkout.service';
 
-declare var FB: any;
+import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-user-login',
@@ -41,7 +42,8 @@ export class UserLoginComponent implements OnInit {
     private route: ActivatedRoute,
     private cartService: CartItemService,
     private checkoutService: CheckoutService,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -62,6 +64,9 @@ export class UserLoginComponent implements OnInit {
 
       } else {
         this.logined = false;
+        this.authService.authState.subscribe(res => {
+          console.log(res);
+        });
       }
     });
 
@@ -74,27 +79,6 @@ export class UserLoginComponent implements OnInit {
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'.toString()];
-
-
-    (window as any).fbAsyncInit = () => {
-      FB.init({
-        appId: '1032790253567506',
-        cookie: true,
-        xfbml: true,
-        version: 'v4.0'
-      });
-      FB.AppEvents.logPageView();
-    };
-
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
   }
   // convenience getter for easy access to form fields
   get f() {
@@ -160,32 +144,37 @@ export class UserLoginComponent implements OnInit {
 
   socialSignIn(platform: string): void {
     console.log(platform);
-    // FB.login();
-    FB.login((response) => {
-      console.log('submitLogin', response);
-      if (response.authResponse) {
-        this.authenticationService.loginWithFB(response.authResponse).subscribe(res => {
-          console.log(res);
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
+      // on success
+      console.log(userData);
+      this.authenticationService.loginWithFB(userData).subscribe(data => {
+        this.user = data;
+        if (this.returnUrl) {
+          this.router.navigate([this.returnUrl]);
+        } else if (this.route.routeConfig.path === 'register' || this.router.url.split('/')[2] === 'register') {
+          this.router.navigate(['/en/myEnjoybag']);
+        } else {
+          this.logined = true;
+        }
+
+        this.cartService.findUserCart();
+        this.userService.getUserLevel(data.level);
+
+        const localCartList = localStorage.getItem('cartList');
+        if (localCartList) {
+          const cartArray = localCartList.split('-');
+          cartArray.shift();
+          localStorage.removeItem('cartList');
+          for (const each of cartArray) {
+            this.cartService.addUserItem(each, true);
+          }
+        }
+
+        this.cartService.getCartQty().subscribe(res => {
+          this.cartNum = res;
         });
-      } else {
-        console.log('User login failed');
-      }
+      });
     });
-
   }
-  // socialSignIn(socialPlatform: string) {
-  //   let socialPlatformProvider;
-  //   if (socialPlatform === 'facebook') {
-  //     socialPlatformProvider = FacebookLoginProvider.PROVIDER_TYPE;
-  //   }
-
-  //   this.socialAuthService.signIn(socialPlatformProvider).then(
-  //     (socialUser) => {
-  //       console.log(socialPlatform + ' sign in data : ', socialUser);
-  //       // Now sign-in with userData
-  //     });
-  // }
-
-
 }
 

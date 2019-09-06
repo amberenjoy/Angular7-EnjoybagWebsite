@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-09-03 15:52:47
+ * @LastEditTime: 2019-09-06 14:41:38
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -98,7 +98,6 @@ export class UserService {
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
     return this.http.get<any>(`${environment.apiUrl}/levels/${id}`, { headers }).subscribe(
       res => {
-        console.log(res);
         this.currentUserLevelSubject.next(res);
       });
   }
