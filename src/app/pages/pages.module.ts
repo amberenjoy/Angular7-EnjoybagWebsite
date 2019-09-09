@@ -45,6 +45,8 @@ import { UserResetComponent } from './layout/user-reset/user-reset.component';
 
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
+import { PageNotFoundComponent } from '.././page-not-found/page-not-found.component';
+
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -70,7 +72,7 @@ export function provideConfig() {
     UserRegisterTcComponent, UserRegisterPageTcComponent,
     FaqComponent, FaqTcComponent, DialogComponent,
     PasswordPageComponent,
-    UserResetComponent,
+    UserResetComponent, PageNotFoundComponent
   ],
   imports: [
     CommonModule,

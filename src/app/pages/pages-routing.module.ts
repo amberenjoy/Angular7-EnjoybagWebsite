@@ -18,6 +18,7 @@ import { FaqComponent } from './faq/faq.component';
 import { FaqTcComponent } from './faq-tc/faq-tc.component';
 import { PasswordPageComponent } from './password-page/password-page.component';
 import { UserResetComponent } from './layout/user-reset/user-reset.component';
+import { PageNotFoundComponent } from '.././page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -106,6 +107,7 @@ const routes: Routes = [
       { path: 'checkout', loadChildren: '../checkout-pages/checkout-pages.module#CheckoutPagesModule' }
     ]
   },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

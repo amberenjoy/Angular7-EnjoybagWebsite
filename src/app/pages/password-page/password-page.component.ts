@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 10:20:31
- * @LastEditTime: 2019-09-03 16:02:32
+ * @LastEditTime: 2019-09-06 15:29:29
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +18,7 @@ export class PasswordPageComponent implements OnInit {
   resetForm: FormGroup;
   loading = false;
   message: string;
+  submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,14 +36,15 @@ export class PasswordPageComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     // stop here if form is invalid
     if (this.resetForm.invalid) {
       return;
     }
     this.loading = true;
     this.userService.forgotPassword(this.resetForm.value).subscribe(res => {
-      console.log(res);
       this.message = res.message;
+      this.submitted = false;
     });
   }
 }

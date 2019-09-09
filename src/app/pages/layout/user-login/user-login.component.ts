@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-06 14:33:11
+ * @LastEditTime: 2019-09-06 15:02:21
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, Input } from '@angular/core';
@@ -64,9 +64,6 @@ export class UserLoginComponent implements OnInit {
 
       } else {
         this.logined = false;
-        this.authService.authState.subscribe(res => {
-          console.log(res);
-        });
       }
     });
 

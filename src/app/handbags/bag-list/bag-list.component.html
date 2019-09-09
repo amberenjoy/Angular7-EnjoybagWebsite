@@ -16,20 +16,35 @@
                 <h5>{{collection.product.length}} Items</h5>
             </div>
             <div class="box-wrapper">
-                <a *ngFor="let bag of collection.product| slice:0:8; let index=index" class="item"
-                    [routerLink]="['./', bag.productcode]" routerLinkActive="active">
+                <a *ngFor="let bag of collection.product| slice:0:8; let index=index" class="item" [routerLink]="['./', bag.productcode]" routerLinkActive="active">
                     <div class="box" (deferLoad)="bag.image.show = true">
-                        <!-- {{bag.productcode}} -->
                         <div class="imgHover">
-                            <img src="assets/images/icon.png" />
+                            <img *ngIf="!bag.image.show" src="assets/images/icon.png" />
                             <div *ngIf="bag.image.show">
-                                <img (mouseover)="bag.image.secondShow=true" class="img-bag"
-                                    [ngClass]="{'fade-in': !this.imageLoader}" (load)="this.imageLoader = false;"
-                                    [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
-                                <img *ngIf="bag.image.secondShow" [src]="bag.image.second" class="img-bag img-bag-2"
-                                    onError="this.src='assets/images/hidden.png'">
+                                <img (mouseover)="bag.image.secondShow=true" class="img-bag" [ngClass]="{'fade-in': !this.imageLoader}" (load)="this.imageLoader = false;" [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
+                                <img *ngIf="bag.image.secondShow" [src]="bag.image.second" class="img-bag img-bag-2" onError="this.src='assets/images/hidden.png'">
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="bag-info">
+                        <h4>{{bag.productname}}</h4>
+                        <p [ngClass]="{'del': bag.discountprice!='0'}"> {{bag.price| currency: userCurrency}}</p>
+                        <p [hidden]="bag.discountprice=='0'">&nbsp; {{bag.discountprice| currency: userCurrency}}
+                        </p>
+                        <p class="small" *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}
+                        </p>
+                    </div>
+                </a>
+                <ng-container *ngIf="collection.more===true">
+                    <a *ngFor="let bag of collection.product| slice:8; let index=index" class="item" [routerLink]="['./', bag.productcode]" routerLinkActive="active">
+                        <div class="box" (deferLoad)="bag.image.show = true">
+                            <div class="imgHover">
+                                <img *ngIf="!bag.image.show" src="assets/images/icon.png" />
+                                <div *ngIf="bag.image.show">
+                                    <img (mouseover)="bag.image.secondShow=true" class="img-bag" [ngClass]="{'fade-in': !this.imageLoader}" (load)="this.imageLoader = false;" [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
+                                    <img *ngIf="bag.image.secondShow" [src]="bag.image.second" class="img-bag img-bag-2" onError="this.src='assets/images/hidden.png'">
+                                </div>
+                            </div>
                         </div>
                         <div class="bag-info">
                             <h4>{{bag.productname}}</h4>
@@ -38,32 +53,6 @@
                             </p>
                             <p class="small" *ngIf="bag.discountprice!='0'">&nbsp; {{bag.discountpriceper| uppercase}}
                             </p>
-                        </div>
-                    </div>
-                </a>
-                <ng-container *ngIf="collection.more===true">
-                    <a *ngFor="let bag of collection.product| slice:8; let index=index" class="item"
-                        [routerLink]="['./', bag.productcode]" routerLinkActive="active">
-                        <div class="box" (deferLoad)="bag.image.show = true">
-                            <!-- {{bag.productcode}}  src="" -->
-                            <div class="imgHover">
-                                <img src="assets/images/icon.png" />
-                                <div *ngIf="bag.image.show">
-                                    <img (mouseover)="bag.image.secondShow=true" class="img-bag"
-                                        [ngClass]="{'fade-in': !this.imageLoader}" (load)="this.imageLoader = false;"
-                                        [src]="bag.image.url" onError="this.src='assets/images/icon.png'">
-                                    <img *ngIf="bag.image.secondShow" [src]="bag.image.second" class="img-bag img-bag-2"
-                                        onError="this.src='assets/images/hidden.png'">
-                                </div>
-                            </div>
-                            <div class="bag-info">
-                                <h4>{{bag.productname}}</h4>
-                                <p [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</p>
-                                <p [hidden]="bag.discountprice=='0'">&nbsp;
-                                    {{bag.discountprice| currency: userCurrency}}</p>
-                                <p class="small" *ngIf="bag.discountprice!='0'">&nbsp;
-                                    {{bag.discountpriceper| uppercase}}</p>
-                            </div>
                         </div>
                     </a>
                 </ng-container>

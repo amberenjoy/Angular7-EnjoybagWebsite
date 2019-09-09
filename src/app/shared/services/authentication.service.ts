@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-09-06 14:31:10
+ * @LastEditTime: 2019-09-06 15:01:56
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -63,7 +63,7 @@ export class AuthenticationService {
   loginWithFB(userData) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
-    return this.http.post<any>(`https://9262223e.ngrok.io/api/auth/facebook`, userData, { headers })
+    return this.http.post<any>(`https://5fd0dafc.ngrok.io/api/auth/facebook`, userData, { headers })
       .pipe(map(res => {
         console.log(res);
         localStorage.setItem('user', JSON.stringify(res));

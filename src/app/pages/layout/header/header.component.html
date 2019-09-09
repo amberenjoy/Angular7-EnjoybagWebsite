@@ -14,8 +14,7 @@
                 <div class="select-box ">
                     <div class="select-box__current " tabindex="0">
                         <div class="select-box__value">
-                            <input class="select-box__input " type="radio" id="EN" value="EN" name="language "
-                                checked />
+                            <input class="select-box__input " type="radio" id="EN" value="EN" name="language " checked />
                             <p class="select-box__input-text ">EN</p>
                         </div>
                         <div class="select-box__value ">
@@ -26,46 +25,38 @@
                     </div>
                     <ul class="select-box__list ">
                         <li>
-                            <label class="select-box__option " for="EN" aria-hidden="aria-hidden "
-                                (click)="changeLanguage('en')">EN</label>
+                            <label class="select-box__option " for="EN" aria-hidden="aria-hidden " (click)="changeLanguage('en')">EN</label>
                         </li>
                         <li>
-                            <label class="select-box__option " for="TC" aria-hidden="aria-hidden "
-                                (click)="changeLanguage('tc')">中­­</label>
+                            <label class="select-box__option " for="TC" aria-hidden="aria-hidden " (click)="changeLanguage('tc')">中­­</label>
                         </li>
                     </ul>
                 </div>
                 <div class="select-box ">
                     <div class="select-box__current" tabindex="0">
                         <div class="select-box__value ">
-                            <input class="select-box__input select-box__currency " type="radio" id="HKD" value="HKD"
-                                name="currency" [checked]="userCurrency === 'HKD' ? true : false" />
+                            <input class="select-box__input select-box__currency " type="radio" id="HKD" value="HKD" name="currency" [checked]="userCurrency === 'HKD' ? true : false" />
                             <p class="select-box__input-text">HKD</p>
                         </div>
                         <div class="select-box__value">
-                            <input class="select-box__input  select-box__currency " type="radio" id="RMB" value="RMB"
-                                name="currency" [checked]="userCurrency === 'RMB' ? true : false" />
+                            <input class="select-box__input  select-box__currency " type="radio" id="RMB" value="RMB" name="currency" [checked]="userCurrency === 'RMB' ? true : false" />
                             <p class="select-box__input-text">RMB</p>
                         </div>
                         <div class="select-box__value">
-                            <input class="select-box__input  select-box__currency " type="radio" id="USD" value="USD"
-                                name="currency" [checked]="userCurrency === 'USD' ? true : false" />
+                            <input class="select-box__input  select-box__currency " type="radio" id="USD" value="USD" name="currency" [checked]="userCurrency === 'USD' ? true : false" />
                             <p class="select-box__input-text">USD</p>
                         </div>
                         <i class="fa fa-chevron-down" aria-hidden="true"></i>
                     </div>
                     <ul class="select-box__list ">
                         <li>
-                            <label class="select-box__option " for="HKD" aria-hidden="aria-hidden "
-                                (click)="changeCurrency('HKD')">HKD</label>
+                            <label class="select-box__option " for="HKD" aria-hidden="aria-hidden " (click)="changeCurrency('HKD')">HKD</label>
                         </li>
                         <li>
-                            <label class="select-box__option " for="RMB" aria-hidden="aria-hidden "
-                                (click)="changeCurrency('RMB')">RMB</label>
+                            <label class="select-box__option " for="RMB" aria-hidden="aria-hidden " (click)="changeCurrency('RMB')">RMB</label>
                         </li>
                         <li>
-                            <label class="select-box__option " for="USD" aria-hidden="aria-hidden "
-                                (click)="changeCurrency('USD')">USD</label>
+                            <label class="select-box__option " for="USD" aria-hidden="aria-hidden " (click)="changeCurrency('USD')">USD</label>
                         </li>
                     </ul>
                 </div>
@@ -78,8 +69,7 @@
                 <ul>
                     <li><a [routerLink]="[ 'products/new/all' ]" routerLinkActive="active">New</a>
                     </li>
-                    <li><a [ngClass]="{'active': navActive}" [routerLink]="[ 'products/women/all' ]"
-                            routerLinkActive="active">Women's <i class="fa fa-chevron-down "
+                    <li><a [ngClass]="{'active': navActive}" [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">Women's <i class="fa fa-chevron-down "
                                 aria-hidden="true "></i></a>
                         <div class="drop">
                             <div>
@@ -87,9 +77,7 @@
                                     <li>
                                         <h4>Categories</h4>
                                     </li>
-                                    <li *ngFor="let category of categories"><a
-                                            [routerLink]="[ 'products/women/'+ category.url  ]"
-                                            routerLinkActive="active">{{category.name}}</a> </li>
+                                    <li *ngFor="let category of categories"><a [routerLink]="[ 'products/women/'+ category.url  ]" routerLinkActive="active">{{category.name}}</a> </li>
                                     <li><a [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">View
                                             All</a></li>
                                 </ul>
@@ -106,7 +94,7 @@
                                     <li><a [routerLink]="[ 'products/sale/all' ]">Sale</a> </li>
                                 </ul>
                                 <div class="nav-img ">
-                                    <img src="../../../assets/images/bucket.jpg " alt=" ">
+                                    <img src="../../../assets/images/20190903/ej.jpg " alt=" ">
                                     <a [routerLink]="[ 'products/collections/EJ' ]" routerLinkActive="active">EJ
                                         Collections</a>
                                 </div>
@@ -121,8 +109,7 @@
                     <li>
                         <a [routerLink]="[ 'products/men/all']" routerLinkActive="active">Men's</a>
                     </li>
-                    <li><a [ngClass]="{'active': navActiveAcce}" [routerLink]="[ 'products/accessories/all' ]"
-                            routerLinkActive="active">Accessories <i class="fa fa-chevron-down "
+                    <li><a [ngClass]="{'active': navActiveAcce}" [routerLink]="[ 'products/accessories/all' ]" routerLinkActive="active">Accessories <i class="fa fa-chevron-down "
                                 aria-hidden="true "></i></a>
                         <div class="drop">
                             <div>
@@ -131,8 +118,7 @@
                                         <h4>Categories</h4>
                                     </li>
                                     <li *ngFor="let slg of categoriesSLG">
-                                        <a [routerLink]="[ 'products/accessories/'+ slg.url ]"
-                                            routerLinkActive="active">{{slg.name}}</a>
+                                        <a [routerLink]="[ 'products/accessories/'+ slg.url ]" routerLinkActive="active">{{slg.name}}</a>
                                     </li>
                                     <li>
                                         <a [routerLink]="[ 'products/accessories/all']" routerLinkActive="active">View
@@ -144,7 +130,7 @@
                                     <a [routerLink]="[ 'products/men']" routerLinkActive="active">Gifts for him</a>
                                 </div>
                                 <div class="nav-img ">
-                                    <img src="../../../assets/images/header-new.jpg " alt=" ">
+                                    <img src="../../../assets/images/20190903/ufo-4.jpg " alt=" ">
                                     <a [routerLink]="[ 'products/new/all']">New Arrivals</a>
                                 </div>
                             </div>
@@ -161,10 +147,8 @@
                     <app-search></app-search>
                 </div>
                 <div class="head head-login">
-                    <a [routerLink]="[ '/en/register']" *ngIf="!logined"> <i class="fa fa-user"
-                            aria-hidden="true"></i></a>
-                    <a [routerLink]="[ '/en/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}"> <i
-                            class="fa fa-user" aria-hidden="true"></i></a>
+                    <a [routerLink]="[ '/en/register']" *ngIf="!logined"> <i class="fa fa-user" aria-hidden="true"></i></a>
+                    <a [routerLink]="[ '/en/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}"> <i class="fa fa-user" aria-hidden="true"></i></a>
                     <div class="drop-login">
                         <app-user-login></app-user-login>
                     </div>
