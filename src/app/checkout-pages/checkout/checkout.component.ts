@@ -33,7 +33,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   shipAddress = false;  // add new address
   defaultAddress: boolean;  // check if has default or previous address
   agreeTc = false;
-  cartTotal: any;
   paymentObject = {
     paypalLoad: false,
     paymentMessage: '',
@@ -274,6 +273,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           onClick: (e) => {
             this.paymentObject.paypalLoad = true;
             this.shipForm.get('paymentMethod').setValue('By Paypal');
+            console.log('total', this.order);
           },
           createOrder: (data, actions) => {
             // Set up the transaction
@@ -281,11 +281,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               purchase_units: [{
                 description: 'Enjoybag HK',
                 amount: {
-                  value: this.cartTotal.total + this.order.shipping, currency: 'HKD',
+                  value: this.order.total, currency: 'HKD',
                   breakdown: {
                     item_total: { value: JSON.stringify(this.order.subtotal), currency_code: 'HKD' },
                     shipping: { value: JSON.stringify(this.order.shipping), currency_code: 'HKD' },
-                    discount: { value: JSON.stringify(this.cartTotal.subtotal - this.cartTotal.total), currency_code: 'HKD' }
+                    discount: { value: JSON.stringify(this.order.subtotal + this.order.shipping - this.order.total), currency_code: 'HKD' }
                   }
                 },
                 items: orderItems

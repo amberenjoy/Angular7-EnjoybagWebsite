@@ -54,7 +54,7 @@ export class BagListComponent implements OnInit {
 
     this.route.params.subscribe(res => {
       this.parameter = res.name;
-      this.parameterKey = res.key;
+      this.parameterKey = res.key; // sale==discount
       this.parameterLine = res.line;
       this.loading = true;
       if (this.parameter) {
