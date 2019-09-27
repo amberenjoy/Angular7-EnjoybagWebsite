@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-02 12:16:09
+ * @LastEditTime: 2019-09-24 11:08:41
  * @LastEditors: Please set LastEditors
  -->
 <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
@@ -13,7 +13,7 @@
     <a *ngIf="key!=sku&&key!=='search'" [routerLink]="[ '../' ]">{{key.replace('-',' ')}}</a>
     <span> {{bag.collection}}</span>
 </nav>
-<div class="bagBody" *ngIf="!loading">
+<div class="bagBody" *ngIf="!loading" [ngClass]="{'mobile': isMobile}">
     <div class="grid">
         <div class="text-center">
             <img [src]="bagPhotoArray[0].url" alt="" (click)="openModal(0)">
@@ -23,24 +23,19 @@
             <div class="grid">
                 <p>
                     <span [ngClass]="{'del': bag.discountprice!='0'}">{{bag.price| currency: userCurrency}}</span>
-                    <span
-                        *ngIf="bag.discountprice!=='0'">&nbsp;&nbsp;{{bag.discountprice| currency: userCurrency}}</span>
+                    <span *ngIf="bag.discountprice!=='0'">&nbsp;&nbsp;{{bag.discountprice| currency: userCurrency}}</span>
                 </p>
                 <p class="text-right">
                     <span *ngIf="bag.discountprice!=='0'">{{bag.discountpriceper}}</span>
                 </p>
             </div>
             <div class="color-area">
-                <a [routerLink]="['..', bag.productcode]" class="color active"
-                    [ngStyle]="{'background':'#'+ bag.colorpick.slice(2,8)}">
+                <a [routerLink]="['..', bag.productcode]" class="color active" [ngStyle]="{'background':'#'+ bag.colorpick.slice(2,8)}">
                     <span>{{bag.color}}</span>
                 </a>
-                <span>{{bag.color}}</span>
-                <p>
-                    <a *ngFor="let other of otherColorList" [routerLink]="['..', other.productcode]" class="color"
-                        [ngStyle]="{'background':'#'+ other.colorpick.slice(2,8)}"><span>{{other.color}}</span>
-                    </a>
-                </p>
+                <span>{{bag.color}}</span> &nbsp; &nbsp; &nbsp;
+                <a *ngFor="let other of otherColorList" [routerLink]="['..', other.productcode]" class="color" [ngStyle]="{'background':'#'+ other.colorpick.slice(2,8)}"><span>{{other.color}}</span>
+                </a>
             </div>
             <p [hidden]="bag.StockQty > 5 || bag.StockQty == 0">Last Qty: {{bag.StockQty}}</p>
             <p [hidden]="bag.StockQty !=0 ">Out of Stock </p>
@@ -64,18 +59,22 @@
         <div class="info info-2">
             <h5>Description</h5>
             <div>
-                <p> <span>{{bag.Description}}</span> <br>
+                <p> <span>{{bag.Description}}</span> </p>
+            </div><br><br>
+            <h5>Details</h5>
+            <div>
+                <p>
                     <span *ngFor="let a of bagDetail">{{a}}</span>
                     <span *ngFor="let a of bagMaterial">{{a}}</span>
                 </p>
             </div>
         </div>
         <div class="text-center">
-            <img [src]="bagPhotoArray[1].url" alt="bag-photo" (click)="openModal(1)">
+            <img [src]="bagPhotoArray[bagPhotoArray.length-1].url" alt="bag-photo" (click)="openModal(1)">
         </div>
     </div>
     <div class="flex">
-        <div class="half" *ngFor="let i of bagPhotoArray.slice(2); index as id" (deferLoad)="i.show = true">
+        <div class="half" *ngFor="let i of bagPhotoArray.slice(1, -1); index as id" (deferLoad)="i.show = true">
             <img [src]="i.url" alt="bag-photo" class="img-responsive" (click)="openModal(id)">
         </div>
     </div>

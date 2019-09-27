@@ -46,9 +46,13 @@ nav {
         margin: 0;
         transform: translateY(-50%);
         text-transform: uppercase;
-        font-family: 'Josefin Sans', sans-serif;
     }
     &.all {
+        background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
+        background-size: contain;
+        background-color: #f0f0f0;
+    }
+    &.eyeglasses-cases {
         background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
         background-size: contain;
         background-color: #f0f0f0;
@@ -125,4 +129,23 @@ nav {
 .right-list {
     width: 80%;
     display: inline-block;
+}
+
+.mobile {
+    .banner {
+        height: 30vh;
+        background-size: cover;
+        h2 {
+            font-size: 1rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .side-list {
+        width: 0;
+        padding: 0;
+    }
+    .right-list {
+        width: 100%;
+    }
 }

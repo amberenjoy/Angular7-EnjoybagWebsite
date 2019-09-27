@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-08-28 14:54:56
+ * @LastEditTime: 2019-09-19 14:56:31
  * @LastEditors: Please set LastEditors
  -->
 <div class="banner">
@@ -39,17 +39,14 @@
                 <h3>Delivery</h3>
                 <fieldset>
                     <div class="radio">
-                        <input id="radio-1" name="deliveryMethod" type="radio" formControlName="deliveryMethod"
-                            value="Self Pick-Up">
+                        <input id="radio-1" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Self Pick-Up">
                         <label for="radio-1" class="radio-label">Self Pick-Up</label>
                         <p class="small">
-                            Pick-up address : Room 3308, 33/F, Cable TV tower, 9 Hoi Shing Road, Tsuen Wan, N.T.
-                            Hong Kong
+                            Pick-up address : Room 3308, 33/F, Cable TV tower, 9 Hoi Shing Road, Tsuen Wan, N.T. Hong Kong
                         </p>
                     </div>
                     <div class="radio">
-                        <input id="radio-2" name="deliveryMethod" type="radio" formControlName="deliveryMethod"
-                            value="Standard Delivery">
+                        <input id="radio-2" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Standard Delivery">
                         <label for="radio-2" class="radio-label">Standard Delivery</label>
                         <p class="small">Dispatched immediately. (1-3 Business Days)</p>
                     </div>
@@ -60,15 +57,13 @@
                 <h3>Payment</h3>
                 <div>
                     <div class="radio" *ngIf="order.shipping===0">
-                        <input id="cash" name="paymentMethod" type="radio" formControlName="paymentMethod"
-                            value="By Cash">
+                        <input id="cash" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Cash">
                         <label for="cash" class="radio-label"><span>By Cash</span>
                             <p class="small"> Only available for Self Pick-Up. </p>
                         </label>
                     </div>
                     <div class="radio">
-                        <input id="bank" name="paymentMethod" type="radio" formControlName="paymentMethod"
-                            value="By Bank Transfer">
+                        <input id="bank" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Bank Transfer">
                         <label for="bank" class="radio-label">
                             <span>By Bank Transfer</span>
                             <p class="small">BANK: HSBC <br> A/C: 124-510389-838 <br> BENEFICIARY: ENJOY BAG (HK)
@@ -76,8 +71,7 @@
                         </label>
                     </div>
                     <div class="radio">
-                        <input id="paypalBtn" name="paymentMethod" type="radio" formControlName="paymentMethod"
-                            value="By Paypal">
+                        <input id="paypalBtn" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Paypal">
                         <label for="paypalBtn" class="radio-label">
                             <span>By Paypal</span>
                             <p for="paypal" class="small">
@@ -130,11 +124,9 @@
                         <div class="forms_field">
                             <label for="phone">Mobile No *</label>
                             <div class="mobile_box">
-                                <input class="area_code" formControlName="areacode" type="tel" maxlength="4"
-                                    pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted }" />
+                                <input class="area_code" formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted }" />
                                 <span> <i class="fa fa-minus"></i> </span>
-                                <input formControlName="phone" type="tel" pattern="[0-9]+"
-                                    [ngClass]="{ 'is-invalid': submitted  }" />
+                                <input formControlName="phone" type="tel" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted  }" />
                             </div>
                         </div>
                         <div class="forms_field" *ngIf="defaultAddress">
@@ -166,8 +158,7 @@
                         </div>
                     </fieldset>
                     <fieldset *ngIf="order.shipping>0&&defaultAddress">
-                        <input class="styled-checkbox" id="newShippingAddress" type="checkbox" [checked]="shipAddress"
-                            (change)="onAddressChange()">
+                        <input class="styled-checkbox" id="newShippingAddress" type="checkbox" [checked]="shipAddress" (change)="onAddressChange()">
                         <label for="newShippingAddress">Add a Shipping Address</label>
                         <div class="field-full" formGroupName="address" [hidden]="!shipAddress">
                             <div>
@@ -208,15 +199,13 @@
         <div class="container">
             <h3>Shopping Bag <a [routerLink]="['../shopping-bag']">Edit</a></h3>
             <div class="bag" *ngFor="let item of order.orderItems">
-                <a [routerLink]="['/en/products',item.product.sku ]"><img
-                        src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt=""
-                        onError="this.src='assets/images/icon.png'"></a>
+                <a [routerLink]="['/en/products',item.product.sku ]"><img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="" onError="this.src='assets/images/icon.png'"></a>
                 <div class="small">
                     <p>{{item.product.name}} </p>
                     <p>#{{item.product.sku}}</p>
                     <p>Qty: {{item.qty}}</p>
-                    <p *ngIf="item.product.dis!=='0'">{{item.product.dis | currency:userCurrency}}
-                        {{item.product.off}}</p>
+                    <p *ngIf="item.product.dis!=='0'">{{item.product.dis | currency:userCurrency}} {{item.product.off}}
+                    </p>
                     <p *ngIf="item.product.dis==='0'">{{item.product.price | currency:userCurrency}} </p>
                 </div>
             </div>
@@ -251,9 +240,9 @@
                 </label>
             </div>
             <div class="text-center">
-                <button class="nextBtn" [ngClass]="{'fade': !agreeTc||shipForm.invalid}" type="submit"
-                    [disabled]="!agreeTc||shipForm.invalid" (click)="placeOrder()">Place Your Order</button>
+                <button class="nextBtn" [ngClass]="{'fade': !agreeTc||shipForm.invalid}" type="submit" [disabled]="!agreeTc||shipForm.invalid" (click)="placeOrder()">Place Your Order</button>
             </div>
         </div>
     </div>
 </div>
+<app-footer></app-footer>

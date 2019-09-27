@@ -1,4 +1,10 @@
-import { DialogComponent } from './../../pages/layout/dialog/dialog.component';
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-07-05 14:52:14
+ * @LastEditors: your name
+ */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -7,6 +13,7 @@ import { Product } from './../../shared/models/product';
 import { BaglistService } from '../../shared/services/baglist.service';
 import { CartItemService } from './../../shared/services/cart-item.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { ResponsiveService } from './../../shared/services/responsive.service';
 
 @Component({
   selector: 'app-detail',
@@ -35,6 +42,7 @@ export class DetailComponent implements OnInit {
   largePhotoIndex: string;
   shareInfo: any;
   logined: boolean;
+  isMobile: boolean;
 
   constructor(
     private router: Router,
@@ -43,7 +51,9 @@ export class DetailComponent implements OnInit {
     private title: Title,
     private meta: Meta,
     private cartItem: CartItemService,
-    private authentication: AuthenticationService
+    private authentication: AuthenticationService,
+    private responsiveService: ResponsiveService
+
   ) { }
 
   ngOnInit() {
@@ -77,6 +87,9 @@ export class DetailComponent implements OnInit {
       }
     });
 
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 
   getAllInfo(bag) {

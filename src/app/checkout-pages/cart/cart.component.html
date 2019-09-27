@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-08-28 15:28:19
+ * @LastEditTime: 2019-09-19 14:56:10
  * @LastEditors: Please set LastEditors
  -->
 <div class="banner">
@@ -54,14 +54,13 @@
                                     <td>
                                         <div>
                                             <a [routerLink]="['/en/products',item.product.sku]">
-                                                <img alt="" onerror="this.src='assets/images/icon.png'"
-                                                    src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg">
+                                                <img alt="" onerror="this.src='assets/images/icon.png'" src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg">
                                             </a>
                                             <div>
                                                 <p>{{item.product.name}}</p>
                                                 <p class="sub">{{item.product.color}}</p>
-                                                <p class="sub" *ngIf="item.product.stock<6">Stock:
-                                                    {{item.product.stock}}</p>
+                                                <p class="sub" *ngIf="item.product.stock<6">Stock: {{item.product.stock}}
+                                                </p>
                                                 <p class="sub">#{{item.product.sku}}</p>
                                             </div>
                                         </div>
@@ -77,8 +76,7 @@
                                     </td>
                                     <td *ngIf="item.product.dis<=0">
                                         <p>
-                                            <span class="strong" *ngIf="discount">( {{discount}}% Off )&nbsp;</span>
-                                            {{item.product.price* item.qty*(1-discount/100) | currency:userCurrency}}
+                                            <span class="strong" *ngIf="discount">( {{discount}}% Off )&nbsp;</span> {{item.product.price* item.qty*(1-discount/100) | currency:userCurrency}}
                                         </p>
                                     </td>
                                     <td *ngIf="item.product.dis>0">
@@ -140,8 +138,7 @@
                     <h4>Registered Customer</h4>
                     <span>Login for to autocomplete required information and speed up checkout process.</span>
                     <div class="text-center">
-                        <a class="nextBtn crimson " [routerLink]="[ '/en/register'] "
-                            [queryParams]="{returnUrl: '/en/checkout/shopping-bag'} ">Login and checkout</a>
+                        <a class="nextBtn crimson " [routerLink]="[ '/en/register'] " [queryParams]="{returnUrl: '/en/checkout/shopping-bag'} ">Login and checkout</a>
                     </div>
                 </div>
                 <br>
@@ -180,3 +177,4 @@
         </div>
     </ng-template>
 </div>
+<app-footer></app-footer>

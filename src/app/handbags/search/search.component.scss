@@ -5,7 +5,6 @@
     position: relative;
     background: url(../../../assets/images/bg-cover.jpg) 0% 50%;
     background-size: 100%;
-
     h2 {
         font-size: 3rem;
         position: absolute;
@@ -17,7 +16,6 @@
         text-transform: uppercase;
         color: #fff;
         text-shadow: 1px 1px 1px #555;
-        font-family: 'Josefin Sans', sans-serif;
     }
 }
 
@@ -25,10 +23,17 @@ h3 {
     text-align: center;
     padding: 50px 0 20px;
     font-size: 1.6rem;
-    font-family: 'Josefin Sans', sans-serif;
     line-height: 1.5;
-
     span {
         color: crimson
+    }
+}
+
+.mobile {
+    background-size: cover;
+    height: 20vh;
+    margin-top: 20px;
+    h2 {
+        font-size: 1rem;
     }
 }

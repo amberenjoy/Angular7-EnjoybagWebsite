@@ -1,0 +1,122 @@
+@mixin transition($value) {
+    -webkit-transition: ($value);
+    -moz-transition: ($value);
+    -ms-transition: ($value);
+    transition: ($value);
+}
+
+.sidebar {
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    @include transition(all 0.3s 0.05s);
+    &.active {
+        left: 0;
+        .sidebar-content {
+            transform: translateX(0)
+        }
+        .sidebar-overlay {
+            opacity: 1;
+            transform: scale(1)
+        }
+    }
+    img {
+        max-width: 28vw;
+    }
+}
+
+.sidebar-overlay {
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transform: scale(0);
+    background: rgba(0, 0, 0, .4)
+}
+
+.sidebar-content {
+    width: 85%;
+    color: #333;
+    z-index: 2;
+    min-height: 100vh;
+    background: #fffcfc;
+    transform: translateX(-100%);
+    @include transition(all 0.3s 0.05s);
+}
+
+.nav-head {
+    text-align: center;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+    span {
+        color: crimson;
+        float: left;
+    }
+}
+
+.nav-left {
+    ul {
+        padding: 0 1.5rem 1.5rem;
+        border-bottom: 1px solid #eee;
+    }
+    li {
+        text-transform: uppercase;
+        padding: 1.5rem 0 0;
+        span {
+            float: right;
+            font-size: 1rem;
+        }
+    }
+    .radio {
+        display: inline-block;
+        margin-right: 1.5rem;
+        label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        input[type=radio] {
+            position: absolute;
+            opacity: 0;
+            margin-left: -20px;
+            width: unset !important;
+        }
+        input[type=radio]:checked+.radio-label:before {
+            background-color: crimson;
+            box-shadow: inset 0 0 0 3px #fffcfc;
+        }
+        input[type=radio]+.radio-label:before {
+            position: relative;
+            top: 0;
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            margin-right: 6px;
+            content: '';
+            cursor: pointer;
+            transition: all 250ms ease;
+            text-align: center;
+            vertical-align: top;
+            border: 1px solid #aaa;
+            border-radius: 100%;
+            background: #fffcfc;
+        }
+    }
+}
+
+.sidebar-sub {
+    position: absolute;
+    width: 85%;
+    background: #fffcfc;
+    top: 0;
+    left: -100%;
+    z-index: 1;
+    min-height: 100vh;
+    transition: all .3s;
+    &.active {
+        left: 0;
+    }
+}

@@ -4,7 +4,6 @@
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
 @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri|Libre+Baskerville&display=swap');
-
 @mixin transform($value) {
     -webkit-transform: ($value);
     -moz-transform: ($value);
@@ -17,6 +16,24 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
     -moz-transition: ($value);
     -ms-transition: ($value);
     transition: ($value);
+}
+
+$screen-sm: 768px;
+$screen-md: 1024px;
+$screen-lg: 1200px;
+$screen-xl: 1600px;
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    @media screen and (min-width: $screen-sm) {
+        font-size: 14px;
+    }
+    @media screen and (min-width:$screen-lg) {
+        font-size: 16px;
+    }
+    @media screen and (min-width:$screen-xl) {
+        font-size: 16px;
+    }
 }
 
 a {

@@ -1,5 +1,12 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-07-05 14:52:14
+ * @LastEditors: your name
+ -->
 <nav><a href="/en/home">Home</a><a href="/en/products/men/all">Men</a><span>{{name}}</span></nav>
-<div class="banner banner-men">
+<div class="banner banner-men" [ngClass]="{'mobile': isMobile}">
     <h2>Gifts for him</h2>
 </div>
 <app-bag-list></app-bag-list>

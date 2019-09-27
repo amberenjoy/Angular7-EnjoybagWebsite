@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-08-29 09:59:23
+ * @LastEditTime: 2019-09-25 16:06:41
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
@@ -255,16 +255,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       singleItem.unit_amount.value = singleItem.price;
       orderItems.push(singleItem);
     });
-
+    // amber test paypal AYQTo6YvxDFI5065dY1h7ycgwnSPTunZfEUYe2U1a-58I09ExZpAKZ-oI0eOadCM26_9w5NFswq5d_Nv
     // tslint:disable-next-line:max-line-length
-    this.loadExternalScript('https://www.paypal.com/sdk/js?client-id=AYQTo6YvxDFI5065dY1h7ycgwnSPTunZfEUYe2U1a-58I09ExZpAKZ-oI0eOadCM26_9w5NFswq5d_Nv&currency=HKD')
+    this.loadExternalScript('https://www.paypal.com/sdk/js?client-id=Abs1qiSNKpkSUej7vbVd8vjY9pY1IOivR9qUUWkyNNinCXhQtCXczc6aJG0oGo4S-NhANCKKyXNYn95F&currency=HKD')
       .then(() => {
         console.log('load paypal');
         paypal.Buttons({
           env: 'sandbox',
           style: {
             label: 'pay',
-            size: 'medium',    // small | medium | large | responsive
+            size: 'small',    // small | medium | large | responsive
             shape: 'pill',     // pill | rect
             color: 'blue',      // gold | blue | silver | black
             tagline: false
@@ -301,8 +301,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               this.paymentObject.paymentStatus = 'Paid Successfully !';
               this.paymentObject.paymentMessage = ' Transaction completed by ' + details.payer.name.given_name
                 + ' - Transaction ID:' + data.orderID;
-              this.order.payment.transaction_id = data.orderID;
-              this.order.payment.paymentStatus = 'Paid';
+              if (data.orderID) {
+                this.order.payment.transaction_id = data.orderID;
+                this.order.payment.paymentStatus = 'Paid';
+              }
             });
           },
           onError: (err) => {

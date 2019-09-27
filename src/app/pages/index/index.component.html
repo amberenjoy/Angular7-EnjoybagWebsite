@@ -1,3 +1,21 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-09-23 15:48:30
+ * @LastEditors: Please set LastEditors
+ -->
+
+<div *ngIf="!isMobile">
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+</div>
+<div *ngIf="isMobile">
+    <app-header-mobile-sidenav></app-header-mobile-sidenav>
+    <div class="body" [ngClass]="{'fixed': isMobile&&sideMenuStatus}">
+        <app-header-mobile></app-header-mobile>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+</div>

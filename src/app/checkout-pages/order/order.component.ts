@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-08-28 15:02:48
+ * @LastEditTime: 2019-09-19 14:42:33
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -136,7 +136,5 @@ export class OrderComponent implements OnInit, OnDestroy {
       window.print();
       this.print = false;
     });
-    // WindowPrt.print();
-    // WindowPrt.close();
   }
 }

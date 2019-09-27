@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-08-30 16:42:50
+ * @LastEditTime: 2019-09-19 12:59:01
  * @LastEditors: Please set LastEditors
  -->
 <section [ngClass]="{'print': print}">
@@ -52,15 +52,13 @@
                     <button class="nextBtn" (click)="cancelModal=true">Cancel Order</button>
                 </div>
                 <h2 *ngIf="!print">Thanks</h2>
-                <p class="order-id text-center">Your order has been placed successfully. <br> When we receive your
-                    payment, we will wrap up your stuff for shipping.
+                <p class="order-id text-center">Your order has been placed successfully. <br> When we receive your payment, we will wrap up your stuff for shipping.
                 </p>
             </div>
         </div>
         <div class="header" *ngIf="order.status!=='Order Placed'">
             <h2 *ngIf="!print" class="text-center">Thanks</h2>
-            <p class="order-id text-center">Your order has been successfully <span
-                    class="strong">{{order.status}}</span> .
+            <p class="order-id text-center">Your order has been successfully <span class="strong">{{order.status}}</span> .
                 <br> For your reference, here's a summary of your order.
             </p>
         </div>
@@ -110,8 +108,7 @@
                             {{order.address.city}}
                         </span>
                     </p>
-                    <p class="order-info"
-                        *ngIf="order.billing.oldAddress&&!order.address.building&&order.delivery.deliveryMethod!=='Self Pick-Up'">
+                    <p class="order-info" *ngIf="order.billing.oldAddress&&!order.address.building&&order.delivery.deliveryMethod!=='Self Pick-Up'">
                         <span>Address：</span>
                         <span>{{order.billing.oldAddress}}</span>
                     </p>
@@ -184,6 +181,7 @@
             </p>
         </div>
     </div>
+    <app-footer></app-footer>
 </section>
 <div class="modal" *ngIf="cancelModal">
     <div class="modal-body">
@@ -192,18 +190,15 @@
             <div>
                 <p>Reasons for cancellation ( Optional ):</p>
                 <div class="radio">
-                    <input id="radio-1" name="radio" type="radio" value="Changed my mind"
-                        (change)="reasonChange('Changed my mind')">
+                    <input id="radio-1" name="radio" type="radio" value="Changed my mind" (change)="reasonChange('Changed my mind')">
                     <label for="radio-1" class="radio-label">Changed my mind</label>
                 </div>
                 <div class="radio">
-                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address"
-                        (change)="reasonChange(' Wrong shipping address ')">
+                    <input id="radio-2" name="radio" type="radio" value="Wrong shipping address" (change)="reasonChange(' Wrong shipping address ')">
                     <label for="radio-2" class="radio-label">Wrong shipping address</label>
                 </div>
                 <div class="radio">
-                    <input id="radio-3" name="radio" type="radio" value="Duplicate order"
-                        (change)="reasonChange(' Duplicate order')">
+                    <input id="radio-3" name="radio" type="radio" value="Duplicate order" (change)="reasonChange(' Duplicate order')">
                     <label for="radio-3" class="radio-label">Duplicate order</label>
                 </div>
                 <div class="radio">

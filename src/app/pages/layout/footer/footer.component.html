@@ -1,4 +1,11 @@
-<footer class="flex-rw">
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-09-24 12:16:01
+ * @LastEditors: Please set LastEditors
+ -->
+<footer class="flex-rw" [ngClass]="{'mobile': isMobile}">
     <ul class="footer-list-top">
         <li>
             <h4 class="footer-list-header">About Us</h4>
@@ -20,7 +27,7 @@
         </li>
     </ul>
     <ul class="footer-list-top">
-        <li id="help">
+        <li>
             <h4 class="footer-list-header">Please Help Me</h4>
         </li>
         <li><a [routerLink]="[ 'FAQ']" fragment="Contact" class="footer-list-anchor">Contact Us</a></li>

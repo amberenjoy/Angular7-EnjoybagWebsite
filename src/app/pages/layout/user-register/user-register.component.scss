@@ -16,14 +16,12 @@ fieldset {
     display: block;
     width: 100%;
     margin: 0 auto;
-
     label {
         margin-bottom: 2px;
         color: #333;
         display: block;
         font-size: .9rem
     }
-
     input {
         width: 100%;
         padding: 5px 0 4px;
@@ -33,7 +31,6 @@ fieldset {
         border-bottom: 1px solid #ccc;
         background: rgba(243, 243, 243, 0.54);
     }
-
     div {
         p {
             margin: 5px 0 30px;
@@ -48,54 +45,48 @@ fieldset {
 .radio {
     display: inline-block;
     margin: 5px 22px 0px 0px;
-
     label {
         margin-bottom: 0;
         font-weight: 400;
         cursor: pointer;
     }
-
     input[type=radio] {
         position: absolute;
         opacity: 0;
         margin-left: -20px;
         width: unset !important;
     }
-}
-
-.radio input[type=radio]:checked+.radio-label:before {
-    background-color: #dc143c;
-    box-shadow: inset 0 0 0 3px #f4f4f4;
-}
-
-.radio input[type=radio]+.radio-label:before {
-    position: relative;
-    top: -3px;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    margin-right: 6px;
-    content: '';
-    cursor: pointer;
-    transition: all 250ms ease;
-    text-align: center;
-    vertical-align: top;
-    border: 1px solid #b4b4b4;
-    border-radius: 100%;
-    background: #f4f4f4;
+    input[type=radio]:checked+.radio-label:before {
+        background-color: #dc143c;
+        box-shadow: inset 0 0 0 3px #f4f4f4;
+    }
+    input[type=radio]+.radio-label:before {
+        position: relative;
+        top: -3px;
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+        content: '';
+        cursor: pointer;
+        transition: all 250ms ease;
+        text-align: center;
+        vertical-align: top;
+        border: 1px solid #b4b4b4;
+        border-radius: 100%;
+        background: #f4f4f4;
+    }
 }
 
 .styled-checkbox {
     position: absolute; // take it out of document flow
     opacity: 0; // hide it
-
     &+label {
         position: relative;
         cursor: pointer;
         padding: 0 0 0 30px;
         line-height: 1.3;
     }
-
     // Box.
     &+label:before {
         content: '';
@@ -110,14 +101,12 @@ fieldset {
         border-radius: 50%;
         margin-left: -26px;
     }
-
     // Box hover
     &:hover+label:before,
     &:checked+label:before {
         background: crimson;
         border-color: crimson;
     }
-
     // Checkmark. Could be replaced with an image
     &:checked+label:after {
         content: '';
@@ -149,7 +138,6 @@ fieldset {
 .half {
     width: 48%;
     display: inline-block;
-
     &-right {
         margin-left: 4%;
     }
@@ -161,7 +149,6 @@ fieldset {
     margin: 0 auto;
     justify-content: space-between;
     position: relative;
-
     button {
         color: #333;
         border: 0;
@@ -169,7 +156,6 @@ fieldset {
         text-decoration: underline;
         padding: 0;
         cursor: pointer;
-
         &:nth-child(2) {
             background: crimson;
             padding: 8px 28px;
@@ -179,7 +165,6 @@ fieldset {
             text-decoration: none;
             position: relative;
         }
-
         &.disabled {
             opacity: 0.7;
         }
@@ -190,7 +175,6 @@ fieldset {
     width: 100%;
     display: flex;
     align-items: center;
-
     span {
         display: inline-block;
         margin-right: 5px;
@@ -218,21 +202,17 @@ fieldset {
     line-height: 1.5;
     background: #f9f9f9;
     margin-bottom: 20px !important;
-
     div {
         padding: 15px 20px 0;
         display: flex;
-
         p {
             margin: 0 0 0 10px;
         }
-
         i {
             margin-top: 5px;
             color: crimson;
         }
     }
-
     a {
         text-decoration: underline;
         color: crimson;
@@ -256,42 +236,36 @@ fieldset {
     height: 28px;
     text-align: center;
     padding-top: 10px;
-
     span {
         display: inline-block;
         height: 8px;
         width: 8px;
         background: #fff;
         border-radius: 0px;
-
         &:nth-child(1) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(2) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(3) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(4) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(5) {
             border-radius: 0;
             background-clip: padding-box;
@@ -305,18 +279,15 @@ fieldset {
     0% {
         transform: scale(0);
     }
-
     25% {
         transform: scale(0.9, 0.9);
         background: #ffd1d1;
     }
-
     50% {
         transform: scale(1, 1);
         margin: 0 3px;
         background: rgb(255, 255, 255);
     }
-
     100% {
         transform: scale(0);
     }

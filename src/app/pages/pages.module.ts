@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-09-05 16:12:00
+ * @LastEditTime: 2019-09-25 17:22:26
  * @LastEditors: Please set LastEditors
  */
 import { NgModule } from '@angular/core';
@@ -14,7 +14,6 @@ import { fakeBackendProvider } from '../helper/fake-backend';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './../helper/jwt.interceptor';
 import { ErrorInterceptor } from './../helper/error.interceptor';
-import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { LandingComponent } from './landing/landing.component';
@@ -46,6 +45,8 @@ import { UserResetComponent } from './layout/user-reset/user-reset.component';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 import { PageNotFoundComponent } from '.././page-not-found/page-not-found.component';
+import { HeaderMobileComponent } from './layout/header-mobile/header-mobile.component';
+import { HeaderMobileSidenavComponent } from './layout/header-mobile-sidenav/header-mobile-sidenav.component';
 
 const config = new AuthServiceConfig([
   {
@@ -67,12 +68,15 @@ export function provideConfig() {
     ContactComponent, ContactTcComponent,
     SearchComponent, SearchTcComponent,
     UserCartComponent, UserCartTcComponent,
-    UserRegisterPageComponent, UserRegisterComponent,
+    UserRegisterComponent, UserRegisterTcComponent,
     UserLoginComponent, UserLoginTcComponent,
-    UserRegisterTcComponent, UserRegisterPageTcComponent,
-    FaqComponent, FaqTcComponent, DialogComponent,
+    UserRegisterPageComponent, UserRegisterPageTcComponent,
+    FaqComponent, FaqTcComponent,
+    DialogComponent,
     PasswordPageComponent,
-    UserResetComponent, PageNotFoundComponent
+    UserResetComponent,
+    PageNotFoundComponent,
+    HeaderMobileComponent, HeaderMobileSidenavComponent
   ],
   imports: [
     CommonModule,
@@ -86,12 +90,11 @@ export function provideConfig() {
     ContactComponent, ContactTcComponent
   ],
   providers: [
-    SharedModule,
     // fakeBackendProvider,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
-  entryComponents: [DialogComponent],
+  entryComponents: [DialogComponent, UserLoginComponent, UserRegisterComponent]
 })
 export class PagesModule { }

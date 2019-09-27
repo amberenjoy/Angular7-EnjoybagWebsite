@@ -1,9 +1,15 @@
-<div class="banner">
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-25 15:24:48
+ * @LastEditors: Please set LastEditors
+ -->
+<div class="banner" [ngClass]="{'mobile': isMobile}">
     <h2>{{count}} Results for "{{paramSystem}}"</h2>
+</div>
+<div *ngIf="count==='0'">
+    <h3>Sorry, <span> {{paramSystem}}</span> item(s) is temporarily unavailable. <br> For any enquiries, please drop us a message here.</h3>
 </div>
 <app-bag-list [parameterSearch]="paramSystem" (passResult)="receiveResult($event)">
 </app-bag-list>
-<div [hidden]="count!='0'">
-    <h3>Sorry, <span> {{paramSystem}}</span> item(s) is temporarily unavailable. <br> For any enquiries, please drop us a message here.</h3>
-    <!-- <app-contact></app-contact> -->
-</div>

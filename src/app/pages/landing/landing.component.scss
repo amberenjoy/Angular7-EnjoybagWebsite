@@ -29,17 +29,17 @@ p {
     .item-1 {
         position: relative;
         width: 35%;
-        // background: url(../../../assets/images/20190903/bg.jpg) 50% 50% no-repeat / cover;
-        img {
-            width: 40%;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+        background: url(../../../assets/images/20190903/watercolor-brush.jpg) 50% 20% no-repeat;
+        background-size: 100%;
+        opacity: .8;
+        transform: rotate(-10deg);
+        overflow: hidden;
     }
     .item-2 {
         width: 65%;
-        background: url(../../../assets/images/20190903/tala-bg-1.jpg) 40% 50% no-repeat / cover;
+        background: url(../../../assets/images/20190903/tala-bg-1.jpg) 40% 50% no-repeat;
+        background-size: cover;
+        z-index: 3;
     }
     .caption {
         position: absolute;
@@ -81,7 +81,8 @@ p {
     }
     .item-3 {
         width: 55%;
-        background: url(../../../assets/images/20190903/tala-1.jpg) 50% 94% no-repeat / cover;
+        background: url(../../../assets/images/20190903/tala-1.jpg) 50% 94% no-repeat;
+        background-size: cover;
     }
     .item-4 {
         width: 35%;
@@ -90,7 +91,8 @@ p {
         div {
             padding: 8vh;
             margin: 7vh 0 4vh;
-            background: url(../../../assets/images/20190903/nude.jpg) 50% 94% no-repeat / cover;
+            background: url(../../../assets/images/20190903/nude.jpg) 50% 94% no-repeat;
+            background-size: cover;
         }
     }
     .caption {
@@ -117,7 +119,8 @@ p {
     }
     .left {
         padding: 5vh 0;
-        background: url(../../../assets/images/20190903/bg-1.jpg) 50% 94% no-repeat / cover;
+        background: url(../../../assets/images/20190903/bg-1.jpg) 50% 94% no-repeat;
+        background-size: cover;
         position: relative;
         div {
             padding: 7vh 3vh;
@@ -193,7 +196,8 @@ p {
 }
 
 .collection-ej-2 {
-    background: url(../../../assets/images/20190903/monogram.gif) 50% 94% no-repeat / cover;
+    background: url(../../../assets/images/20190903/monogram.gif) 50% 94% no-repeat;
+    background-size: cover;
     text-align: center;
     padding: 5vh 0;
     width: 60%;

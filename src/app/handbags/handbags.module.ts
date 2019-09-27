@@ -1,8 +1,15 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-07-05 14:52:14
+ * @LastEditors: your name
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HandbagsRoutingModule } from './handbags-routing.module';
-import { SharedModule } from './../shared/shared.module';
+// import { SharedModule } from './../shared/shared.module';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 import { NewComponent } from './new/new.component';
@@ -33,7 +40,7 @@ import { WomenComponent } from './women/women.component';
     DeferLoadModule
   ],
   providers: [
-    SharedModule
+    // SharedModule
   ]
 })
 export class HandbagsModule { }

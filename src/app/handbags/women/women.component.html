@@ -2,33 +2,38 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-02 15:05:15
+ * @LastEditTime: 2019-09-24 11:04:14
  * @LastEditors: Please set LastEditors
  -->
-<nav><a [routerLink]="[ '../../home' ]">Home</a><a [routerLink]="[ '../','all' ]">Women</a><span>{{name.replace('-',' ')}}</span>
-</nav>
-<div class="banner" [ngClass]="name.split(' ')[0]">
-    <h2 *ngIf="name==='all'">Women's Bags</h2>
-    <h2 *ngIf="name!=='all'">{{name.replace('-',' ')}}</h2>
-</div>
-<div class="body-flex">
-    <div class="side-list">
-        <h4> By Categories</h4>
-        <ul>
-            <li *ngFor="let category of categories">
-                <a [ngClass]="{'active': name.replace('-',' ')===category.name}" [routerLink]="['../',category.url]">{{category.name}}</a>
-            </li>
-            <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> View All</a></li>
-        </ul>
-        <h4> By Collections</h4>
-        <ul>
-            <li><a [routerLink]="['/en/products/new/all']"> New Arrivals</a></li>
-            <li><a [routerLink]="['/en/products/discount/all']">Sale</a></li>
-            <li> <a [routerLink]="['/en/products/collections/ZHU']">ZHU</a> </li>
-            <li> <a [routerLink]="['/en/products/collections/EJ']">EJ</a> </li>
-        </ul>
+<div [ngClass]="{'mobile': isMobile}">
+    <nav><a [routerLink]="[ '../../home' ]">Home</a><a [routerLink]="[ '../','all' ]">Women</a><span>{{name.replace('-',' ')}}</span>
+    </nav>
+    <div class="banner" [ngClass]="name.split(' ')[0]">
+        <h2 *ngIf="name==='all'">Women's Bags</h2>
+        <h2 *ngIf="name!=='all'">{{name.replace('-',' ')}}</h2>
     </div>
-    <div class="right-list">
-        <app-bag-list></app-bag-list>
+    <div class="body-flex">
+        <div class="side-list" *ngIf="!isMobile">
+            <h4> By Categories</h4>
+            <ul>
+                <li *ngFor="let category of categories">
+                    <a [ngClass]="{'active': name.replace('-',' ')===category.name}" [routerLink]="['../',category.url]">{{category.name}}</a>
+                </li>
+                <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> View All</a></li>
+            </ul>
+            <h4> By Collections</h4>
+            <ul>
+                <li><a [routerLink]="['/en/products/new/all']"> New Arrivals</a></li>
+                <li><a [routerLink]="['/en/products/discount/all']">Sale</a></li>
+                <li> <a [routerLink]="['/en/products/collections/ZHU']">ZHU</a> </li>
+                <li> <a [routerLink]="['/en/products/collections/EJ']">EJ</a> </li>
+            </ul>
+        </div>
+        <div class="side-list" *ngIf="isMobile">
+
+        </div>
+        <div class="right-list">
+            <app-bag-list></app-bag-list>
+        </div>
     </div>
 </div>

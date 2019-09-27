@@ -2,10 +2,11 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-07-05 14:52:15
- * @LastEditors: your name
+ * @LastEditTime: 2019-09-27 12:13:56
+ * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
+import { ResponsiveService } from './../../shared/services/responsive.service';
 
 @Component({
   selector: 'app-index',
@@ -13,9 +14,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+  isMobile: boolean;
+  sideMenuStatus: boolean;
 
-  constructor() { }
+  constructor(
+    private responsiveService: ResponsiveService
+  ) { }
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    // this.onResize();
+    this.responsiveService.checkWidth();
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
+    this.responsiveService.getMobileSideStatus().subscribe(res => {
+      this.sideMenuStatus = res;
+    });
+  }
 }

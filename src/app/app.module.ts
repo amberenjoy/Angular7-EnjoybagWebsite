@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-06-03 10:09:50
- * @LastEditTime: 2019-09-04 14:10:37
+ * @LastEditTime: 2019-09-25 16:21:33
  * @LastEditors: Please set LastEditors
  */
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { PagesModule } from './pages/pages.module';
-import { SharedModule } from './shared/shared.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -22,10 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, PagesModule, BrowserAnimationsModule
-  ],
-  providers: [
-    SharedModule
+    AppRoutingModule,
+    PagesModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 })

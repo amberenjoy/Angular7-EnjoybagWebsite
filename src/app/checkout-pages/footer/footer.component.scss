@@ -1,0 +1,45 @@
+.footer {
+    padding: 50px 0 0;
+    h3 {
+        font-size: 1.6em;
+        margin-bottom: 1rem;
+    }
+    a {
+        color: crimson;
+        border-bottom: 1px solid crimson;
+    }
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+        border: none;
+        justify-content: center;
+        flex-wrap: nowrap;
+        div {
+            width: 33.33%;
+            padding: 0 1rem;
+            p {
+                max-width: 310px;
+                margin: .5rem auto;
+                line-height: 1.4;
+            }
+        }
+    }
+    .icon {
+        font-weight: 500;
+        i {
+            display: inline-block;
+            color: crimson;
+            padding-right: .5rem;
+        }
+    }
+}
+
+.footer-box {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    >p {
+        margin: 1rem auto;
+        line-height: 1.5;
+    }
+}

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-08-30 10:30:04
+ * @LastEditTime: 2019-09-27 14:48:58
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -17,6 +17,7 @@ const headers = new HttpHeaders({ 'Content-Type': 'text/xml' }).set('Accept', 't
 @Injectable({
   providedIn: 'root'
 })
+
 export class BaglistService {
 
   constructor(private http: HttpClient, private ngxXml2jsonService: NgxXml2jsonService, ) { }

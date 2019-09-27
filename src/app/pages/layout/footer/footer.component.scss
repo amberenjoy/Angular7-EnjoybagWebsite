@@ -12,7 +12,7 @@ footer {
 .footer-list-top {
     width: 33.333%;
     background: #fdfcfc;
-    padding: 2em 0;
+    padding: 1.5rem 0;
     li {
         text-align: center;
         padding: 10px 0;
@@ -37,7 +37,7 @@ footer {
 
 .footer-list-anchor,
 .footer-bottom-wrapper {
-    font-size: .85rem;
+    font-size: .85em;
 }
 
 .footer-bottom-section {
@@ -45,11 +45,18 @@ footer {
     max-width: 1530px;
     padding: 10px 20px;
     margin: 10px auto;
-    color: aliceblue;
+    color: #fff;
     justify-content: space-between;
     a {
-        color: aliceblue;
-        margin: 0 10px;
-        font-size: 1.4em;
+        color: #fff;
+        margin: 0 0 0 10px;
+    }
+}
+
+.mobile {
+    .footer-list-top {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding: 1rem 0;
     }
 }

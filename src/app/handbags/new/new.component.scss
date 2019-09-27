@@ -36,6 +36,10 @@ nav {
         background: url(../../../assets/images/20190903/new.jpg) 0% 100%;
         background-size: cover;
     }
+    &-men {
+        background: url(../../../assets/images/men-banner.jpg) 0% 50%;
+        background-size: cover;
+    }
     &-sale {
         background: crimson;
     }
@@ -50,6 +54,12 @@ nav {
         text-transform: uppercase;
         color: #fff;
         text-shadow: 1px 1px 1px #555;
-        font-family: 'Josefin Sans', sans-serif;
+    }
+}
+
+.mobile {
+    height: 30vh;
+    h2 {
+        font-size: 1rem;
     }
 }

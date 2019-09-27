@@ -1,6 +1,12 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-06-03 10:09:50
+ * @LastEditTime: 2019-09-23 15:10:26
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { CartItemService } from './shared/services/cart-item.service';
 import { CategoriesService } from './shared/services/categories.service';
 
@@ -12,7 +18,7 @@ import { CategoriesService } from './shared/services/categories.service';
 export class AppComponent {
 
   constructor(
-    private router: Router, private titleService: Title,
+    private router: Router,
     private cartItemService: CartItemService,
     private categoriesService: CategoriesService
   ) {
@@ -25,11 +31,9 @@ export class AppComponent {
       }
     });
 
-    this.titleService.setTitle('Enjoy Handbag Online Shopping HK ');
     this.categoriesService.getBagCategories('women');
     this.categoriesService.getBagCategories('accessories');
     this.cartItemService.findUserCart();
-    // this.categoriesService.getBagCategories('accessories');
 
   }
 

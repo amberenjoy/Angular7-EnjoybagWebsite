@@ -2,10 +2,10 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-08-30 11:38:04
+ * @LastEditTime: 2019-09-24 10:37:31
  * @LastEditors: Please set LastEditors
  -->
-<div class="product-list">
+<div class="product-list" [ngClass]="{'mobile': isMobile}">
     <div class="loader-overlay" *ngIf="loading">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="collections.length===0">
+    <div *ngIf="!loading&&collections.length===0">
         <h3 class="text-center">
             <span class="strong">Sorry !</span> <br>
             <span> The products you are looking for are temporarily unavailable.</span> <br>

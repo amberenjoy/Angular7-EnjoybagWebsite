@@ -1,6 +1,14 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-24 10:33:37
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { ResponsiveService } from './../../shared/services/responsive.service';
 
 @Component({
   selector: 'app-new',
@@ -9,9 +17,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NewComponent implements OnInit {
   key: string;
+  isMobile: boolean;
+
   constructor(
     private title: Title,
     private route: ActivatedRoute,
+    private responsiveService: ResponsiveService
   ) { }
 
   ngOnInit() {
@@ -22,6 +33,9 @@ export class NewComponent implements OnInit {
       if (this.key === 'discount') {
         this.title.setTitle('Designer Sale: Handbags and Accessories  | Enjoybag HK');
       }
+    });
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
     });
   }
 

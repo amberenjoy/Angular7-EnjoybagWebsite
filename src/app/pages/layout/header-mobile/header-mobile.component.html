@@ -1,0 +1,39 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-23 12:53:45
+ * @LastEditTime: 2019-09-27 14:54:37
+ * @LastEditors: Please set LastEditors
+ -->
+<div class="head-mobile">
+    <div class="head-mobile-left">
+        <div class="burger" (click)="openSideNav=!openSideNav;toggleSideMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div>
+        <a [routerLink]="[ 'home' ]"><img src="assets/images/logo.png" alt=" "></a>
+    </div>
+    <div class="head-mobile-right">
+        <div class="head head-search ">
+            <a> <i class="fa fa-search" aria-hidden="true" (click)="openSearch=!openSearch"></i></a>
+            <div class="dropdown" *ngIf="openSearch">
+                <form (keydown)="searchKey($event, searchItem.value)" [formGroup]="searchForm">
+                    <input name="search" formControlName="searchName" type="text" placeholder="Search" #searchItem required>
+                    <button (click)="searchBtn($event, searchItem.value)"></button>
+                </form>
+            </div>
+        </div>
+        <div class="head head-login">
+            <a [routerLink]="[ '/en/register']" *ngIf="!logined"> <i class="fa fa-user" aria-hidden="true"></i></a>
+            <a [routerLink]="[ '/en/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}"> <i class="fa fa-user" aria-hidden="true"></i></a>
+        </div>
+        <div class="head head-cart">
+            <a [ngClass]="{'crimson': cartNum>0}" [routerLink]="[ '/en/checkout/shopping-bag']">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i><span *ngIf="cartNum>0">{{cartNum}}</span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -44,7 +44,6 @@ nav {
         margin: 0;
         transform: translateY(-50%);
         text-transform: uppercase;
-        font-family: 'Josefin Sans', sans-serif;
     }
     &.crossbody {
         background: url(../../../assets/images/cross.jpg) 100% 50% no-repeat;
@@ -120,4 +119,23 @@ nav {
 .right-list {
     width: 80%;
     display: inline-block;
+}
+
+.mobile {
+    .banner {
+        height: 30vh;
+        background-size: cover;
+        h2 {
+            font-size: 1rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .side-list {
+        width: 0;
+        padding: 0;
+    }
+    .right-list {
+        width: 100%;
+    }
 }

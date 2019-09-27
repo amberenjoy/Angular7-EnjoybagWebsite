@@ -1,13 +1,30 @@
-<section>
+<section [ngClass]="{'mobile': isMobile}">
     <div class="banner">
         <h3>Sign in / Register</h3>
     </div>
-    <div class="body">
+    <div class="body" *ngIf="!isMobile">
         <div class="half">
             <app-user-login [class]="page"></app-user-login>
         </div>
         <div class="half">
             <app-user-register></app-user-register>
+        </div>
+    </div>
+    <div class="body" *ngIf="isMobile&&registerMobile">
+        <div class="half">
+            <ng-container *ngComponentOutlet="currentComponent">
+            </ng-container>
+        </div>
+        <div class="text-center">
+            <button (click)="registerMobile=false;scrollTop()">Sign In</button>
+        </div>
+    </div>
+    <div class="body" *ngIf="isMobile&&!registerMobile">
+        <div class="half">
+            <app-user-login [class]="page"></app-user-login>
+        </div>
+        <div class="text-center">
+            <button (click)="render(1);registerMobile=true;scrollTop()">Sign Up</button>
         </div>
     </div>
 </section>

@@ -1,10 +1,10 @@
 /*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-08-30 11:02:25
+* @Description: In User Settings Edit
+* @Author: your name
+* @Date: 2019-07-05 14:52:15
+ * @LastEditTime: 2019-09-23 17:10:52
  * @LastEditors: Please set LastEditors
- */
+*/
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CartItemService } from '../../../shared/services/cart-item.service';
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { CategoriesService } from '../../../shared/services/categories.service';
 import { Category } from '../../../shared/models/category';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ import { Category } from '../../../shared/models/category';
 })
 
 export class HeaderComponent implements OnInit {
+  isMobile: boolean;
   fixed: boolean;
   logined: boolean;
   userCurrency: string;
@@ -32,6 +34,8 @@ export class HeaderComponent implements OnInit {
   navActiveAcce = false;
   categories: Category[];
   categoriesSLG: Category[];
+  searchItem: string;
+  searchForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -45,7 +49,6 @@ export class HeaderComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
-
     // get women nav category
     this.categoriesService.getCategories().subscribe(res => {
       this.categories = res;
@@ -100,6 +103,8 @@ export class HeaderComponent implements OnInit {
         this.navActive = false;
       }
     });
+
+    this.createForm();
   }
 
   changeLanguage(language: string) {
@@ -127,6 +132,30 @@ export class HeaderComponent implements OnInit {
       this.fixed = true;
     } else if (this.fixed && window.pageYOffset <= 70) {
       this.fixed = false;
+    }
+  }
+
+  createForm() {
+    this.searchForm = new FormGroup({
+      searchName: new FormControl('', Validators.required)
+    });
+  }
+
+  searchKey(event, value) {
+    if (event.keyCode === 13) {
+      this.searchBtn(event, value);
+    }
+  }
+
+  searchBtn(event, value) {
+    event.preventDefault();
+    if (value !== '') {
+      // 重复点击菜单刷新界面 网上没找到方法 通过跳转到别的界面在跳回来的方式进行实现
+      this.router.navigateByUrl('/en/home').then(() => {
+        this.router.navigate(['/en/products/search'], { queryParams: { qry: value } });
+      });
+    } else {
+      this.searchForm.controls['searchName'.toString()].setErrors({ incorrect: true });
     }
   }
 }

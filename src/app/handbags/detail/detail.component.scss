@@ -1,6 +1,5 @@
 nav {
     padding: 10px 1px 0;
-
     a {
         display: inline-block;
         padding: 5px 0 1px;
@@ -9,19 +8,16 @@ nav {
         font-size: .75rem;
         text-transform: uppercase;
         position: relative;
-
         &:hover {
             color: crimson;
             border-bottom: 1px solid crimson;
         }
-
         &::after {
             content: '/';
             position: absolute;
             right: -13px;
         }
     }
-
     span {
         display: inline-block;
         padding: 5px 0 2px;
@@ -35,7 +31,10 @@ nav {
 .bagBody {
     width: 100%;
     max-width: 1280px;
-    margin: 0 auto;
+    margin: 1rem auto 0;
+    img {
+        cursor: pointer;
+    }
 }
 
 .grid {
@@ -49,22 +48,18 @@ nav {
     background: #fcfcfc;
     padding: 3em;
     margin: 0 auto;
-
     h4 {
         font-size: 1.2em;
         text-transform: capitalize;
         margin-bottom: 1em;
         font-weight: 600;
-
     }
-
     h5 {
         font-size: 1em;
         text-transform: uppercase;
         font-weight: 600;
         margin-bottom: 1em;
     }
-
     p {
         margin-bottom: 0.8em;
         font-size: .9em;
@@ -74,14 +69,18 @@ nav {
 
 .info-2 {
     background: #fff;
-
     p {
         margin: 0;
-
         span {
             display: block;
             line-height: 1.5;
         }
+    }
+    b {
+        font-size: 1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 1em;
     }
 }
 
@@ -92,14 +91,9 @@ nav {
     padding: 0.3em 0 0;
     position: relative;
     margin-bottom: 0.8em;
-
     p {
-        position: absolute;
-        right: 0;
-        top: 5px;
         color: #999;
     }
-
     span {
         text-transform: uppercase;
         font-size: 0.9em;
@@ -116,7 +110,7 @@ nav {
     cursor: pointer;
     position: relative;
     border-radius: 50%;
-
+    border: 1px solid #ddd;
     &:after {
         content: '';
         width: 26px;
@@ -127,13 +121,12 @@ nav {
         left: -4px;
         top: -4px;
     }
-
     &.active:after {
         border: 1px solid #333;
     }
-
     span {
         display: inline-block;
+        line-height: 1.3;
         color: #fff;
         background: #333;
         position: absolute;
@@ -148,7 +141,6 @@ nav {
         opacity: 0;
         margin: 0;
     }
-
     &:hover {
         span {
             opacity: 1;
@@ -161,7 +153,6 @@ nav {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     padding: .4em 0;
-
     span {
         font-size: .9em;
         color: #999;
@@ -183,9 +174,8 @@ nav {
     overflow: hidden;
     transition: all .3s;
     width: 100%;
-
     &:hover {
-        box-shadow: 0 4px 30px -5px #dc143c;
+        box-shadow: 0 4px 20px -5px #dc143c;
     }
 }
 
@@ -200,17 +190,14 @@ nav {
     list-style: none;
     display: inline-block;
     text-align: center;
-
     li {
         margin: 0 5px;
         display: inline-block;
         cursor: pointer;
         animation: fadeInScale .7s ease-in-out;
-
         a {
             display: inline-block;
             position: relative;
-
             i {
                 position: absolute;
                 top: 8px;
@@ -220,7 +207,6 @@ nav {
                 font-size: 1.2em;
             }
         }
-
         a:before {
             display: block;
             width: 34px;
@@ -231,12 +217,10 @@ nav {
             border-radius: 100%;
             background: linear-gradient(45deg, #ff512f, #dd2476);
         }
-
         a:hover:before {
             transition: all 265ms ease-in;
             transform: scale(0);
         }
-
         a:hover i {
             transition: all 265ms ease-in;
             transform: scale(2);
@@ -249,7 +233,6 @@ nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-
     .half {
         width: 33.33%;
         text-align: center;
@@ -267,7 +250,6 @@ nav {
     height: 80vh;
     opacity: 1;
     transition: all .5s;
-
     &.hidden {
         height: 0;
         opacity: 0;
@@ -297,19 +279,15 @@ nav {
     0% {
         transform: rotate(0deg);
     }
-
     25% {
         transform: rotate(180deg);
     }
-
     50% {
         transform: rotate(180deg);
     }
-
     75% {
         transform: rotate(360deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
@@ -319,19 +297,15 @@ nav {
     0% {
         height: 0%;
     }
-
     25% {
         height: 0%;
     }
-
     50% {
         height: 100%;
     }
-
     75% {
         height: 100%;
     }
-
     100% {
         height: 0%;
     }
@@ -348,42 +322,36 @@ nav {
     padding-top: 10px;
     margin-left: -60px;
     border-radius: 4px;
-
     span {
         display: inline-block;
         height: 8px;
         width: 8px;
         background: #fff;
         border-radius: 0px;
-
         &:nth-child(1) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.1s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(2) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.2s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(3) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.3s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(4) {
             border-radius: 0;
             background-clip: padding-box;
             border-radius: 500px;
             animation: scale 1s 0.4s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
-
         &:nth-child(5) {
             border-radius: 0;
             background-clip: padding-box;
@@ -397,18 +365,15 @@ nav {
     0% {
         transform: scale(0);
     }
-
     25% {
         transform: scale(0.9, 0.9);
         background: #ffd1d1;
     }
-
     50% {
         transform: scale(1, 1);
         margin: 0 3px;
         background: rgb(255, 255, 255);
     }
-
     100% {
         transform: scale(0);
     }
@@ -422,7 +387,6 @@ nav {
     width: 100vw;
     height: 100vh;
     z-index: 999;
-
     button {
         position: absolute;
         right: 30px;
@@ -432,5 +396,22 @@ nav {
         font-size: 2rem;
         cursor: pointer;
         z-index: 2;
+    }
+}
+
+.mobile {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    img {
+        width: 100%;
+    }
+    .info {
+        padding: 3em 0;
+    }
+    .flex {
+        .half {
+            width: 100%;
+        }
     }
 }

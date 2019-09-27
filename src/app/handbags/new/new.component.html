@@ -1,6 +1,13 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-24 10:29:20
+ * @LastEditors: Please set LastEditors
+ -->
 <nav> <a [routerLink]="[ '../../../../home' ]">Home</a>
     <span *ngIf="key==='new'">New</span><span *ngIf="key==='discount'">Sale</span></nav>
-<div class="banner " [ngClass]="{'banner-new': key==='new','banner-sale': key==='discount'}">
+<div class="banner" [ngClass]="{'banner-new': key==='new','banner-sale': key==='discount','mobile': isMobile}">
     <h2 *ngIf="key==='new'">New Arrivals</h2>
     <h2 *ngIf="key==='discount'">Best Sellers</h2>
 </div>

@@ -1,0 +1,106 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-23 15:18:06
+ * @LastEditTime: 2019-09-24 12:03:07
+ * @LastEditors: Please set LastEditors
+ -->
+<div class="sidebar " [ngClass]="{'active': openSideNav}">
+    <div class="sidebar-overlay" (click)="openSideNav=false;openSubSideNav=false;toggleSideMenu()"></div>
+    <div class="sidebar-content">
+        <div class="nav-head">
+            <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'home' ]"><img src="assets/images/logo.png" alt=" "></a>
+        </div>
+        <div class="nav-left">
+            <ul>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'products/new/all' ]" routerLinkActive="active">New</a>
+                </li>
+                <li (click)="openSubMenu($event)">
+                    <a>Women's</a> <span><i class="fa fa-chevron-right " aria-hidden="true "></i></span>
+                </li>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'products/men/all']" routerLinkActive="active">Men's</a>
+                </li>
+                <li (click)="openSubMenu($event)">
+                    <a>Accessories</a>
+                    <span><i class="fa fa-chevron-right " aria-hidden="true "></i></span>
+                </li>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'products/discount/all']" routerLinkActive="active">Sale</a>
+                </li>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'products/collections/EJ']" routerLinkActive="active">EJ Collections</a>
+                </li>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'products/collections/ZHU']" routerLinkActive="active">ZHU Collections</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'products/new/all' ]" routerLinkActive="active">My
+                        Account</a>
+                </li>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'checkout/shopping-bag' ]" routerLinkActive="active">Shopping Cart</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'FAQ' ]" routerLinkActive="active">Customer
+                        Services</a>
+                </li>
+                <li>
+                    <a (click)="openSideNav=!openSideNav;toggleSideMenu()" [routerLink]="[ 'FAQ/tc' ]" routerLinkActive="active">Terms &
+                        Conditions</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <div class="radio">
+                        <input value="EN" id="EN" type="radio" name="lan" checked>
+                        <label for="EN" class="radio-label">English</label>
+                    </div>
+                    <div class="radio" (click)="changeLanguage('tc')">
+                        <input value="TC" id="TC" type="radio" name="lan">
+                        <label for="TC" class="radio-label">中文</label>
+                    </div>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <div class="radio">
+                        <input value="HKD" id="HKD" type="radio" name="cur" checked>
+                        <label for="HKD" class="radio-label">HKD</label>
+                    </div>
+                    <div class="radio">
+                        <input value="RMB" id="RMB" type="radio" name="cur">
+                        <label for="RMB" class="radio-label">RMB</label>
+                    </div>
+                    <div class="radio">
+                        <input value="USD" id="USD" type="radio" name="cur">
+                        <label for="USD" class="radio-label">USD</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div [ngClass]="{'active': openSubSideNav}" class="siderbar-content sidebar-sub">
+        <div class="nav-head">
+            <span (click)="openSubSideNav=!openSubSideNav"><i class="fa fa-chevron-left "
+                    aria-hidden="true "></i></span>
+            <a>{{subNav}}</a>
+        </div>
+        <div class="nav-left">
+            <ul>
+                <li (click)=" openSideNav=!openSideNav;openSubSideNav=!openSubSideNav;toggleSideMenu()" *ngFor="let category of categories">
+                    <a [routerLink]="[ 'products/'+link+'/'+ category.url  ]" routerLinkActive="active">{{category.name}}</a>
+                </li>
+                <li (click)="openSideNav=!openSideNav;openSubSideNav=!openSubSideNav;toggleSideMenu()">
+                    <a [routerLink]="[ 'products/'+link+'/all' ]" routerLinkActive="active">View
+                        All</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
