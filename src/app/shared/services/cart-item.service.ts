@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-08-16 10:05:30
+ * @LastEditTime: 2019-10-11 14:47:44
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -26,15 +26,15 @@ export class CartItemService {
     level: string;
 
     constructor(private dataService: BaglistService, private http: HttpClient) {
-        this.userCurrency = localStorage.getItem('currency') || '';
-        this.userLanguage = (localStorage.getItem('language') || '').toUpperCase();
+        this.userCurrency = localStorage.getItem('currency') || 'HKD';
+        this.userLanguage = (localStorage.getItem('language') || 'EN').toUpperCase();
     }
 
     findUserCart() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
         this.cart = [];
         let cartArray = [];
-        if (user) {
+        if (user.cartlist) {
             cartArray = user.cartlist.split('-');
         } else {
             const cartlist = localStorage.getItem('cartList') || '';
@@ -89,7 +89,7 @@ export class CartItemService {
     }
     getCartQty(): Observable<number> {
         let count = 0;
-        const user = JSON.parse(localStorage.getItem('user')) || [];
+        const user = Object.assign({}, JSON.parse(localStorage.getItem('user'))) || {};
         if (user.cartlist) {
             count = user.cartlist.split('-').length - 1;
         } else {
@@ -101,7 +101,7 @@ export class CartItemService {
     }
     addUserItem(bag, logined: boolean) {
         if (logined) {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
             const cartlist = user.cartlist + '-' + bag;
             this.callCartApi(user, cartlist);
         } else {
@@ -114,7 +114,7 @@ export class CartItemService {
     }
     removeUserItem(bag, logined: boolean) {
         if (logined) {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
             const usercart = user.cartlist || '';
             const skuArray = usercart.split('-');
             skuArray.splice(0, 1);
@@ -144,7 +144,7 @@ export class CartItemService {
 
     }
     completeOrder() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
         const cartlist = '';
         this.callCartApi(user, cartlist);
     }

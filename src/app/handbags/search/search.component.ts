@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-07-05 14:52:14
- * @LastEditors: your name
+ * @LastEditTime: 2019-10-14 15:00:05
+ * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,9 +34,9 @@ export class SearchComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.paramSystem = params.qry;
     });
-    this.title.setTitle('Search Results: ' + this.paramSystem + ' | Enjoybag HK');
+    this.title.setTitle('Search Results: ' + this.paramSystem + ' | Enjoy Handbag HK');
     if (!this.paramSystem) {
-      this.router.navigateByUrl('/en/home');
+      this.router.navigate(['/en/home']);
     }
     this.responsiveService.getMobileStatus().subscribe(isMobile => {
       this.isMobile = isMobile;

@@ -2,10 +2,10 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-08-30 16:26:42
+ * @LastEditTime: 2019-10-15 10:34:09
  * @LastEditors: Please set LastEditors
  -->
-<div class="top-footer">
+<div class="top-footer" [ngClass]="{'mobile': isMobile}">
     <form [formGroup]="contactForm">
         <h3>Contact Us</h3>
         <div class="login">
@@ -25,22 +25,27 @@
         </div>
         <br><br>
         <div class="contact-box">
-            <h4><i class="fa fa-clock-o "></i>Office Hours: &nbsp;</h4>
-            <p>Monday - Friday, 10am - 6pm</p><br>
-            <h4><i class="fa fa-map-marker"></i>Phone: &nbsp;</h4>
-            <p>+852 3572 8158</p><br>
-            <h4><i class="fa fa-phone"></i>Office Address: &nbsp;</h4><br>
-            <p class="margin-left">Room 3308, 33/F., Cable TV Tower, 9 Hoi Shing Road,Tsuen Wan, N.T., Hong Kong</p>
+            <h4>
+                <fa-icon [icon]="faClock"></fa-icon>Office Hours:
+            </h4>
+            <p>Monday - Friday, 10am - 6pm</p>
+            <h4>
+                <fa-icon [icon]="faMap"></fa-icon>Phone:
+            </h4>
+            <p>+852 3572 8158</p>
+            <h4>
+                <fa-icon [icon]="faPhone"></fa-icon>Office Address:
+            </h4>
+            <p>Room 3308, 33/F., Cable TV Tower, 9 Hoi Shing Road,Tsuen Wan, N.T., Hong Kong</p>
         </div>
         <div class="contact-box">
-            <h4><i class="fa fa-envelope"></i>Email: &nbsp;</h4> <br>
-            <p class="margin-left">Customer Service, <a
-                    href="mailto:customer@enjoybag.com.hk">customer@enjoybag.com.hk</a>
-            </p><br>
-            <p class="margin-left"> For media/ press requests , <a
-                    href="mailto:media@enjoybag.com.hk">media@enjoybag.com.hk</a></p><br>
-            <p class="margin-left">For other product or marketing-related enquiries,&nbsp; <a
-                    href="mailto:enquiries@enjoybag.com.hk">enquiries@enjoybag.com.hk</a></p>
+            <h4>
+                <fa-icon [icon]="faEnvelope"></fa-icon>Email:
+            </h4>
+            <p>Customer Service, <a href="mailto:customer@enjoybag.com.hk">customer@enjoybag.com.hk</a>
+            </p>
+            <p>For media / press requests, <a href="mailto:media@enjoybag.com.hk">media@enjoybag.com.hk</a></p>
+            <p>For other product or marketing-related enquiries,&nbsp; <a href="mailto:enquiries@enjoybag.com.hk">enquiries@enjoybag.com.hk</a></p>
         </div>
     </form>
 </div>

@@ -2,14 +2,16 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-09 12:22:21
- * @LastEditTime: 2019-09-03 16:34:48
+ * @LastEditTime: 2019-10-25 11:07:43
  * @LastEditors: Please set LastEditors
  -->
 <section>
-  <h3 mat-dialog-title>Sorry!</h3>
-  <div mat-dialog-content>
-    <button class="close" (click)="onNoClick()"><i class="fa fa-close " aria-hidden="true "></i></button>
-    <p>{{title}} <br> </p>
-    <p *ngIf="requireLogin">Please <a [routerLink]="[ '/en/register']" (click)="onNoClick()">try</a> again.</p>
-  </div>
+    <h3 mat-dialog-title>Sorry!</h3>
+    <div mat-dialog-content>
+        <button class="close" (click)="onNoClick()">
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </button>
+        <p>{{title}} <br> </p>
+        <p *ngIf="requireLogin">Please <a [routerLink]="[ '/en/register']" (click)="onNoClick()">try</a> again.</p>
+    </div>
 </section>

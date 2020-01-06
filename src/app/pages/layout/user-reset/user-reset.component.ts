@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 14:22:50
- * @LastEditTime: 2019-09-03 16:49:23
+ * @LastEditTime: 2019-09-30 17:20:15
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
@@ -38,15 +38,19 @@ export class UserResetComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       const token = params.token;
-      this.userService.resetPasswordLink(token).subscribe(res => {
-        console.log(res);
-        if (res.email) {
-          this.resetForm.controls['email'.toString()].setValue(res.email);
-        }
-      }, err => {
-        console.log(err);
-        this.router.navigateByUrl('/en/forgot-password');
-      });
+      if (token) {
+        this.userService.resetPasswordLink(token).subscribe(res => {
+          console.log(res);
+          if (res.email) {
+            this.resetForm.controls['email'.toString()].setValue(res.email);
+          }
+        }, err => {
+          console.log(err);
+          this.router.navigate(['/en/forgot-password']);
+        });
+      } else {
+        this.router.navigate(['/en/forgot-password']);
+      }
     });
 
 

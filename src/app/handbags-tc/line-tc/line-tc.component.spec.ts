@@ -1,11 +1,14 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-07-05 14:52:13
+ * @LastEditors: your name
+ */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LineTcComponent } from './line-tc.component';
-import { HeaderTcComponent } from './../../common-module/header-tc/header-tc.component';
-import { FooterTcComponent } from './../../common-module/footer-tc/footer-tc.component';
-import { SearchTcComponent } from './../../common-module/search-tc/search-tc.component';
-import { UserCartTcComponent } from './../../common-module/user-cart-tc/user-cart-tc.component';
-import { ContactTcComponent } from './../../common-module/contact-tc/contact-tc.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,8 +20,7 @@ describe('LineTcComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LineTcComponent, HeaderTcComponent, FooterTcComponent, SearchTcComponent,
-        UserCartTcComponent, ContactTcComponent, BagListComponent],
+      declarations: [LineTcComponent, BagListComponent],
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule]
     })
       .compileComponents();

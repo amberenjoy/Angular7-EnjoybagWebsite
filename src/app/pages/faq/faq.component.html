@@ -1,4 +1,4 @@
-<section>
+<section [ngClass]="{'mobile': isMobile}">
     <div class="banner">
         <h2>We're here to help</h2>
     </div>
@@ -24,12 +24,13 @@
                 <h4 (click)="infoStatus[0]=!infoStatus[0]">Do you have a physical store?</h4>
                 <div class="single-question" [hidden]="!infoStatus[0]">
                     <span>We welcome you to visit our showroom at Tsuen Wan, where you can try on our
-            bags, and understand more about our design and quality. You can also purchase directly from
-            our showroom and enjoy free gift-wrapping service. Please call for appointment.</span><br /><br />
+                        bags, and understand more about our design and quality. You can also purchase directly from
+                        our showroom and enjoy free gift-wrapping service. Please call for
+                        appointment.</span><br /><br />
                     <b>Showroom</b>
                     <br />
                     <span>Room 3308, 33/F, Cable TV Tower, 9 Hoi Shing Road, Tsuen Wan, N.T., Hong
-            Kong</span><br /><br />
+                        Kong</span><br /><br />
                     <b>Opening hours</b>
                     <br />
                     <span>Monday to Friday: 10 am to 6 pm</span><br />
@@ -45,21 +46,24 @@
                 <h4 (click)="infoStatus[1]=!infoStatus[1]">Where can I buy your products?</h4>
                 <div class="single-question" [hidden]="!infoStatus[1]">
                     <span>
-            Apart from online shop and showroom, you can also find our designs at Zalora HK and Jill Scott HK retail
-            stores.
-          </span>
+                        Apart from online shop and showroom, you can also find our designs at Zalora HK and Jill Scott
+                        HK retail
+                        stores.
+                    </span>
                 </div>
             </div>
             <div class="single-term">
                 <h4 (click)="infoStatus[2]=!infoStatus[2]">Can I pick up the goods directly from showroom?</h4>
                 <div class="single-question" [hidden]="!infoStatus[2]">
                     <span>
-            Yes! By choosing self pick-up at check out, you will receive an email and an sms about pick up time and
-            address. We accept cash, Visa/Master card and Wechat payment at showroom. Please note that unpaid goods
-            will
-            be reserved for you for one month upon
-            pick-up notification.
-          </span>
+                        Yes! By choosing self pick-up at check out, you will receive an email and an sms about pick up
+                        time and
+                        address. We accept cash, Visa/Master card and Wechat payment at showroom. Please note that
+                        unpaid goods
+                        will
+                        be reserved for you for one month upon
+                        pick-up notification.
+                    </span>
                 </div>
             </div>
             <div class="single-term">
@@ -73,9 +77,11 @@
                 <h4 (click)="infoStatus[4]=!infoStatus[4]">How do I change my shipping address or cancel order after placing order?
                 </h4>
                 <div class="single-question" [hidden]="!infoStatus[4]">
-                    <span> For any change of order, please contact our customer service team by email or telephone, and we would
-            be glad to solve your problems. Please kindly note that order details cannot be changed once goods are
-            shipped. </span>
+                    <span> For any change of order, please contact our customer service team by email or telephone, and
+                        we would
+                        be glad to solve your problems. Please kindly note that order details cannot be changed once
+                        goods are
+                        shipped. </span>
                 </div>
             </div>
         </div>

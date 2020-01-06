@@ -10,7 +10,6 @@
     }
     .flex {
         display: flex;
-        flex-wrap: wrap;
         border: none;
         justify-content: center;
         flex-wrap: nowrap;
@@ -41,5 +40,15 @@
     >p {
         margin: 1rem auto;
         line-height: 1.5;
+    }
+}
+
+.mobile {
+    font-size: .85rem;
+    .flex {
+        flex-wrap: wrap;
+        div {
+            width: 100%;
+        }
     }
 }

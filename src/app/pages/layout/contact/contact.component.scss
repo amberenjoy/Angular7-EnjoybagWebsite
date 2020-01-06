@@ -3,12 +3,10 @@
     box-shadow: 0 0 5px rgba(156, 128, 135, 0.2);
     box-sizing: border-box;
     padding: 40px;
-
     form {
         max-width: 900px;
         margin: 0 auto;
     }
-
     h3 {
         text-align: center;
         letter-spacing: 1px;
@@ -21,12 +19,10 @@
 .login {
     width: 100%;
     display: flex;
-
     >div {
         width: 50%;
         margin-right: 4%;
         position: relative;
-
         &:last-child {
             margin: 0;
         }
@@ -47,9 +43,9 @@
 }
 
 .btn {
-    width: 250px;
+    width: 50%;
+    max-width: 250px;
     background: crimson;
-    height: 50px;
     line-height: 50px;
     text-align: center;
     border-radius: 5px;
@@ -57,6 +53,7 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    font-size: .8rem;
 }
 
 .input:focus,
@@ -66,32 +63,25 @@
 
 .contact-box {
     h4 {
-        font-size: 16px;
-        display: inline-block;
+        font-size: 1rem;
         text-align: left;
         margin-bottom: 10px;
     }
-
-    i {
-        font-size: 22px;
+    fa-icon {
         width: 30px;
         padding-right: 10px;
         color: #dc143c;
         text-align: center;
     }
-
     p {
-        display: inline-block;
         margin-bottom: 10px;
-
+        margin-left: 30px;
+        font-size: .8rem;
+        line-height: 1.4;
         a {
             color: crimson;
         }
     }
-}
-
-.margin-left {
-    margin-left: 40px;
 }
 
 .form-control-feedback {
@@ -110,4 +100,15 @@
     padding: 1rem;
     max-width: 500px;
     margin: 2rem auto 0;
+}
+
+.mobile {
+    padding: 1.5rem;
+    .login {
+        flex-wrap: wrap;
+        div {
+            width: 100%;
+            margin: 0;
+        }
+    }
 }

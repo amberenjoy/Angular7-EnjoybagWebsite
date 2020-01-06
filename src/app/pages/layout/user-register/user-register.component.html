@@ -2,25 +2,23 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-02 15:16:27
+ * @LastEditTime: 2019-10-11 16:07:59
  * @LastEditors: Please set LastEditors
  -->
-<section>
+<section [ngClass]="{'mobile': isMobile}">
     <h3>Register</h3>
     <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
         <fieldset>
             <div class="forms_field half">
                 <label for="firstname">First Name *</label>
-                <input formControlName="firstname" type="text"
-                    [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+                <input formControlName="firstname" type="text" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
                 <div *ngIf="submitted && f.firstname.errors" class="invalid_feedback ">
                     <div *ngIf="f.firstname.errors.required">First name is required</div>
                 </div>
             </div>
             <div class="forms_field half half-right">
                 <label for="lastname">Last Name *</label>
-                <input formControlName="lastname" type="text"
-                    [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+                <input formControlName="lastname" type="text" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
                 <div *ngIf="submitted && f.lastname.errors" class="invalid_feedback ">
                     <div *ngIf="f.lastname.errors.required">Last name is required</div>
                 </div>
@@ -35,8 +33,7 @@
             </div>
             <div class="forms_field">
                 <label for="password">Password ( At least 8 characters ) * </label>
-                <input formControlName="password" type="password"
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                 <div *ngIf="submitted && f.password.errors" class="invalid_feedback">
                     <div *ngIf="f.password.errors.required">Password is required</div>
                     <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
@@ -47,18 +44,15 @@
                 <label>Region *</label>
                 <div class="radio_area" [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
                     <div class="radio">
-                        <input value="Hong Kong" id="region-HK" formControlName="region" type="radio"
-                            (change)="regionChange(852)">
+                        <input value="Hong Kong" id="region-HK" formControlName="region" type="radio" (change)="regionChange(852)">
                         <label for="region-HK" class="radio-label">Hong Kong</label>
                     </div>
                     <div class="radio">
-                        <input value="China Mainland" id="region-mainland" formControlName="region" type="radio"
-                            (change)="regionChange(86)">
+                        <input value="China Mainland" id="region-mainland" formControlName="region" type="radio" (change)="regionChange(86)">
                         <label for="region-mainland" class="radio-label">China Mainland</label>
                     </div>
                     <div class="radio">
-                        <input value="Others" id="region-others" formControlName="region" type="radio"
-                            (change)="regionChange('')">
+                        <input value="Others" id="region-others" formControlName="region" type="radio" (change)="regionChange('')">
                         <label for="region-others" class="radio-label">Others</label>
                     </div>
                 </div>
@@ -69,11 +63,11 @@
             <div class="forms_field half">
                 <label for="phone">Mobile No *</label>
                 <div class="mobile_box">
-                    <input formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+"
-                        class="area_code text-right" [ngClass]="{ 'is-invalid': submitted && f.areacode.errors }" />
-                    <span> <i class="fa fa-minus"></i> </span>
-                    <input formControlName="phone" type="tel" pattern="[0-9]+" class="phone_number"
-                        [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                    <input formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+" class="area_code text-right" [ngClass]="{ 'is-invalid': submitted && f.areacode.errors }" />
+                    <span>
+                        <fa-icon [icon]="faMinus"></fa-icon>
+                    </span>
+                    <input formControlName="phone" type="tel" pattern="[0-9]+" class="phone_number" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
                 </div>
                 <div *ngIf="submitted && f.areacode.errors " class="invalid_feedback ">
                     <div *ngIf=" f.areacode.errors.required"> Area code is required. </div>
@@ -86,8 +80,7 @@
             </div>
             <div class="forms_field half half-right">
                 <label for="birthmonth">Month of Birth</label>
-                <input formControlName="birthmonth" type="number" pattern="^(0?[1-9]|1[012])$"
-                    [ngClass]="{ 'is-invalid': f.birthmonth.errors }" />
+                <input formControlName="birthmonth" type="number" pattern="^(0?[1-9]|1[012])$" [ngClass]="{ 'is-invalid': f.birthmonth.errors }" />
                 <div *ngIf="f.birthmonth.errors" class="invalid_feedback">
                     <div *ngIf="f.birthmonth.errors.pattern">Please input correct birthmonth</div>
                 </div>
@@ -101,22 +94,19 @@
         </fieldset>
         <fieldset class="reg_tc">
             <div>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                <p> Enjoy special discount during birthday month and amendment is restricted after
-                    registration.</p>
+                <fa-icon [icon]="faCheck"></fa-icon>
+                <p> Enjoy special discount during birthday month and amendment is restricted after registration.
+                </p>
             </div>
             <div>
-                <i class="fa fa-check" aria-hidden="true"></i>
-                <p> By clicking Sign Up, you agree to our Terms and that you have read our <a
-                        href="en/FAQ/privacy-policy"> PRIVACY POLICY</a>, including our <a
-                        href="en/FAQ/privacy-policy">TERMS &amp; CONDITIONS</a>.</p>
+                <fa-icon [icon]="faCheck"></fa-icon>
+                <p> By clicking Sign Up, you agree to our Terms and that you have read our <a href="en/FAQ/privacy-policy"> PRIVACY POLICY</a>, including our <a href="en/FAQ/privacy-policy">TERMS &amp; CONDITIONS</a>.</p>
             </div>
             <br>
         </fieldset>
         <div class="forms_buttons">
             <button></button>
-            <button type="submit" [disabled]="loading"
-                [ngClass]="{'disabled': f.email.errors||f.password.errors}">Register</button>
+            <button type="submit" [disabled]="loading" [ngClass]="{'disabled': f.email.errors||f.password.errors}">Register</button>
             <div class="loader" *ngIf="loading">
                 <span></span><span></span><span></span><span></span><span></span>
             </div>

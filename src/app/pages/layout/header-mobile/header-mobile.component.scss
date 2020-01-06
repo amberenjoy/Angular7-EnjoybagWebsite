@@ -3,14 +3,18 @@
 }
 
 .head-mobile {
-    position: relative;
-    padding: .8rem 1rem;
-    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    display: grid;
     align-items: center;
     box-shadow: 0px 1px 1px 0px #eee;
-    >div {
-        width: 33.33%;
-    }
+    grid-template-columns: 1fr 1fr 1fr;
+    background: #fff;
+    transition: all .3s ease;
     img {
         max-width: 28vw;
     }
@@ -19,53 +23,29 @@
 .head-mobile-left {
     display: flex;
     .burger {
-        width: 30px;
-        height: 24px;
         position: relative;
-        span {
-            display: block;
-            position: absolute;
-            height: 4px;
-            width: 100%;
-            background: crimson;
-            border-radius: 9px;
-            opacity: 1;
-            left: 0;
-            &:nth-child(1) {
-                top: 0px;
-            }
-            &:nth-child(2) {
-                top: 10px;
-            }
-            &:nth-child(3) {
-                top: 20px;
-            }
-        }
-    }
-    .head {
-        padding-top: 3px;
+        font-size: 1.5rem;
+        color: crimson;
     }
 }
 
 .head-mobile-right {
     display: flex;
     justify-content: flex-end;
-    margin-top: 2px;
+    align-items: center;
     .head {
         padding-left: 1.25rem;
     }
     a {
         color: #999;
         text-align: center;
-        padding-top: 4px;
-        vertical-align: middle;
         font-size: 1rem;
-        .fa-user {
-            font-size: 1.2rem;
-        }
-        .fa-search {
-            font-size: 1.15rem;
-        }
+        // .fa-user {
+        //     font-size: 1.2rem;
+        // }
+        // .fa-search {
+        //     font-size: 1.15rem;
+        // }
     }
     .head-cart {
         position: relative;

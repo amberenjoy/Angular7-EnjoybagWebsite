@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-09-25 17:31:15
+ * @LastEditTime: 2019-10-17 16:33:03
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +19,6 @@ import { UserRegisterComponent } from '../layout/user-register/user-register.com
   styleUrls: ['./user-register-page.component.scss']
 })
 export class UserRegisterPageComponent implements OnInit {
-
   page = 'register';
   returnUrl: string;
   isMobile: boolean;
@@ -32,13 +31,13 @@ export class UserRegisterPageComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private responsiveService: ResponsiveService
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['en/myEnjoybag']);
     }
-    this.title.setTitle('Register and login | Enjoybag HK');
+    this.title.setTitle('Register and login | Enjoy handbag HK');
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     // console.log(this.returnUrl);
 
@@ -53,12 +52,12 @@ export class UserRegisterPageComponent implements OnInit {
 
   scrollTop() {
     (function smoothscroll() {
-      const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const currentScroll =
+        document.documentElement.scrollTop || document.body.scrollTop;
       if (currentScroll > 0) {
         window.requestAnimationFrame(smoothscroll);
-        window.scrollTo(0, currentScroll - (currentScroll / 8));
+        window.scrollTo(0, currentScroll - currentScroll / 8);
       }
     })();
   }
 }
-

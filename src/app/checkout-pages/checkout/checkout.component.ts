@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-09-25 16:06:41
+ * @LastEditTime: 2019-10-11 16:25:46
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
@@ -18,6 +18,8 @@ import { Order } from '../../shared/models/order';
 import { Item } from '../../shared/models/item';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 declare let paypal: any;
 
@@ -27,8 +29,10 @@ declare let paypal: any;
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
+  faMinus = faMinus;
   subscription: Subscription;
   userCurrency: string;
+  isMobile: boolean;
   shipForm: FormGroup;
   shipAddress = false;  // add new address
   defaultAddress: boolean;  // check if has default or previous address
@@ -82,16 +86,23 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private checkoutService: CheckoutService,
+    private responsiveService: ResponsiveService
   ) { }
 
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const domElement = this.elementRef.nativeElement.querySelector('.body-right');
-    const distance = domElement.offsetTop + domElement.offsetParent.offsetTop - 70;
-    if ((window.pageYOffset || document.body.scrollTop) > distance) {
-      const marginAdd = window.pageYOffset - distance;
-      domElement.style.transform = 'translateY(' + marginAdd + 'px)';
+    if (!this.isMobile) {
+      const domElement = this.elementRef.nativeElement.querySelector('.body-right');
+      if (window.pageYOffset > domElement.offsetTop) {
+        const marginAdd = window.pageYOffset - domElement.offsetTop + 10;
+        if ((domElement.parentElement.offsetHeight - 62) <= (domElement.scrollHeight + marginAdd)) {
+          return;
+        }
+        domElement.style.transform = 'translateY(' + marginAdd + 'px)';
+      } else {
+        domElement.style.transform = 'translateY(0)';
+      }
     }
   }
 
@@ -112,20 +123,24 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       return false;
     };
 
-    const cartTotal = JSON.parse(localStorage.getItem('cartToShipping'));
-    localStorage.removeItem('cartToShipping'); // check if leave this page auto delete or need delete
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
+
+    const cartTotal = Object.assign({}, JSON.parse(localStorage.getItem('cartToShipping')));
 
     this.order.subtotal = cartTotal.subtotal;
     this.order.bonus = cartTotal.bonus;
     this.order.discount = cartTotal.discount;
     this.order.total = cartTotal.total;
+    localStorage.removeItem('cartToShipping'); // check if leave this page auto delete or need delete
 
     this.initShipForm();
 
     this.subscription = this.authenticationService.currentUser.subscribe(user => {
       if (user) {
         this.logined = true;
-        this.userService.getUserInfo().subscribe(res => {
+        this.userService.getUserInfo(user.id).subscribe(res => {
           this.shipForm.controls['billing'.toString()].reset(res);
           if (res.oldAddress) {
             this.defaultAddress = true;

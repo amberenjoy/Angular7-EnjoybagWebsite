@@ -1,32 +1,45 @@
-# Demo
+<p align="center">
+  <a href="https://angular.io/">
+    <img src="screenshots/icon.png" alt="Logo" width=72 height=72>
+  </a>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+  <h3 align="center">Enjoybag Website</h3>
 
-## Development server
+  <p align="center">
+    E-commerce website with Angular 7 + JWT + RESTful services 
+    <br>
+    This project is currently under active development.  <br>
+    <br>
+    <a>
+      <img src="screenshots/enjoybag.gif" alt="video demo"/>
+    </a>
+  </p>
+</p>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Table of contents
 
-## Code scaffolding
+- [Table of contents](#table-of-contents)
+- [What's included](#whats-included)
+- [Sitemap](#sitemap)
+- [TODO](#todo)
+  
+## What's included
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [x] Custom Components
+- [x] Defining routes including child routes and lazy loaded routes
+- [x] Angular reactive form modules 
+- [x] Http client and HTTP Interceptors ( JWT and Error )
+- [x] Responsive layout
+- [x] RxJS/Observables
+- [x] Third-party api intergration, like Facebook Login, Paypal
+  
 
-## Build
+## Sitemap
+  <img src="screenshots/sitemap.png" alt="sitemap">
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## TODO
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-
-## Log
-
-SKU get url bug
+- Monitor application using Sentry 
+- Unit tests with Jasmine and Karma including code coverage.
+- End-to-end tests with Protractor
+- The SEO problems

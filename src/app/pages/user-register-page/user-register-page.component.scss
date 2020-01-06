@@ -1,10 +1,5 @@
-section {
-    position: relative;
-    margin: 0 auto;
-    max-width: 1530px;
-    padding: 0 20px 0;
-    min-height: 80vh;
-    overflow: hidden;
+.body {
+    padding: 25px 0;
 }
 
 .banner {
@@ -24,44 +19,48 @@ section {
     }
 }
 
-.body {
-    display: flex;
-    padding: 25px 0;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.half {
-    width: 46%;
-    box-shadow: 0px 0px 8px 2px #e8e8e8;
-    padding: 50px 20px;
+.pc {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1530px;
+    padding: 0 20px;
+    min-height: 80vh;
     overflow: hidden;
+    .body {
+        display: flex;
+        padding: 25px 0;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .half {
+        width: 46%;
+        box-shadow: 0px 0px 8px 2px #e8e8e8;
+        padding: 50px 20px;
+        overflow: hidden;
+    }
 }
 
 .mobile {
+    overflow: hidden;
     .banner {
         height: 17vh;
-        margin-top: 1rem;
     }
     h3 {
         font-size: 1rem;
     }
-    .body {
-        flex-wrap: wrap;
-    }
-    .half,
-    div {
-        width: 100%;
+    .half {
+        padding: 0 10px;
     }
     button {
         cursor: pointer;
         background: transparent;
-        margin: 2rem 0;
-        padding: .5rem 1rem;
+        margin: 2rem 2rem 1rem;
+        padding: 0.5rem 1rem;
         border: none;
         color: crimson;
         font-size: 1rem;
         text-decoration: none;
-        border-bottom: 1px solid crimson;
+        width: calc(100% - 4rem);
+        border: 1px solid crimson;
     }
 }

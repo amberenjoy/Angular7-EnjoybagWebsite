@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-08-30 12:53:16
+ * @LastEditTime: 2019-10-11 16:15:34
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
@@ -14,6 +14,8 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 import { UserService } from '../../shared/services/user.service';
 import { CartItemService } from '../../shared/services/cart-item.service';
 import { CheckoutService } from './../../shared/services/checkout.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cart',
@@ -34,6 +36,8 @@ export class CartComponent implements OnInit {
     discount: 0
   };
   message: string;
+  isMobile: boolean;
+  faTimes = faTimes;
 
   @ViewChild('cashCode', { static: false }) cashCode: ElementRef;
 
@@ -43,7 +47,8 @@ export class CartComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private cartService: CartItemService,
     private userService: UserService,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService,
+    private responsiveService: ResponsiveService
   ) { }
 
   ngOnInit() {
@@ -67,6 +72,9 @@ export class CartComponent implements OnInit {
     });
     this.cartService.getUserCart().subscribe(res => {
       this.items = res;
+    });
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
     });
   }
 

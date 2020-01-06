@@ -2,18 +2,18 @@
 * @Description: In User Settings Edit
 * @Author: your name
 * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-23 17:10:52
+ * @LastEditTime: 2019-10-11 15:14:17
  * @LastEditors: Please set LastEditors
 */
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CartItemService } from '../../../shared/services/cart-item.service';
 import { Item } from '../../../shared/models/item';
-import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { CategoriesService } from '../../../shared/services/categories.service';
 import { Category } from '../../../shared/models/category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { faSearch, faUser, faShoppingBag, faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -24,18 +24,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class HeaderComponent implements OnInit {
   isMobile: boolean;
   fixed: boolean;
+  cartNum: number;
   logined: boolean;
+  searchForm: FormGroup;
   userCurrency: string;
   userLanguage: string;
-  subscription: Subscription;
-  cartNum: number;
-  items: Item[] = [];
   navActive = false;
   navActiveAcce = false;
+  items: Item[] = [];
   categories: Category[];
   categoriesSLG: Category[];
-  searchItem: string;
-  searchForm: FormGroup;
+  faSearch = faSearch; faUser = faUser; faShoppingBag = faShoppingBag;
+  faChevronDown = faChevronDown;
+  faChevronRight = faChevronRight;
 
   constructor(
     private router: Router,
@@ -45,10 +46,28 @@ export class HeaderComponent implements OnInit {
     private categoriesService: CategoriesService
   ) { }
 
+  // fixed header
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (window.pageYOffset > 70) {
+      this.fixed = true;
+    } else if (this.fixed && window.pageYOffset <= 70) {
+      this.fixed = false;
+    }
+  }
+
   ngOnInit() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+    // get language and currency
+    this.userCurrency = localStorage.getItem('currency') || 'HKD';
+    this.userLanguage = localStorage.getItem('language') || '';
+    if (!this.userLanguage) {
+      const pathLan = this.router.url.split('/')[1];
+      this.userLanguage = pathLan;
+      localStorage.setItem('language', pathLan);
+    }
     // get women nav category
     this.categoriesService.getCategories().subscribe(res => {
       this.categories = res;
@@ -64,14 +83,8 @@ export class HeaderComponent implements OnInit {
         element.url = element.name.replace(' ', '-');
       });
     });
-    // get language
-    this.userLanguage = localStorage.getItem('language') || '';
-    if (!this.userLanguage) {
-      const pathLan = this.router.url.split('/')[1];
-      this.userLanguage = pathLan;
-      localStorage.setItem('language', pathLan);
-    }
-    this.userCurrency = localStorage.getItem('currency') || 'HKD';
+    // create search form
+    this.createSearchForm();
     // check login
     this.authenticationService.currentUser.subscribe(user => {
       if (user) {
@@ -103,19 +116,15 @@ export class HeaderComponent implements OnInit {
         this.navActive = false;
       }
     });
-
-    this.createForm();
   }
 
   changeLanguage(language: string) {
     localStorage.setItem('language', language);
     if (language === 'en') {
       const newUrl = this.router.url.replace('/tc', '/en');
-      // this.router.navigateByUrl(newUrl);
       window.location.href = newUrl;
     } else {
       const newUrl = this.router.url.replace('/en', '/tc');
-      // this.router.navigateByUrl(newUrl);
       window.location.href = newUrl;
     }
   }
@@ -125,31 +134,16 @@ export class HeaderComponent implements OnInit {
     location.reload();
   }
 
-  // fixed header
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    if (window.pageYOffset > 70) {
-      this.fixed = true;
-    } else if (this.fixed && window.pageYOffset <= 70) {
-      this.fixed = false;
-    }
-  }
-
-  createForm() {
+  createSearchForm() {
     this.searchForm = new FormGroup({
       searchName: new FormControl('', Validators.required)
     });
   }
 
-  searchKey(event, value) {
-    if (event.keyCode === 13) {
-      this.searchBtn(event, value);
-    }
-  }
-
-  searchBtn(event, value) {
-    event.preventDefault();
-    if (value !== '') {
+  searchKey(event) {
+    if (event.keyCode === 13 && event.target.value !== '') {
+      const value = event.target.value;
+      event.preventDefault();
       // 重复点击菜单刷新界面 网上没找到方法 通过跳转到别的界面在跳回来的方式进行实现
       this.router.navigateByUrl('/en/home').then(() => {
         this.router.navigate(['/en/products/search'], { queryParams: { qry: value } });
@@ -158,4 +152,5 @@ export class HeaderComponent implements OnInit {
       this.searchForm.controls['searchName'.toString()].setErrors({ incorrect: true });
     }
   }
+
 }

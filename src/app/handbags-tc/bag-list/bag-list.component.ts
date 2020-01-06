@@ -1,7 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, HostListener } from '@angular/core';
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-09-30 11:49:51
+ * @LastEditors: Please set LastEditors
+ */
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { BaglistService } from '../../shared/services/baglist.service';
-import { DOCUMENT } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
+import { ResponsiveService } from './../../shared/services/responsive.service';
 
 @Component({
   selector: 'app-bag-list',
@@ -18,20 +25,21 @@ export class BagListComponent implements OnInit {
   userCurrency: string;
   userLanguage: string;
   bagCollections: {};
-  collections: Array<any> = [];
-  collectionList: Array<any> = [];
+  collections = [];
+  collectionList = [];
   key: string;
   loading = true;
   imageCollection = [];
   imageLoader = true;
-  keyList = ['slg', 'new', 'discount', 'campaign_special', 'gift', 'men', 'women'];
   windowScrolled: boolean;
+  isMobile: boolean;
 
   constructor(
     private dataService: BaglistService,
     private router: Router,
     private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document: Document
+    private responsiveService: ResponsiveService
+
   ) { }
 
   @HostListener('window:scroll', [])
@@ -45,55 +53,72 @@ export class BagListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // get currency
-    this.userCurrency = localStorage.getItem('currency');
-    this.userLanguage = localStorage.getItem('language').toUpperCase();
+    // get currency and language
+    this.userCurrency = localStorage.getItem('currency') || 'HKD';
+
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
+
     this.route.params.subscribe(res => {
-      console.log(res);
       this.parameter = res.name;
-      this.parameterKey = res.key;
+      this.parameterKey = res.key; // sale==discount
       this.parameterLine = res.line;
       this.loading = true;
       if (this.parameter) {
-        if (this.parameter === 'all') {   // women men 
+        if (this.parameter === 'all') {   // women men slg
           const urlTree = this.router.url.split('/');
           let key = urlTree[urlTree.length - 2];
-          console.log(key);
           if (key === 'accessories') {
             key = 'slg';
           }
-          this.dataService.getBaglist(key, this.userLanguage, this.userCurrency)
-            .subscribe(results => {
-              this.bagCollections = results;
-              this.initCollection(this.bagCollections);
-            });
-        } else { // chain wallet crossbody bag
-          this.dataService.getBagType(this.parameter, this.userLanguage, this.userCurrency).subscribe(results => {
+          this.dataService.getBaglist(key, 'EN', this.userCurrency).subscribe(results => {
             this.bagCollections = results;
             this.initCollection(this.bagCollections);
+          }, error => {
+            this.loading = false;
+            this.collections = [];
+            console.log(error);
+          });
+        } else { // chain wallet crossbody bag
+          this.dataService.getBagType(this.parameter, 'EN', this.userCurrency).subscribe(results => {
+            this.bagCollections = results;
+            this.initCollection(this.bagCollections);
+          }, error => {
+            this.loading = false;
+            this.collections = [];
+            console.log(error);
           });
         }
       } else if (this.parameterKey || this.parameterLine) {
         const line = this.parameterKey || this.parameterLine;
-        this.dataService.getBaglist(line, this.userLanguage, this.userCurrency)
-          .subscribe(results => {
-
-            this.bagCollections = results;
-            this.initCollection(this.bagCollections);
-          });
+        this.dataService.getBaglist(line, 'EN', this.userCurrency).subscribe(results => {
+          this.bagCollections = results;
+          this.initCollection(this.bagCollections);
+        }, error => {
+          this.loading = false;
+          this.collections = [];
+          console.log(error);
+        });
       } else if (this.parameterSearch) {
-        this.dataService.getQuerylist(this.parameterSearch, this.userLanguage, this.userCurrency).subscribe(results => {
-
+        this.dataService.getQuerylist(this.parameterSearch, 'EN', this.userCurrency).subscribe(results => {
           this.bagCollections = results;
           if (this.bagCollections['count'.toString()] !== '0') {
             this.initCollection(this.bagCollections);
           }
           this.result = this.bagCollections['count'.toString()];
           this.passResult.emit(this.result); // pass result to search page
+          if (this.result === '0') {
+            this.loading = false;
+            this.collections = [];
+          }
+        }, error => {
+          this.loading = false;
+          this.collections = [];
+          console.log(error);
         });
       }
     });
-
   }
 
   initCollection(collections) {

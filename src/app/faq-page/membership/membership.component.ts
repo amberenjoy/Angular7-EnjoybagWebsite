@@ -1,5 +1,13 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-07-05 14:52:13
+ * @LastEditors: your name
+ */
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-membership',
@@ -7,11 +15,14 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./membership.component.scss']
 })
 export class MembershipComponent implements OnInit {
-
-  constructor(private titleService: Title) { }
+  isMobile: boolean;
+  constructor(private titleService: Title, private responsiveService: ResponsiveService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAQ : Membership Details');
+    this.titleService.setTitle('FAQ : Membership Details | Enjoy Handbag HK');
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 
 }

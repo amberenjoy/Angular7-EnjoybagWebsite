@@ -2,22 +2,23 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-24 11:22:43
+ * @LastEditTime: 2019-10-25 12:04:14
  * @LastEditors: Please set LastEditors
  -->
 <div [ngClass]="{'mobile': isMobile}">
-    <nav><a [routerLink]="[ '../../home' ]">Home</a><a [routerLink]="[ '../','all' ]">accessories</a><span>{{name.replace('-',' ')}}</span>
+    <nav>
+        <a [routerLink]="[ '../../home' ]">Home</a><a [routerLink]="[ '../','all' ]">accessories</a><span>{{name}}</span>
     </nav>
-    <div class="banner" [ngClass]="name">
+    <div class="banner banner-acce" [ngClass]="name.split(' ')[0]">
         <h2 *ngIf="name==='all'">accessories world</h2>
-        <h2 *ngIf="name!=='all'">{{name.replace('-',' ')}}</h2>
+        <h2 *ngIf="name!=='all'">{{name}}</h2>
     </div>
     <div class="body-flex">
         <div class="side-list" *ngIf="!isMobile">
             <h4> By Categories</h4>
             <ul>
                 <li *ngFor="let category of categories">
-                    <a [ngClass]="{'active': name.replace('-',' ')===category.name}" [routerLink]="['../',category.url]">{{category.name}}</a>
+                    <a [ngClass]="{'active': name===category.name}" [routerLink]="['../',category.url]">{{category.name}}</a>
                 </li>
                 <li> <a [ngClass]="{'active': name==='all'}" [routerLink]="['../all']"> View All</a></li>
             </ul>

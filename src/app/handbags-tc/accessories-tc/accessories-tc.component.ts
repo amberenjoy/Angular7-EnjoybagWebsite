@@ -1,6 +1,16 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-09-30 16:44:35
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { CategoriesService } from '../../shared/services/categories.service';
+import { Category } from '../../shared/models/category';
+import { ResponsiveService } from './../../shared/services/responsive.service';
 
 @Component({
   selector: 'app-accessories-tc',
@@ -8,8 +18,18 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./accessories-tc.component.scss']
 })
 export class AccessoriesTcComponent implements OnInit {
-  name: string;
-  constructor(private route: ActivatedRoute, private title: Title, private elementRef: ElementRef) { }
+  name = '';
+  categories: Category[];
+  isMobile: boolean;
+
+  constructor(
+    private route: ActivatedRoute, private title: Title,
+    private elementRef: ElementRef,
+    private categoriesService: CategoriesService,
+    private responsiveService: ResponsiveService
+
+  ) { }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const domElement = this.elementRef.nativeElement.querySelector(`.side-list`);
@@ -26,11 +46,22 @@ export class AccessoriesTcComponent implements OnInit {
       domElement.style.transform = 'translateY(0)';
     }
   }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.name = params['name'.toString()];
+      this.name = params.name.replace('-', ' ');
+      this.title.setTitle('Designer ' + this.name + ' | Enjoybag HK');
     });
-    this.title.setTitle('Designer Accessories ' + this.name.charAt(0).toUpperCase() + this.name.slice(1) + ' | Enjoybag HK');
+    this.categoriesService.getSLGCategories().subscribe(res => {
+      this.categories = res;
+      this.categories.forEach(each => {
+        each.url = each.name.replace(' ', '-');
+      });
+    });
+
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 }
 

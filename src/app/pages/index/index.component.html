@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-23 15:48:30
+ * @LastEditTime: 2019-10-10 17:20:42
  * @LastEditors: Please set LastEditors
  -->
 
@@ -13,9 +13,11 @@
 </div>
 <div *ngIf="isMobile">
     <app-header-mobile-sidenav></app-header-mobile-sidenav>
-    <div class="body" [ngClass]="{'fixed': isMobile&&sideMenuStatus}">
+    <div [ngClass]="{'fixed': isMobile&&sideMenuStatus}">
         <app-header-mobile></app-header-mobile>
-        <router-outlet></router-outlet>
+        <div class="body">
+            <router-outlet></router-outlet>
+        </div>
         <app-footer></app-footer>
     </div>
 </div>

@@ -2,13 +2,14 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-07-05 14:52:15
- * @LastEditors: your name
+ * @LastEditTime: 2019-09-30 11:14:48
+ * @LastEditors: Please set LastEditors
  -->
+
 <div *ngIf="!isMobile">
     <app-header-tc></app-header-tc>
     <router-outlet></router-outlet>
-    <app-footer></app-footer>
+    <app-footer-tc></app-footer-tc>
 </div>
 <div *ngIf="isMobile">
     <app-header-mobile-sidenav></app-header-mobile-sidenav>

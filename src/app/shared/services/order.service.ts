@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:16
+ * @LastEditTime: 2019-07-05 14:52:16
+ * @LastEditors: your name
+ */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -13,7 +20,7 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   getUserOrderById(id) {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
     return this.http.get<Order>(`${environment.apiUrl}/orders/${user.id}/${id}`, { headers }).pipe(map(
@@ -32,7 +39,7 @@ export class OrderService {
     ));
   }
   cancelOrder(orderId, reason) {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
     return this.http.put<any>(`${environment.apiUrl}/orders/${user.id}/${orderId}`, { action: 'Canceled', info: reason }, { headers })
@@ -49,7 +56,7 @@ export class OrderService {
       }));
   }
   getUserOrders() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = Object.assign({}, JSON.parse(localStorage.getItem('user')));
     const id = user.id;
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');

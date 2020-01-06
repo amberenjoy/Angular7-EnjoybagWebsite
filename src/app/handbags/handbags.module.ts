@@ -22,6 +22,7 @@ import { AccessoriesComponent } from './accessories/accessories.component';
 import { PhotoModalComponent } from './photo-modal/photo-modal.component';
 import { IndexComponent } from './index/index.component';
 import { WomenComponent } from './women/women.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { WomenComponent } from './women/women.component';
   imports: [
     CommonModule,
     HandbagsRoutingModule,
-    DeferLoadModule
+    DeferLoadModule,
+    FontAwesomeModule
   ],
   providers: [
     // SharedModule

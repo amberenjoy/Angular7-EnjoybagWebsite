@@ -2,50 +2,49 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-07 12:23:25
- * @LastEditTime: 2019-08-28 11:02:49
+ * @LastEditTime: 2019-10-11 16:41:19
  * @LastEditors: Please set LastEditors
  -->
-<div class="container ">
-  <div class="form" *ngIf="addressHistory">
-    <fieldset>
-      <div class="forms_field">
-        <h4> Shipping Address History</h4>
-        <div>
-          <input type="text" class="read" readonly value="{{addressHistory}}">
-        </div>
-      </div>
-    </fieldset>
-  </div>
-  <form *ngIf="addressForm" [formGroup]="addressForm" class="form">
-    <fieldset>
-      <div class="forms_field">
-        <h4> Billing Address </h4>
-        <div>
-          <label for="">Unit, Floor, Block, Building Name </label>
-          <input type="text" formControlName="building" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
-        </div>
-        <div>
-          <label for="">Street Number, Street Name </label>
-          <input type="text" formControlName="street" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
-        </div>
-        <div class="flex">
-          <div class="half">
-            <label for="">District, Area </label>
-            <input type="text" formControlName="district" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
-          </div>
-          <div class="half">
-            <label for="">City, Country</label>
-            <input type="text" formControlName="city" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
-          </div>
-        </div>
-      </div>
-    </fieldset>
-    <div class="text-center">
-      <button class="nextBtn" (click)="changeInfo()" [hidden]="changeInput">Update Information</button>
-      <button class="nextBtn" (click)="saveInfo()" [hidden]="!changeInput">Save Address</button>
-      <button class="nextBtn cancel" (click)="cancelUpdate()" [hidden]="!changeInput">Cancel</button>
+<div class="container" [ngClass]="{'mobile': isMobile}">
+    <div class="form" *ngIf="addressHistory">
+        <fieldset>
+            <div class="forms_field">
+                <h4> Shipping Address History</h4>
+                <div>
+                    <p>{{addressHistory}}</p>
+                </div>
+            </div>
+        </fieldset>
     </div>
-    <p class="text-center info"> <br>{{message}}</p>
-  </form>
-
+    <form *ngIf="addressForm" [formGroup]="addressForm" class="form">
+        <fieldset>
+            <div class="forms_field">
+                <h4> Billing Address </h4>
+                <div>
+                    <label for="">Unit, Floor, Block, Building Name </label>
+                    <input type="text" formControlName="building" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                </div>
+                <div>
+                    <label for="">Street Number, Street Name </label>
+                    <input type="text" formControlName="street" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                </div>
+                <div class="flex">
+                    <div class="half">
+                        <label for="">District, Area </label>
+                        <input type="text" formControlName="district" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                    </div>
+                    <div class="half">
+                        <label for="">City, Country</label>
+                        <input type="text" formControlName="city" [readonly]="!changeInput" [ngClass]="{'read': !changeInput}">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="text-center">
+            <button class="nextBtn" (click)="changeInfo()" [hidden]="changeInput">Update Information</button>
+            <button class="nextBtn" (click)="saveInfo()" [hidden]="!changeInput">Save Address</button>
+            <button class="nextBtn cancel" (click)="cancelUpdate()" [hidden]="!changeInput">Cancel</button>
+        </div>
+        <p class="text-center info"> <br>{{message}}</p>
+    </form>
 </div>

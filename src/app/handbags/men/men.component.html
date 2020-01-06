@@ -2,11 +2,16 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-07-05 14:52:14
- * @LastEditors: your name
+ * @LastEditTime: 2019-10-25 14:52:25
+ * @LastEditors: Please set LastEditors
  -->
-<nav><a href="/en/home">Home</a><a href="/en/products/men/all">Men</a><span>{{name}}</span></nav>
-<div class="banner banner-men" [ngClass]="{'mobile': isMobile}">
-    <h2>Gifts for him</h2>
+<div [ngClass]="{'mobile': isMobile}">
+    <nav><a [routerLink]="[ '../../../../home' ]">Home</a><a href="/en/products/men/all">Men</a><span>{{name}}</span>
+    </nav>
+    <div class="banner banner-men" [ngClass]="{'mobile': isMobile}">
+        <h2>Gifts for him</h2>
+    </div>
+    <div class="center-list">
+        <app-bag-list></app-bag-list>
+    </div>
 </div>
-<app-bag-list></app-bag-list>

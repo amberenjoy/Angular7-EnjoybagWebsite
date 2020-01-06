@@ -2,20 +2,20 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-24 11:08:41
+ * @LastEditTime: 2019-10-25 14:53:55
  * @LastEditors: Please set LastEditors
  -->
 <div class="loader-overlay" [ngClass]="{'hidden': !loading}">
     <span class="loader"><span class="loader-inner"></span></span>
 </div>
-<nav *ngIf="!loading">
+<nav *ngIf="!loading" [ngClass]="{'nav-mobile': isMobile}">
     <a [routerLink]="[ '../../../../home' ]">Home</a>
     <a *ngIf="key!=sku&&key!=='search'" [routerLink]="[ '../' ]">{{key.replace('-',' ')}}</a>
     <span> {{bag.collection}}</span>
 </nav>
-<div class="bagBody" *ngIf="!loading" [ngClass]="{'mobile': isMobile}">
-    <div class="grid">
-        <div class="text-center">
+<div class="bag-body" *ngIf="!loading" [ngClass]="{'mobile': isMobile}">
+    <div class="flex">
+        <div class="image">
             <img [src]="bagPhotoArray[0].url" alt="" (click)="openModal(0)">
         </div>
         <div class="info">
@@ -44,18 +44,9 @@
                 <span>Place your order today and receive it within 3-5 working days.</span>
             </div>
             <button class="add-to-cart" (click)="addToCart(bag)">Add to Cart</button>
-            <div class="text-center">
-                <ul class="social-icons">
-                    <li><a><i class="fa fa-facebook-official facebook" (click)="facebookSharing(shareObj)"></i></a>
-                    </li>
-                    <li><a><i class="fa fa-twitter-square twitter"></i></a></li>
-                    <!-- <li><a><i class="fa fa-google-plus-official google-plus"></i></a></li>
-                                    <li><a><i class="fa fa-weibo weibo"></i></a></li> -->
-                </ul>
-            </div>
         </div>
     </div>
-    <div class="grid">
+    <div class="flex">
         <div class="info info-2">
             <h5>Description</h5>
             <div>
@@ -69,7 +60,7 @@
                 </p>
             </div>
         </div>
-        <div class="text-center">
+        <div class="image">
             <img [src]="bagPhotoArray[bagPhotoArray.length-1].url" alt="bag-photo" (click)="openModal(1)">
         </div>
     </div>
@@ -80,6 +71,8 @@
     </div>
 </div>
 <div *ngIf="showLargePhoto" id="modal">
-    <button (click)="closeModal();"><i class="fa fa-close"></i></button>
-    <app-photo-modal [parameter]="bag.photono" [indexPhoto]="largePhotoIndex" [productSku]="sku"></app-photo-modal>
+    <button (click)="closeModal();">
+        <fa-icon [icon]="faTimes"></fa-icon>
+    </button>
+    <app-photo-modal [total]="bag.photono" [indexPhoto]="largePhotoIndex" [productSku]="sku"></app-photo-modal>
 </div>

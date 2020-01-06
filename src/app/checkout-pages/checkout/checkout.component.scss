@@ -1,19 +1,18 @@
+.bg-crimson {
+    background: crimson !important;
+}
+
+.crimson {
+    color: crimson
+}
+
 .previousBtn {
     border-bottom: 1px solid #333;
     color: #333;
 }
 
-.crimson {
-    background: crimson !important;
-}
-
-.strong {
-    color: crimson
-}
-
-
 .small {
-    font-size: .8rem !important;
+    font-size: .8em;
 }
 
 .banner {
@@ -25,7 +24,6 @@
         position: relative;
         list-style: none;
     }
-
     h3 {
         text-transform: uppercase;
         margin: 3rem auto 0;
@@ -34,78 +32,82 @@
         letter-spacing: 2px;
         color: #6b6b6b;
     }
+    .step {
+        flex: 1;
+        counter-increment: step;
+        padding-top: calc(40px + 1rem);
+        /*40px is for the circle*/
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+        background-image: linear-gradient(to bottom, transparent calc(20px - 2px), currentColor 0, currentColor calc(20px + 2px), transparent 0);
+        &::before {
+            display: flex;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4c000e;
+            content: counter(step);
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &:last-child,
+        &:first-child {
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+        }
+        &:first-child {
+            background-position: 100% 0;
+        }
+        &.active {
+            color: crimson;
+        }
+        &.active::before {
+            background: crimson;
+        }
+        &.completed::before {
+            content: '✓';
+        }
+    }
 }
 
-.step {
-    flex: 1;
-    counter-increment: step;
-    padding-top: calc(40px + 1rem);
-    /*40px is for the circle*/
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    background-image: linear-gradient(to bottom, transparent calc(20px - 2px), currentColor 0, currentColor calc(20px + 2px), transparent 0);
-
-    &::before {
-        display: flex;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #4c000e;
-        content: counter(step);
-        position: absolute;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 1.5rem;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    &:last-child,
-    &:first-child {
-        background-size: 50% 100%;
-        background-repeat: no-repeat;
-    }
-
-    &:first-child {
-        background-position: 100% 0;
-    }
-
-    &.active {
-        color: crimson;
-    }
-
-    &.active::before {
-        background: crimson;
-    }
-
-    &.completed::before {
-        content: '✓';
+.mobile {
+    .banner {
+        ul {
+            max-width: 100%;
+        }
+        h3 {
+            margin-top: 1.5rem;
+            font-size: .9rem;
+        }
+        .step::before {
+            width: 30px;
+            height: 30px;
+            font-size: 1.2rem;
+            top: 5px;
+        }
     }
 }
 
 .body {
-    margin: 4rem 0 0;
-    box-shadow: 0px 0px 8px 2px #e8e8e8;
-    padding: 2rem 4rem;
-
-    &-flex {
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: flex-start;
-        padding: 2rem 4rem;
-
-        h3 {
+    h3 {
+        text-transform: uppercase;
+        margin: 0 0 1rem;
+        padding-bottom: .5rem;
+        font-size: 1.5em;
+        border-bottom: 1px solid crimson;
+        a {
+            float: right;
+            text-decoration: none;
             text-transform: uppercase;
-            font-size: 1.4em;
-            margin-bottom: .6rem;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #d9d9d9;
         }
     }
-
     &-left {
         width: 60%;
         padding-right: 5%;
@@ -113,33 +115,33 @@
         min-height: 50vh;
         padding-top: 2rem;
     }
-
     &-right {
         width: 29%;
         padding: 2em;
         background: #fcfcfc;
-
         a {
             color: crimson;
             text-decoration: underline;
         }
-
-        h3 {
-            position: relative;
-
-            a {
-                position: absolute;
-                right: 0;
-                text-decoration: none;
-                text-transform: capitalize;
-                font-size: .85rem;
-                bottom: 5px;
-            }
-        }
     }
+}
 
-    label {
-        font-size: .85em;
+.body-pc {
+    margin: 4rem 0 0;
+    padding: 2rem 4rem;
+    box-shadow: 0px 0px 8px 2px #e8e8e8;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    padding: 2rem 4rem;
+    .container {
+        max-width: 750px;
+        margin: 0 auto;
+        .nextBtn {
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+        }
     }
 }
 
@@ -148,18 +150,15 @@
         padding: 0;
         display: block;
         margin: 0 auto;
-
         label {
             margin-bottom: 2px !important;
             color: #888;
             display: block;
             margin-top: 10px;
         }
-
         .no-margin {
             margin: 0;
         }
-
         input {
             width: 100%;
             padding: 5px 0 3px;
@@ -168,14 +167,11 @@
             text-indent: 3px;
             letter-spacing: 1px;
             border: none;
-            background: rgba(243, 243, 243, 0.54);
-            border-bottom: 1px solid #ddd;
-
+            background: #f9f9f9;
             &.ng-invalid {
                 border-bottom: 1px solid crimson;
             }
         }
-
         div {
             p {
                 margin: 5px 0 30px;
@@ -184,31 +180,17 @@
     }
 }
 
-.container {
-    max-width: 750px;
-    margin: 0 auto;
-
-    .nextBtn {
-        border: 0;
-        color: #fff;
-        cursor: pointer;
-    }
-}
-
 .field-full {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
     div {
         width: 100%;
         margin-top: 8px;
-
         label {
             margin-top: 0;
         }
     }
-
     .half {
         width: 48%;
         text-align: left
@@ -217,11 +199,9 @@
 
 .radio {
     margin-bottom: 10px;
-
     input[type="radio"] {
         position: absolute;
         opacity: 0;
-
         +.radio-label {
             &:before {
                 content: '';
@@ -240,7 +220,6 @@
                 transition: all 250ms ease;
             }
         }
-
         &:checked {
             +.radio-label {
                 &:before {
@@ -249,7 +228,6 @@
                 }
             }
         }
-
         &:focus {
             +.radio-label {
                 &:before {
@@ -258,21 +236,18 @@
                 }
             }
         }
-
         +.radio-label {
             &:empty {
                 &:before {
                     margin-right: 0;
                 }
             }
-
             a {
                 text-decoration: underline;
                 color: crimson;
             }
         }
     }
-
     p {
         margin: 5px 0 0 26px;
         background: #f9f9f9;
@@ -280,20 +255,17 @@
         line-height: 1.45;
         color: #888;
     }
-
 }
 
 .styled-checkbox {
     position: absolute; // take it out of document flow
     opacity: 0; // hide it
-
     &+label {
         position: relative;
         cursor: pointer;
         padding: 0 0 0 30px;
         line-height: 1.2;
     }
-
     // Box.
     &+label:before {
         content: '';
@@ -307,14 +279,12 @@
         border-radius: 50%;
         transition: all 0.1s;
     }
-
     // Box hover
     &:hover+label:before,
     &:checked+label:before {
         background: crimson;
         border-color: crimson;
     }
-
     // Checkmark. Could be replaced with an image
     &:checked+label:after {
         content: '';
@@ -333,7 +303,6 @@
     width: 100%;
     display: flex;
     align-items: center;
-
     span {
         display: inline-block;
         margin-right: 5px;
@@ -348,13 +317,13 @@
 }
 
 .nextBtn {
-    font-size: 1rem !important;
-    background-color: crimson !important;
+    font-size: 1rem;
     padding: 12px 18px !important;
     border-radius: 34px;
     display: inline-block;
     text-transform: uppercase;
-
+    border: none;
+    color: #fff;
     &.fade {
         opacity: .6;
         cursor: not-allowed !important;
@@ -367,7 +336,6 @@
     padding: 20px 20px 10px;
     text-align: center;
     position: relative;
-
     span {
         line-height: 1.5;
         color: crimson;
@@ -389,22 +357,18 @@
     border-bottom: 1px solid #ddd;
     align-items: center;
     padding-bottom: 0.6rem;
-
     div {
         padding: 0 0 0 5px;
         line-height: 1.2;
         text-align: right;
-
         p {
             margin: 3px 0;
             color: #888;
         }
     }
-
     &:first-child {
         padding-top: 0;
     }
-
     img {
         width: 85px;
     }
@@ -416,13 +380,30 @@
     margin: 15px auto;
 }
 
+.body-mobile {
+    padding: 1rem 0;
+    margin-top: 2rem;
+    textarea {
+        width: 100%;
+        padding: 3px;
+        margin-top: 2px;
+        font-size: 0.85em;
+        letter-spacing: 1px;
+        border: none;
+        font-family: auto;
+        background: #f9f9f9;
+    }
+    label {
+        font-size: 1.1em;
+    }
+}
+
 .loader {
     position: absolute;
     top: 50%;
     left: 50%;
     margin: 0 0 0 -75px;
     width: 150px;
-
     .bar {
         background-color: crimson;
         font-size: 0;
@@ -437,23 +418,18 @@
         animation-timing-function: ease-in-out;
         display: inline-block;
         margin: 0 5px;
-
         &:nth-child(1) {
             animation-delay: 0s;
         }
-
         &:nth-child(2) {
             animation-delay: .2s;
         }
-
         &:nth-child(3) {
             animation-delay: .4s;
         }
-
         &:nth-child(4) {
             animation-delay: .6s;
         }
-
         &:nth-child(5) {
             animation-delay: .8s;
         }
@@ -465,11 +441,9 @@
         opacity: 0;
         transform: translateY(300%);
     }
-
     30% {
         opacity: 1;
         transform: translateY(0);
     }
-
     100% {}
 }

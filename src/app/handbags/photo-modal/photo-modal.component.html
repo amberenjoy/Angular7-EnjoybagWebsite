@@ -1,14 +1,26 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-10-21 16:58:14
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /c:\Users\amber\Desktop\Angular\enjoybag\src\app\handbags\photo-modal\photo-modal.component.html
+ -->
 <div class="modal">
     <div class="modal-body">
-        <div class="image text-center" *ngFor="let i of largePhotoArray; index as id" (deferLoad)="i.show = true">
-            <div *ngIf="i.show" [ngClass]="{'show': id===indexPhoto}">
-                <img [src]="i.url" alt="bag-photo">
-                <span>{{id+1}} / {{parameter}}</span>
+        <div class="image text-center" *ngFor="let photo of largePhotoArray; let index">
+            <div>
+                <img [src]="largePhotoArray[indexPhoto].url" alt="bag-photo">
+                <span>{{indexPhoto+1}} / {{total}}</span>
             </div>
         </div>
         <div class="control">
-            <a class="control_prev" (click)="slideToLeft()"><i class="fa fa-angle-left"></i></a>
-            <a class="control_next" (click)="slideToRight()"><i class="fa fa-angle-right"></i></a>
+            <a class="control_prev" (click)="slideToLeft()">
+                <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+            </a>
+            <a class="control_next" (click)="slideToRight()">
+                <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            </a>
         </div>
     </div>
 </div>

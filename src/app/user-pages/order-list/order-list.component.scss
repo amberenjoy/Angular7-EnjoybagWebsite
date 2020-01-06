@@ -4,7 +4,6 @@
     margin: 3rem auto;
     padding: 3rem 0;
     border-radius: 1em;
-
     p {
         font-size: 4rem;
         color: crimson;
@@ -18,21 +17,17 @@
     font-size: 1em;
     background: #f9f9f9;
     margin: 0 3rem;
-
     &:first-child {
         border-top: 1px solid #eee;
     }
-
     div {
         width: 25%;
         padding: 1em 0;
         border-right: 1px solid #eee;
         text-align: center;
-
         &:first-child {
             border-left: 1px solid #eee;
         }
-
         a {
             display: inline-block;
             text-transform: uppercase;
@@ -55,4 +50,12 @@
     background: crimson;
     display: inline-block;
     padding: 3px 5px 1px;
+}
+
+.mobile {
+    border: none;
+    margin: 0rem auto;
+    .flex-list {
+        margin: 0;
+    }
 }

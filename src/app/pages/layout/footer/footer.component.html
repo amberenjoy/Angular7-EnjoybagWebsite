@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-24 12:16:01
+ * @LastEditTime: 2019-11-04 17:03:56
  * @LastEditors: Please set LastEditors
  -->
 <footer class="flex-rw" [ngClass]="{'mobile': isMobile}">
@@ -10,9 +10,9 @@
         <li>
             <h4 class="footer-list-header">About Us</h4>
         </li>
-        <li><a [routerLink]="[ 'brand/about-us' ]" class="footer-list-anchor">Get to Know Us</a></li>
-        <li><a [routerLink]="[ 'brand/events' ]" class="footer-list-anchor">Events</a></li>
-        <li><a [routerLink]="[ 'brand/our-philosophy' ]" class="footer-list-anchor">Our Philosophy</a></li>
+        <li><a [routerLink]="[ 'brand/about-us' ]" class="footer-list-anchor">About Enjoybag HK</a></li>
+        <li><a [routerLink]="[ 'brand/events' ]" class="footer-list-anchor">Get to Know EJ</a></li>
+        <!-- <li><a [routerLink]="[ 'brand/our-philosophy' ]" class="footer-list-anchor">Our Philosophy</a></li> -->
     </ul>
     <ul class="footer-list-top">
         <li>
@@ -36,11 +36,15 @@
     </ul>
     <section class="footer-bottom-section flex-rw">
         <div class="footer-bottom-wrapper">
-            <i class="fa fa-copyright" role="copyright"></i><span> Enjoybag HK 2019 - All Rights Reserved</span>
+            <i class="fa fa-copyright" role="copyright"></i><span> Enjoybag HK 2020 - All Rights Reserved</span>
         </div>
         <div class="footer-bottom-wrapper">
-            <a href="" target="_blank" title="Facebook"><i class="fa fa-facebook "></i></a>
-            <a href=" " target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+            <a href="https://www.facebook.com/enjoybaghk" target="_blank" title="Facebook">
+                <fa-icon [icon]="faFacebook"></fa-icon>
+            </a>
+            <a href="https://www.instagram.com/enjoy_handbaghk/" target="_blank" title="Instagram">
+                <fa-icon [icon]="faInstagram"></fa-icon>
+            </a>
         </div>
     </section>
 </footer>

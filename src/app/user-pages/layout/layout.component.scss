@@ -17,8 +17,8 @@ section {
 }
 
 h3 {
-    font-size: 1.2em;
-    margin: 50px 0;
+    font-size: 1.2rem;
+    margin: 3rem 0;
     span {
         font-weight: 600;
         text-transform: uppercase;
@@ -32,23 +32,13 @@ h3 {
         font-size: 1rem;
         color: crimson
     }
-    i {
+    fa-icon {
         color: #aaa;
         position: relative;
         margin-left: 5px;
-        font-size: 1em;
-        transform: scale(0.8);
+        font-size: .8em;
         cursor: pointer;
-        &::after {
-            content: "";
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            border-radius: 50%;
-            right: -6px;
-            top: -1px;
-            border: 1px solid #aaa;
-        }
+        top: -2px;
     }
 }
 
@@ -64,21 +54,46 @@ h3 {
         width: 100%;
         margin: 0 auto;
         border: 1px solid #ddd;
-        padding: 2em 0;
-        border-radius: 20px;
+        padding: 2rem 0;
+        border-radius: 10px;
         text-transform: uppercase;
         cursor: pointer;
         &.active {
             background: crimson;
             color: #fff;
-            i {
+            fa-icon {
                 color: #fff;
             }
         }
     }
-    i {
+    fa-icon {
         color: crimson;
         font-size: 1.3em;
         margin-right: .6em;
+    }
+}
+
+.mobile {
+    padding-left: 0;
+    padding-right: 0;
+    .body {
+        padding: 0 1.5rem;
+    }
+    h3 {
+        font-size: 1rem;
+    }
+    .grid {
+        grid-column-gap: .5rem;
+        a {
+            padding: .3rem 0 .6rem;
+            border-radius: 10px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        fa-icon {
+            display: block;
+            margin-right: 0;
+            line-height: 2;
+        }
     }
 }

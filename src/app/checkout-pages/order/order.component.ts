@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-09-19 14:42:33
+ * @LastEditTime: 2019-10-10 17:04:30
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -12,6 +12,7 @@ import { Title } from '@angular/platform-browser';
 import { Order } from '../../shared/models/order';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { Subscription } from 'rxjs';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-order',
@@ -48,7 +49,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     delivery: {
       deliveryMethod: null,
       deliveryStatus: null,
-      dispatchedDate: null,
+      dispatchedDate: null
     },
     payment: {
       paymentStatus: null,
@@ -64,6 +65,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   };
   orderId: string;
   subscription: Subscription;
+  isMobile: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,39 +73,53 @@ export class OrderComponent implements OnInit, OnDestroy {
     private title: Title,
     private orderService: OrderService,
     private authenticationService: AuthenticationService,
-  ) { }
+    private responsiveService: ResponsiveService
+  ) {}
 
   ngOnInit() {
     this.title.setTitle('Complete your order | Enjoybag HK');
     this.userCurrency = localStorage.getItem('currency') || 'HKD';
 
-    this.router.routeReuseStrategy.shouldReuseRoute = (() => {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
-    });
+    };
 
     this.orderId = this.route.snapshot.paramMap.get('id');
-    this.subscription = this.authenticationService.currentUser.subscribe(user => {
-      if (user) {
-        this.logined = true;
-        this.orderService.getUserOrderById(this.orderId).subscribe(res => {
-          this.order = res;
-          this.order.orderItems = res.orderItems;
-          this.loading = false;
-        }, error => {
-          this.error = true;
-          this.loading = false;
-        });
-      } else {
-        this.logined = false;
-        this.orderService.getGuestOrderById(this.orderId).subscribe(res => {
-          this.order = res;
-          this.order.orderItems = res.orderItems;
-          this.loading = false;
-        }, error => {
-          this.error = true;
-          this.loading = false;
-        });
+    this.subscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        if (user) {
+          this.logined = true;
+          this.orderService.getUserOrderById(this.orderId).subscribe(
+            res => {
+              this.order = res;
+              this.order.orderItems = res.orderItems;
+              this.loading = false;
+              console.log(this.order);
+            },
+            error => {
+              this.error = true;
+              this.loading = false;
+            }
+          );
+        } else {
+          this.logined = false;
+          this.orderService.getGuestOrderById(this.orderId).subscribe(
+            res => {
+              this.order = res;
+              this.order.orderItems = res.orderItems;
+              this.loading = false;
+            },
+            error => {
+              this.error = true;
+              this.loading = false;
+            }
+          );
+        }
       }
+    );
+
+    this.responsiveService.getMobileStatus().subscribe(isMobile => {
+      this.isMobile = isMobile;
     });
   }
 
@@ -120,12 +136,16 @@ export class OrderComponent implements OnInit, OnDestroy {
     if (this.logined) {
       this.orderService.cancelOrder(id, this.reason).subscribe(res => {
         this.cancelModal = false;
-        this.router.navigate(['en/checkout/track-order', this.order.id], { queryParams: { action: 'canceled' } });
+        this.router.navigate(['en/checkout/track-order', this.order.id], {
+          queryParams: { action: 'canceled' }
+        });
       });
     } else {
       this.orderService.cancelGuestOrder(id, this.reason).subscribe(res => {
         this.cancelModal = false;
-        this.router.navigate(['en/checkout/track-order', this.order.id], { queryParams: { action: 'canceled' } });
+        this.router.navigate(['en/checkout/track-order', this.order.id], {
+          queryParams: { action: 'canceled' }
+        });
       });
     }
   }

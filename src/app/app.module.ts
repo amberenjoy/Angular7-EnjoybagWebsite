@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-06-03 10:09:50
- * @LastEditTime: 2019-09-25 16:21:33
+ * @LastEditTime: 2019-09-30 15:29:19
  * @LastEditors: Please set LastEditors
  */
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +14,6 @@ import { PagesModule } from './pages/pages.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -25,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PagesModule,
     BrowserAnimationsModule
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,16 +2,21 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-24 16:19:29
- * @LastEditTime: 2019-09-19 13:00:42
+ * @LastEditTime: 2019-10-11 16:23:03
  * @LastEditors: Please set LastEditors
  -->
-<section>
+<section [ngClass]="{'mobile': isMobile}">
     <h1 class="text-center">
-        <a [routerLink]="[ '/en/home']" class="left previousBtn">Return to store</a>
-        <a [routerLink]="[ '/en/home' ]"><img src="assets/images/logo.png" alt=" "></a>
-        <a *ngIf="username" [routerLink]="[ '/en/myEnjoybag']" class="right"><i aria-hidden="true"
-        class="fa fa-user"></i>&nbsp;&nbsp;{{username}}</a>
+        <a [routerLink]="[ '/en/home']" class="left ">Return to store</a>
+        <a [routerLink]="[ '/en/home' ]"><img src="assets/images/logo.png"></a>
+        <a *ngIf="username" [routerLink]="[ '/en/myEnjoybag']" class="right">
+            <fa-icon [icon]="faUser"></fa-icon> &nbsp;&nbsp;{{username}}
+        </a>
+        <a *ngIf="!username" [routerLink]="[ '/en/register']" class="right">
+            <fa-icon [icon]="faUser"></fa-icon> &nbsp;&nbsp;Login
+        </a>
     </h1>
-
-    <router-outlet></router-outlet>
+    <div class="body">
+        <router-outlet></router-outlet>
+    </div>
 </section>

@@ -5,6 +5,7 @@
     position: relative;
     background: url(../../../assets/images/bg-cover.jpg) 0% 50%;
     background-size: 100%;
+
     h2 {
         font-size: 3rem;
         position: absolute;
@@ -24,6 +25,7 @@ h3 {
     padding: 50px 0 20px;
     font-size: 1.6rem;
     line-height: 1.5;
+
     span {
         color: crimson
     }
@@ -33,7 +35,15 @@ h3 {
     background-size: cover;
     height: 20vh;
     margin-top: 20px;
+
     h2 {
         font-size: 1rem;
+    }
+}
+
+@media(max-width:1520px) {
+
+    .center-list {
+        padding: 0 2rem;
     }
 }

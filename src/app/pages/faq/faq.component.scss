@@ -10,29 +10,29 @@ section {
         position: relative;
         background: url(../../../assets/images/backpack.jpg) 50% 45%;
         background-size: cover;
-        h2 {
-            font-size: 3rem;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            margin: 0;
-            transform: translate(-50%, -50%);
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 1px 1px 1px #999;
-            font-family: 'Josefin Sans', sans-serif;
-        }
+    }
+    h2 {
+        font-size: 3rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        margin: 0;
+        transform: translate(-50%, -50%);
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow: 1px 1px 1px #999;
+        font-family: 'Josefin Sans', sans-serif;
     }
 }
 
 .terms-body {
     margin-top: 30px;
-    h3 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .terms-topic {
@@ -104,11 +104,11 @@ section {
 }
 
 .single-question {
-    padding: 20px 30px;
+    padding: 20px 2rem;
     border-top: 1px solid #ddd;
     span,
     table {
-        font-size: .9rem;
+        font-size: .9em;
         line-height: 1.5;
     }
     table {
@@ -132,5 +132,37 @@ section {
     }
     a {
         color: crimson
+    }
+}
+
+.mobile {
+    padding-left: 0;
+    padding-right: 0;
+    h2 {
+        font-size: 1.5rem;
+    }
+    .terms-topic {
+        padding: 0;
+        a {
+            font-size: 1rem;
+            padding: 15px 5px;
+            width: 40%;
+            margin: 5px;
+            border-radius: 16px;
+        }
+    }
+    .terms-content {
+        padding: 20px;
+        h4 {
+            font-size: 1rem;
+            padding: 1rem;
+            &:after,
+            &:before {
+                right: 15px;
+            }
+        }
+    }
+    .single-question {
+        padding: 1rem;
     }
 }

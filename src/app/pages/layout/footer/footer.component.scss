@@ -7,24 +7,33 @@ footer {
     width: 100%;
     background: #333;
     box-shadow: 1px 0px 1px 1px #e8e8e8;
+    color: #fff;
 }
 
 .footer-list-top {
     width: 33.333%;
-    background: #fdfcfc;
+    // background: #fdfcfc;
     padding: 1.5rem 0;
+
     li {
         text-align: center;
         padding: 10px 0;
+
+        a {
+            color: #fff;
+        }
     }
+
     input {
-        padding: 5px;
+        border: none;
+        line-height: 2;
     }
+
     button {
         border: none;
-        background: #333;
+        background: crimson;
         color: #fff;
-        padding: 7px;
+        line-height: 2;
     }
 }
 
@@ -41,15 +50,22 @@ footer {
 }
 
 .footer-bottom-section {
+    border-top: 1px solid #f9f9f9;
     width: 100%;
     max-width: 1530px;
-    padding: 10px 20px;
-    margin: 10px auto;
+    padding: 1rem;
+    margin: 0 auto;
     color: #fff;
     justify-content: space-between;
+
     a {
         color: #fff;
-        margin: 0 0 0 10px;
+        margin-left: 1.5rem;
+        font-size: 1rem;
+
+        fa-icon {
+            font-size: 1.2em;
+        }
     }
 }
 

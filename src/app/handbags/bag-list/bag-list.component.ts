@@ -2,13 +2,21 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-27 14:49:27
+ * @LastEditTime: 2019-10-17 16:29:15
  * @LastEditors: Please set LastEditors
  */
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener
+} from '@angular/core';
 import { BaglistService } from '../../shared/services/baglist.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ResponsiveService } from './../../shared/services/responsive.service';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bag-list',
@@ -16,8 +24,8 @@ import { ResponsiveService } from './../../shared/services/responsive.service';
   styleUrls: ['./bag-list.component.scss']
 })
 export class BagListComponent implements OnInit {
-  @Input() parameter: string;  // get parent parameters, key= discount/new/slg
-  @Input() parameterSearch: string;  // get search query
+  @Input() parameter: string; // get parent parameters, key= discount/new/slg
+  @Input() parameterSearch: string; // get search query
   @Output() passResult = new EventEmitter<string>(); // pass result to search page
   result: string;
   parameterKey: string;
@@ -33,21 +41,28 @@ export class BagListComponent implements OnInit {
   imageLoader = true;
   windowScrolled: boolean;
   isMobile: boolean;
+  faChevronUp = faChevronUp;
 
   constructor(
     private dataService: BaglistService,
     private router: Router,
     private route: ActivatedRoute,
     private responsiveService: ResponsiveService
-
-  ) { }
+  ) {}
 
   @HostListener('window:scroll', [])
-
   onWindowScroll() {
-    if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
+    if (
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop > 100
+    ) {
       this.windowScrolled = true;
-    } else if (this.windowScrolled && window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {
+    } else if (
+      (this.windowScrolled && window.pageYOffset) ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop < 10
+    ) {
       this.windowScrolled = false;
     }
   }
@@ -60,63 +75,81 @@ export class BagListComponent implements OnInit {
       this.isMobile = isMobile;
     });
 
-    this.route.params.subscribe(res => {
-      this.parameter = res.name;
-      this.parameterKey = res.key; // sale==discount
-      this.parameterLine = res.line;
+    this.route.paramMap.subscribe(res => {
+      this.parameter = res.get('name');
+      this.parameterKey = res.get('key'); // sale==discount
+      this.parameterLine = res.get('line');
       this.loading = true;
       if (this.parameter) {
-        if (this.parameter === 'all') {   // women men slg
+        if (this.parameter === 'all') {
+          // women men slg
           const urlTree = this.router.url.split('/');
           let key = urlTree[urlTree.length - 2];
           if (key === 'accessories') {
             key = 'slg';
           }
-          this.dataService.getBaglist(key, 'EN', this.userCurrency).subscribe(results => {
-            this.bagCollections = results;
-            this.initCollection(this.bagCollections);
-          }, error => {
-            this.loading = false;
-            this.collections = [];
-            console.log(error);
-          });
-        } else { // chain wallet crossbody bag
-          this.dataService.getBagType(this.parameter, 'EN', this.userCurrency).subscribe(results => {
-            this.bagCollections = results;
-            this.initCollection(this.bagCollections);
-          }, error => {
-            this.loading = false;
-            this.collections = [];
-            console.log(error);
-          });
+          this.dataService.getBaglist(key, 'EN', this.userCurrency).subscribe(
+            results => {
+              this.bagCollections = results;
+              this.initCollection(this.bagCollections);
+            },
+            error => {
+              this.loading = false;
+              this.collections = [];
+              console.log(error);
+            }
+          );
+        } else {
+          // chain wallet crossbody bag
+          this.dataService
+            .getBagType(this.parameter, 'EN', this.userCurrency)
+            .subscribe(
+              results => {
+                this.bagCollections = results;
+                this.initCollection(this.bagCollections);
+              },
+              error => {
+                this.loading = false;
+                this.collections = [];
+                console.log(error);
+              }
+            );
         }
       } else if (this.parameterKey || this.parameterLine) {
         const line = this.parameterKey || this.parameterLine;
-        this.dataService.getBaglist(line, 'EN', this.userCurrency).subscribe(results => {
-          this.bagCollections = results;
-          this.initCollection(this.bagCollections);
-        }, error => {
-          this.loading = false;
-          this.collections = [];
-          console.log(error);
-        });
-      } else if (this.parameterSearch) {
-        this.dataService.getQuerylist(this.parameterSearch, 'EN', this.userCurrency).subscribe(results => {
-          this.bagCollections = results;
-          if (this.bagCollections['count'.toString()] !== '0') {
+        this.dataService.getBaglist(line, 'EN', this.userCurrency).subscribe(
+          results => {
+            this.bagCollections = results;
             this.initCollection(this.bagCollections);
-          }
-          this.result = this.bagCollections['count'.toString()];
-          this.passResult.emit(this.result); // pass result to search page
-          if (this.result === '0') {
+          },
+          error => {
             this.loading = false;
             this.collections = [];
+            console.log(error);
           }
-        }, error => {
-          this.loading = false;
-          this.collections = [];
-          console.log(error);
-        });
+        );
+      } else if (this.parameterSearch) {
+        this.dataService
+          .getQuerylist(this.parameterSearch, 'EN', this.userCurrency)
+          .subscribe(
+            results => {
+              this.bagCollections = results;
+              if (this.bagCollections['count'.toString()] !== '0') {
+                this.initCollection(this.bagCollections);
+              }
+              this.result = this.bagCollections['count'.toString()];
+              this.passResult.emit(this.result); // pass result to search page
+              if (this.result === '0') {
+                this.loading = false;
+                this.collections = [];
+              }
+            },
+            error => {
+              this.loading = false;
+              this.collections = [];
+              console.log(error);
+            }
+          );
       }
     });
   }
@@ -148,8 +181,14 @@ export class BagListComponent implements OnInit {
       this.collectionList[i].more = false;
       this.collections[i]['product'.toString()].forEach(element => {
         element.image = {
-          url: 'https://www.enjoybag.com.hk/photo/' + element.productcode + '_1_c.jpg',
-          second: 'https://www.enjoybag.com.hk/photo/' + element.productcode + '_2_c.jpg',
+          url:
+            'https://www.enjoybag.com.hk/photo/' +
+            element.productcode +
+            '_1_c.jpg',
+          second:
+            'https://www.enjoybag.com.hk/photo/' +
+            element.productcode +
+            '_2_c.jpg',
           show: false,
           secondShow: false
         };
@@ -159,10 +198,11 @@ export class BagListComponent implements OnInit {
 
   scrollTop() {
     (function smoothscroll() {
-      const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const currentScroll =
+        document.documentElement.scrollTop || document.body.scrollTop;
       if (currentScroll > 0) {
         window.requestAnimationFrame(smoothscroll);
-        window.scrollTo(0, currentScroll - (currentScroll / 8));
+        window.scrollTo(0, currentScroll - currentScroll / 8);
       }
     })();
   }

@@ -1,110 +1,128 @@
-<div class="terms-content">
-    <h3 class="text-center">Privacy &amp; Policy</h3>
-    <br>
-    <div class="single-term">
-        <h4 (click)="tcStatus[0]=!tcStatus[0]">Collection of Personal Information
-        </h4>
-        <div class="single-question" [hidden]="!tcStatus[0]">
-            <span>Enjoy Bag (HK) Limited. (Brand: ENJOY!) respect the privacy rights of its
-        online visitors and recognize the importance of protecting the information collected about
-        them. We have adopted a corporate wide Privacy Policy that guides how we collect, store and use the
-        information that you provide us with. If you have any comments or suggestions, we would be pleased to
-        receive them at our address or by emailing us at</span> <a href="mailto:customer@enjoybag.com.hk ">
-        customer@enjoybag.com.hk.</a><br><br>
-            <b>Collection of Personal Information</b><br>
-            <span>ENJOY! does not sell, share or trade customers personal information collected
-        online with third parties. Personal information collected online will only be disclosed
-        within our corporate group for internal use only. When you create a ENJOY! account the personal
-        information we collect may include your:</span><br> - <span>Name　</span><br> - <span>Delivery
-        Address　</span><br> - <span>Email Address　</span>　<br> -
-            <span>Telephone Number</span>　　<br> - <span>Mobile Number</span><br> - <span>Date of Birth</span><br> -
-            <span>Gender</span><br><br>
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-07-05 14:52:13
+ * @LastEditors: your name
+ -->
+<div [ngClass]="{'mobile': isMobile}">
+    <div class="terms-content">
+        <h3 class="text-center">Privacy &amp; Policy</h3>
+        <br>
+        <div class="single-term">
+            <h4 (click)="tcStatus[0]=!tcStatus[0]">Collection of Personal Information
+            </h4>
+            <div class="single-question" [hidden]="!tcStatus[0]">
+                <span>Enjoy Bag (HK) Limited. (Brand: ENJOY!) respect the privacy rights of its
+                    online visitors and recognize the importance of protecting the information collected about
+                    them. We have adopted a corporate wide Privacy Policy that guides how we collect, store and use the
+                    information that you provide us with. If you have any comments or suggestions, we would be pleased
+                    to
+                    receive them at our address or by emailing us at</span> <a href="mailto:customer@enjoybag.com.hk ">
+                    customer@enjoybag.com.hk.</a><br><br>
+                <b>Collection of Personal Information</b><br>
+                <span>ENJOY! does not sell, share or trade customers personal information collected
+                    online with third parties. Personal information collected online will only be disclosed
+                    within our corporate group for internal use only. When you create a ENJOY! account the personal
+                    information we collect may include your:</span><br> - <span>Name　</span><br> - <span>Delivery
+                    Address　</span><br> - <span>Email Address　</span>　<br> -
+                <span>Telephone Number</span>　　<br> - <span>Mobile Number</span><br> - <span>Date of Birth</span><br> -
+                <span>Gender</span><br><br>
+            </div>
         </div>
-    </div>
-    <div class="single-term">
-        <h4 (click)="tcStatus[1]=!tcStatus[1]">Why We Collect Customer Information?
-        </h4>
-        <div class="single-question" [hidden]="!tcStatus[1]">
-            <span>We collect customer information to communicate with our customers about our
-        brand, products, services and promotions. The information including your name, mobile no.,
-        e-mail and postal address when you register. We also monitor site use and traffic patterns to improve
-        our web site design and the products and services we offer. </span><br>
+        <div class="single-term">
+            <h4 (click)="tcStatus[1]=!tcStatus[1]">Why We Collect Customer Information?
+            </h4>
+            <div class="single-question" [hidden]="!tcStatus[1]">
+                <span>We collect customer information to communicate with our customers about our
+                    brand, products, services and promotions. The information including your name, mobile no.,
+                    e-mail and postal address when you register. We also monitor site use and traffic patterns to
+                    improve
+                    our web site design and the products and services we offer. </span><br>
+            </div>
         </div>
-    </div>
-    <div class="single-term">
-        <h4 (click)="tcStatus[2]=!tcStatus[2]">The Way We Use Information
-        </h4>
-        <div class="single-question" [hidden]="!tcStatus[2]">
-            <span>The information you provide will be used in some or all of the following
-        ways:</span><br> - <span>To deliver the products you have purchased from ENJOY!</span><br> -
-            <span>To update you on the delivery of the product and for customer support
-        purposes</span><br> - <span>To provide you with relevant product
-        information</span><br> - <span>To
-        process your orders and to provide you with the services and information offered through our
-        website and which you request</span><br> - <span>Further, we will use the information you
-        provide to administer your account with us;<br> verify and carry out financial transactions in
-        relation to payments you make online;<br> audit the downloading of data from our website;<br> improve the layout
-        and/or content of the pages of our website and customize them for users;<br> identify visitors on our
-        website; <br>carry out research on our users’ demographics; <br>send you information we think you may find
-        useful or which you have requested from us, including information about our products and services, provided you
-        have indicated that you have not objected to being contacted for these purposes</span><br><br>
-            <span>We may pass your name and address on to a third party in order to make
-        delivery of the product to you (for example to our courier or supplier).</span><br>
-            <span>We do not share this information with outside parties or individual except
-        to the extent necessary to complete that order. We may contact you by mail to provide you with
-        information on new products and services or upcoming events. If you do not wish to receive such mailings,
-        please let us know by email.</span>
+        <div class="single-term">
+            <h4 (click)="tcStatus[2]=!tcStatus[2]">The Way We Use Information
+            </h4>
+            <div class="single-question" [hidden]="!tcStatus[2]">
+                <span>The information you provide will be used in some or all of the following
+                    ways:</span><br> - <span>To deliver the products you have purchased from ENJOY!</span><br> -
+                <span>To update you on the delivery of the product and for customer support
+                    purposes</span><br> - <span>To provide you with relevant product
+                    information</span><br> - <span>To
+                    process your orders and to provide you with the services and information offered through our
+                    website and which you request</span><br> - <span>Further, we will use the information you
+                    provide to administer your account with us;<br> verify and carry out financial transactions in
+                    relation to payments you make online;<br> audit the downloading of data from our website;<br>
+                    improve the layout
+                    and/or content of the pages of our website and customize them for users;<br> identify visitors on
+                    our
+                    website; <br>carry out research on our users’ demographics; <br>send you information we think you
+                    may find
+                    useful or which you have requested from us, including information about our products and services,
+                    provided you
+                    have indicated that you have not objected to being contacted for these purposes</span><br><br>
+                <span>We may pass your name and address on to a third party in order to make
+                    delivery of the product to you (for example to our courier or supplier).</span><br>
+                <span>We do not share this information with outside parties or individual except
+                    to the extent necessary to complete that order. We may contact you by mail to provide you with
+                    information on new products and services or upcoming events. If you do not wish to receive such
+                    mailings,
+                    please let us know by email.</span>
+            </div>
         </div>
-    </div>
-    <div class="single-term">
-        <h4 (click)="tcStatus[3]=!tcStatus[3]">Security of Your Personal Information
-        </h4>
-        <div class="single-question" [hidden]="!tcStatus[3]">
-            <span>ENJOY! ensures that all information collected will be safely and securely stored. We protect your personal
-        information by: </span><br> -
-            <span>Restricting access to personal information　</span><br> -
-            <span>Maintaining technology products to prevent unauthorized computer access</span><br> -
-            <span>Securely destroying your personal information when it's no longer needed for our record retention
-        purposes</span><br>
+        <div class="single-term">
+            <h4 (click)="tcStatus[3]=!tcStatus[3]">Security of Your Personal Information
+            </h4>
+            <div class="single-question" [hidden]="!tcStatus[3]">
+                <span>ENJOY! ensures that all information collected will be safely and securely stored. We protect your
+                    personal
+                    information by: </span><br> -
+                <span>Restricting access to personal information　</span><br> -
+                <span>Maintaining technology products to prevent unauthorized computer access</span><br> -
+                <span>Securely destroying your personal information when it's no longer needed for our record retention
+                    purposes</span><br>
+            </div>
         </div>
-    </div>
-    <div class="single-term">
-        <h4 (click)="tcStatus[4]=!tcStatus[4]">Collection of Computer Data </h4>
-        <div class="single-question" [hidden]="!tcStatus[4]">
-            <span>When you visit ENJOY!, our company servers will automatically record
-        information that your browser sends whenever you visit a website. This data may
-        include:</span><br> -
-            <span>Your computer's IP address</span><br> -
-            <span>Browser type</span><br> -
-            <span>The pages within ENJOY! you visit</span><br> -
-            <span>The time spent on those pages, items and information searched for on our
-        site, access times and dates, and other statistics.</span><br><br>
-            <span>This information is collected for analysis and evaluation in order to help us improve our site and the
-        services and products we provide. This data will not be used in association with any other personal
-        information</span>
+        <div class="single-term">
+            <h4 (click)="tcStatus[4]=!tcStatus[4]">Collection of Computer Data </h4>
+            <div class="single-question" [hidden]="!tcStatus[4]">
+                <span>When you visit ENJOY!, our company servers will automatically record
+                    information that your browser sends whenever you visit a website. This data may
+                    include:</span><br> -
+                <span>Your computer's IP address</span><br> -
+                <span>Browser type</span><br> -
+                <span>The pages within ENJOY! you visit</span><br> -
+                <span>The time spent on those pages, items and information searched for on our
+                    site, access times and dates, and other statistics.</span><br><br>
+                <span>This information is collected for analysis and evaluation in order to help us improve our site and
+                    the
+                    services and products we provide. This data will not be used in association with any other personal
+                    information</span>
+            </div>
         </div>
-    </div>
-    <div class="single-term ">
-        <h4 (click)="tcStatus[5]=!tcStatus[5]">Changes to the Privacy Policy</h4>
-        <div class="single-question" [hidden]="!tcStatus[5]">
-            <span>ENJOY! reserves the right to modify and change the Privacy Statement at any
-        time. Any changes to this policy will be published on our site.</span>
+        <div class="single-term ">
+            <h4 (click)="tcStatus[5]=!tcStatus[5]">Changes to the Privacy Policy</h4>
+            <div class="single-question" [hidden]="!tcStatus[5]">
+                <span>ENJOY! reserves the right to modify and change the Privacy Statement at any
+                    time. Any changes to this policy will be published on our site.</span>
+            </div>
         </div>
-    </div>
-    <div class="single-term ">
-        <h4 (click)="tcStatus[6]=!tcStatus[6]">Complaints about breeches of privacy</h4>
-        <div class="single-question" [hidden]="!tcStatus[6]">
-            <span>If you are not satisfied with the way in which we handle your enquiry or
-        complaint, please don't hesitate to contact us at </span>
-            <a href="mailto:customer@enjoybag.com.hk "> customer@enjoybag.com.hk</a>
+        <div class="single-term ">
+            <h4 (click)="tcStatus[6]=!tcStatus[6]">Complaints about breeches of privacy</h4>
+            <div class="single-question" [hidden]="!tcStatus[6]">
+                <span>If you are not satisfied with the way in which we handle your enquiry or
+                    complaint, please don't hesitate to contact us at </span>
+                <a href="mailto:customer@enjoybag.com.hk "> customer@enjoybag.com.hk</a>
+            </div>
         </div>
-    </div>
-    <div class="single-term ">
-        <h4 (click)="tcStatus[7]=!tcStatus[7]">Our Commitment To Data Security</h4>
-        <div class="single-question" [hidden]="!tcStatus[7]">
-            <span>ENJOY! will ensure that all personal information, including credit card
-        details, remains private and secure. We will not rent or sell your e-mail address or
-        personal details for any reason. We treat customer confidentiality with the highest priority.</span>
+        <div class="single-term ">
+            <h4 (click)="tcStatus[7]=!tcStatus[7]">Our Commitment To Data Security</h4>
+            <div class="single-question" [hidden]="!tcStatus[7]">
+                <span>ENJOY! will ensure that all personal information, including credit card
+                    details, remains private and secure. We will not rent or sell your e-mail address or
+                    personal details for any reason. We treat customer confidentiality with the highest priority.</span>
+            </div>
         </div>
     </div>
 </div>

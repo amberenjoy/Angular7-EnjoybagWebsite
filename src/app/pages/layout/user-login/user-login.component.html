@@ -2,19 +2,18 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-03 16:56:27
+ * @LastEditTime: 2019-10-11 15:53:03
  * @LastEditors: Please set LastEditors
  -->
 <div class="flex">
-    <section [ngClass]="{'full': class==='register'}">
+    <section [ngClass]="{'full': class==='register','mobile': isMobile}">
         <ng-container *ngIf="!logined">
             <h3>Sign In</h3>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <fieldset>
                     <div class="forms_field">
                         <label for="email">Email *</label>
-                        <input autocomplete="on" formControlName="email" type="email"
-                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <input autocomplete="on" formControlName="email" type="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                         <div *ngIf="submitted && f.email.errors" class="invalid_feedback">
                             <div *ngIf="f.email.errors.required">email is required</div>
                             <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
@@ -22,8 +21,7 @@
                     </div>
                     <div class="forms_field">
                         <label for="password">Password ( Case-Sensitive ) *</label>
-                        <input formControlName="password" type="password"
-                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <input formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                         <div *ngIf="submitted && f.password.errors" class="invalid_feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
                         </div>
@@ -31,8 +29,7 @@
                 </fieldset>
                 <div class="forms_buttons">
                     <a [routerLink]="[ '/en/forgot-password' ]">Forgot password ?</a>
-                    <button type="submit" [disabled]="loading"
-                        [ngClass]="{'disabled': f.email.errors||f.password.errors}">
+                    <button type="submit" [disabled]="loading" [ngClass]="{'disabled': f.email.errors||f.password.errors}">
                         <span> Sign in </span>
                         <div class="loader" *ngIf="loading">
                             <span></span><span></span><span></span><span></span><span></span>

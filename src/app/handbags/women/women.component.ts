@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-24 11:03:54
+ * @LastEditTime: 2019-10-17 16:28:06
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
@@ -18,8 +18,7 @@ import { ResponsiveService } from './../../shared/services/responsive.service';
   styleUrls: ['./women.component.scss']
 })
 export class WomenComponent implements OnInit {
-
-  name: string;
+  name = 'all';
   categories: Category[];
   isMobile: boolean;
 
@@ -29,15 +28,17 @@ export class WomenComponent implements OnInit {
     private elementRef: ElementRef,
     private categoriesService: CategoriesService,
     private responsiveService: ResponsiveService
-
-  ) { }
+  ) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     // tslint:disable-next-line:max-line-length
-    const domElement = this.elementRef.nativeElement.querySelector(`.side-list`);
+    const domElement = this.elementRef.nativeElement.querySelector(
+      `.side-list`
+    );
     const distance = domElement.offsetTop;
-    const stopElement = this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight +
+    const stopElement =
+      this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight +
       this.elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
 
     if (window.pageYOffset > distance) {
@@ -51,11 +52,12 @@ export class WomenComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.name = params.name;
-      this.title.setTitle('Designer ' + this.name.replace('-', ' ') + ' for Women | Enjoybag HK');
+    this.route.paramMap.subscribe(params => {
+      this.name = params.get('name').replace('-', ' ');
+      this.title.setTitle(
+        'Designer ' + this.name + ' for Women | Enjoy Handbag HK'
+      );
     });
-
     this.categoriesService.getCategories().subscribe(res => {
       this.categories = res;
       this.categories.forEach(each => {

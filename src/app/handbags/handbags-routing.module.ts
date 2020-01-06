@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-07-05 14:52:14
+ * @LastEditors: your name
+ */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NewComponent } from './new/new.component';
@@ -6,7 +13,6 @@ import { SearchComponent } from './search/search.component';
 import { LineComponent } from './line/line.component';
 import { MenComponent } from './men/men.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
-import { BagListComponent } from './bag-list/bag-list.component';
 import { IndexComponent } from './index/index.component';
 import { WomenComponent } from './women/women.component';
 
@@ -16,7 +22,7 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: ':line', component: LineComponent },
-      { path: ':line/:sku', component: DetailComponent },
+      { path: ':line/:sku', component: DetailComponent }
     ]
   },
   {
@@ -24,7 +30,7 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: ':name', component: WomenComponent },
-      { path: ':name/:sku', component: DetailComponent },
+      { path: ':name/:sku', component: DetailComponent }
     ]
   },
   {
@@ -32,7 +38,7 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: ':name', component: AccessoriesComponent },
-      { path: ':name/:sku', component: DetailComponent },
+      { path: ':name/:sku', component: DetailComponent }
     ]
   },
   {
@@ -40,7 +46,7 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: ':name', component: MenComponent },
-      { path: ':name/:sku', component: DetailComponent },
+      { path: ':name/:sku', component: DetailComponent }
     ]
   },
   {
@@ -48,9 +54,10 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       {
-        path: '', component: NewComponent,
+        path: '',
+        component: NewComponent
       },
-      { path: ':sku', component: DetailComponent },
+      { path: ':sku', component: DetailComponent }
     ]
   },
   {
@@ -58,21 +65,18 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: '', component: SearchComponent },
-      { path: ':sku', component: DetailComponent },
+      { path: ':sku', component: DetailComponent }
     ]
   },
   {
     path: ':sku',
-    component: IndexComponent,  // single item sku page
-    children: [
-      { path: '', component: DetailComponent },
-    ]
+    component: IndexComponent, // single item sku page
+    children: [{ path: '', component: DetailComponent }]
   }
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HandbagsRoutingModule { }
+export class HandbagsRoutingModule {}

@@ -2,16 +2,17 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:15
- * @LastEditTime: 2019-09-23 17:11:45
+ * @LastEditTime: 2019-10-11 15:14:45
  * @LastEditors: Please set LastEditors
  -->
 <header>
     <div class="head-top">
-        <div class="head-top-body">
-            <a [routerLink]="[ '/en/FAQ/delivery' ]">Enjoy free standard delivery on local orders over HK$500.00 <i
-                    class="fa fa-chevron-right"></i></a>
-            <div class="head-top-right ">
-                <div class="select-box ">
+        <div class="body">
+            <a [routerLink]="[ '/en/FAQ/delivery' ]">Enjoy free standard delivery on local orders over HK$500.00
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+            </a>
+            <div class="right">
+                <div class="select-box">
                     <div class="select-box__current " tabindex="0">
                         <div class="select-box__value">
                             <input class="select-box__input " type="radio" id="EN" value="EN" name="language " checked />
@@ -21,7 +22,7 @@
                             <input class="select-box__input " type="radio" id="TC" value="TC" name="language " />
                             <p class="select-box__input-text ">中­</p>
                         </div>
-                        <i class="fa fa-chevron-down " aria-hidden="true "></i>
+                        <fa-icon [icon]="faChevronDown"></fa-icon>
                     </div>
                     <ul class="select-box__list ">
                         <li>
@@ -46,7 +47,7 @@
                             <input class="select-box__input  select-box__currency " type="radio" id="USD" value="USD" name="currency" [checked]="userCurrency === 'USD' ? true : false" />
                             <p class="select-box__input-text">USD</p>
                         </div>
-                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                        <fa-icon [icon]="faChevronDown"></fa-icon>
                     </div>
                     <ul class="select-box__list ">
                         <li>
@@ -65,13 +66,12 @@
     </div>
     <div [ngClass]="{'fixed-top': fixed}">
         <div class="head-body">
-            <nav class="head-body-left">
+            <nav>
                 <ul>
-                    <li><a [routerLink]="[ 'products/new/all' ]" routerLinkActive="active">New</a>
-                    </li>
-                    <li><a [ngClass]="{'active': navActive}" [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">Women's <i class="fa fa-chevron-down "
-                                aria-hidden="true "></i></a>
-                        <div class="drop">
+                    <li><a [routerLink]="[ 'products/new/all' ]" routerLinkActive="active">New</a> </li>
+                    <li><a [ngClass]="{'active': navActive}" [routerLink]="[ 'products/women/all' ]" routerLinkActive="active">Women's <fa-icon [icon]="faChevronDown"></fa-icon>
+                        </a>
+                        <div class="drop-nav">
                             <div>
                                 <ul>
                                     <li>
@@ -109,9 +109,10 @@
                     <li>
                         <a [routerLink]="[ 'products/men/all']" routerLinkActive="active">Men's</a>
                     </li>
-                    <li><a [ngClass]="{'active': navActiveAcce}" [routerLink]="[ 'products/accessories/all' ]" routerLinkActive="active">Accessories <i class="fa fa-chevron-down "
-                                aria-hidden="true "></i></a>
-                        <div class="drop">
+                    <li><a [ngClass]="{'active': navActiveAcce}" [routerLink]="[ 'products/accessories/all' ]" routerLinkActive="active">Accessories
+                            <fa-icon [icon]="faChevronDown"></fa-icon>
+                        </a>
+                        <div class="drop-nav">
                             <div>
                                 <ul>
                                     <li>
@@ -142,29 +143,30 @@
                 </ul>
             </nav>
             <a [routerLink]="[ 'home' ]"><img src="assets/images/logo.png" alt=" "></a>
-            <div class="head-body-right ">
-                <div class="head head-search ">
-                    <form (keydown)="searchKey($event, searchItem.value)" [formGroup]="searchForm">
+            <div class="head-body-right">
+                <div class="head-icon">
+                    <form (keydown)="searchKey($event)" [formGroup]="searchForm">
                         <input name="search" formControlName="searchName" type="text" placeholder="Search" #searchItem required>
-                        <button (click)="searchBtn($event, searchItem.value)"></button>
-                        <div class="form-control-feedback" *ngIf="searchForm.errors && (searchForm.dirty || searchForm.touched)">
-                            <p *ngIf="searchForm.errors.required">This is not empty</p>
-                        </div>
+                        <button type="submit" (click)="searchKey($event)"></button>
                     </form>
                 </div>
-                <div class="head head-login">
-                    <a [routerLink]="[ '/en/register']" *ngIf="!logined"> <i class="fa fa-user" aria-hidden="true"></i></a>
-                    <a [routerLink]="[ '/en/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}"> <i class="fa fa-user" aria-hidden="true"></i></a>
-                    <div class="drop-login">
+                <div class="head-icon">
+                    <a [routerLink]="[ '/en/register']" *ngIf="!logined">
+                        <fa-icon [icon]="faUser"></fa-icon>
+                    </a>
+                    <a [routerLink]="[ '/en/myEnjoybag']" *ngIf="logined" [ngClass]="{'crimson': logined}">
+                        <fa-icon [icon]="faUser"></fa-icon>
+                    </a>
+                    <div class="drop-right">
                         <app-user-login></app-user-login>
                     </div>
                 </div>
-                <div class="head head-cart">
+                <div class="head-icon">
                     <a [ngClass]="{'crimson': cartNum>0}">
-                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                        <span *ngIf="cartNum>0">{{cartNum}}</span>
+                        <fa-icon [icon]="faShoppingBag"></fa-icon>
+                        <span *ngIf="cartNum>0" class="crimson">{{cartNum}}</span>
                     </a>
-                    <div class="drop-login drop-cart" id="cartInfo">
+                    <div class="drop-right drop-cart" id="cartInfo">
                         <app-user-cart></app-user-cart>
                     </div>
                 </div>

@@ -1,13 +1,18 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-10-14 12:21:57
+ * @LastEditors: Please set LastEditors
+ */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CartComponent } from './cart.component';
-import { HeaderComponent } from './../../common-module/header/header.component';
-import { FooterComponent } from './../../common-module/footer/footer.component';
-import { SearchComponent } from './../../common-module/search/search.component';
+import { CartComponent } from './cart.component'; import { FooterComponent } from './../footer/footer.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserCartComponent } from './../../common-module/user-cart/user-cart.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -15,8 +20,8 @@ describe('CartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CartComponent, HeaderComponent, FooterComponent, SearchComponent, UserCartComponent],
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule]
+      declarations: [CartComponent, FooterComponent],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, FontAwesomeModule]
     })
       .compileComponents();
   }));

@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'reset-css';
-$fa-font-path: "../node_modules/font-awesome/fonts";
-@import "../node_modules/font-awesome/scss/font-awesome.scss";
 @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri|Libre+Baskerville&display=swap');
 @mixin transform($value) {
     -webkit-transform: ($value);

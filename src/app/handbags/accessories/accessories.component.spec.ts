@@ -1,14 +1,16 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-10-28 16:04:22
+ * @LastEditors: Please set LastEditors
+ */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AccessoriesComponent } from './accessories.component';
-import { HeaderComponent } from './../../common-module/header/header.component';
-import { FooterComponent } from './../../common-module/footer/footer.component';
-import { SearchComponent } from './../../common-module/search/search.component';
-import { UserCartComponent } from './../../common-module/user-cart/user-cart.component';
-import { ContactComponent } from './../../common-module/contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BagListComponent } from './../bag-list/bag-list.component';
 
 describe('AccessoriesComponent', () => {
@@ -17,20 +19,23 @@ describe('AccessoriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AccessoriesComponent, HeaderComponent, FooterComponent, SearchComponent,
-        UserCartComponent, ContactComponent, BagListComponent],
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule]
+      declarations: [AccessoriesComponent, BagListComponent],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule.withRoutes([]),
+        HttpClientTestingModule
+      ],
+      providers: [],
+      schemas: [NO_ERRORS_SCHEMA]
     })
-      .compileComponents();
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AccessoriesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AccessoriesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
+  it('Accessories params should be', () => {
     expect(component).toBeTruthy();
   });
 });

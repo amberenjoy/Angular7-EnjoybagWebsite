@@ -2,247 +2,479 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-09-19 14:56:31
+ * @LastEditTime: 2019-10-11 16:26:08
  * @LastEditors: Please set LastEditors
  -->
-<div class="banner">
-    <h3>A few steps to place this order</h3>
-    <ul>
-        <li class="step active">
-            <div>
-                <a [routerLink]="['../shopping-bag']">Shopping bag</a>
+<div [ngClass]="{'mobile': isMobile}">
+    <div class="banner">
+        <h3>A few steps to place this order</h3>
+        <ul>
+            <li class="step active">
+                <div>
+                    <a [routerLink]="['/en/checkout/shopping-bag']">Shopping bag</a>
+                </div>
+            </li>
+            <li class="step active">
+                <div>
+                    <a>Checkout</a>
+                </div>
+            </li>
+            <li class="step ">
+                <div>
+                    <a>Place your order</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="!isMobile; then pcTemplate; else mobileTemplate"> </div>
+    <ng-template #pcTemplate>
+        <div class="body body-pc">
+            <div class="body-left">
+                <div class="loader" *ngIf="!shipForm">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <form *ngIf="shipForm" [formGroup]="shipForm">
+                    <div class="container">
+                        <h3>Delivery</h3>
+                        <fieldset>
+                            <div class="radio">
+                                <input id="radio-1" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Self Pick-Up">
+                                <label for="radio-1" class="radio-label">Self Pick-Up</label>
+                                <p class="small">
+                                    Pick-up address : Room 3308, 33/F, Cable TV tower, 9 Hoi Shing Road, Tsuen Wan, N.T. Hong Kong
+                                </p>
+                            </div>
+                            <div class="radio">
+                                <input id="radio-2" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Standard Delivery">
+                                <label for="radio-2" class="radio-label">Standard Delivery</label>
+                                <p class="small">Dispatched immediately. (1-3 Business Days)</p>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h3>Payment</h3>
+                        <div>
+                            <div class="radio" *ngIf="order.shipping===0">
+                                <input id="cash" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Cash">
+                                <label for="cash" class="radio-label"><span>By Cash</span>
+                                    <p class="small"> Only available for Self Pick-Up. </p>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <input id="bank" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Bank Transfer">
+                                <label for="bank" class="radio-label">
+                                    <span>By Bank Transfer</span>
+                                    <p class="small">BANK: HSBC <br> A/C: 124-510389-838 <br> BENEFICIARY: ENJOY BAG
+                                        (HK)
+                                        LIMITED</p>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <input id="paypalBtn" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Paypal">
+                                <label for="paypalBtn" class="radio-label">
+                                    <span>By Paypal</span>
+                                    <p for="paypal" class="small">
+                                        <span>Pay using your PayPal account. You will be redirected to one of these
+                                            systems
+                                            respectively to complete the payment</span><br>
+                                    </p>
+                                    <div>
+                                        <div id="paypal-button-container" class="paypal-btn"></div>
+                                        <div class="payment-info">
+                                            <div *ngIf="paymentObject.paypalLoad" class="loader">
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                            </div>
+                                            <span *ngIf="paymentObject.paypalLoad===false&&paymentObject.paymentStatus">
+                                                {{paymentObject.paymentStatus}}<br>{{paymentObject.paymentMessage}}</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- <div class="radio">
+                  <input id="wechat" name="method" type="radio">
+                  <label for="wechat" class="radio-label">By Wechat</label>
+                  <p>Please add our wechat ID: hkenjoybag or scan the QR code for our customer service representative to assist
+                    your order and payment. Wechat Office Hour: Mon to Fri 10:00 - 17:30</p>
+                </div> -->
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h3>Billing Details</h3>
+                        <div class="form">
+                            <fieldset formGroupName="billing">
+                                <div class="field-full">
+                                    <div class="forms_field half">
+                                        <label class="no-margin">First Name *</label>
+                                        <input type="text" formControlName="firstname" />
+                                    </div>
+                                    <div class="forms_field half">
+                                        <label class="no-margin">Last Name *</label>
+                                        <input type="text" formControlName="lastname" />
+                                    </div>
+                                </div>
+                                <div class="forms_field">
+                                    <label>Email *</label>
+                                    <input type="text" formControlName="email" />
+                                </div>
+                                <div class="forms_field">
+                                    <label for="phone">Mobile No *</label>
+                                    <div class="mobile_box">
+                                        <input class="area_code" formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted }" />
+                                        <span>
+                                            <fa-icon [icon]="faMinus"></fa-icon>
+                                        </span>
+                                        <input formControlName="phone" type="tel" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted  }" />
+                                    </div>
+                                </div>
+                                <div class="forms_field" *ngIf="defaultAddress">
+                                    <label>Default Address</label>
+                                    <div>
+                                        <input type="text" name="building" formControlName="oldAddress" readonly>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset *ngIf="order.shipping>0&&!defaultAddress">
+                                <label>Shipping Address</label>
+                                <div class="field-full" formGroupName="address">
+                                    <div>
+                                        <label class="small" for="building">Unit, Floor, Block, Building Name *</label>
+                                        <input type="text" name="building" formControlName="building">
+                                    </div>
+                                    <div>
+                                        <label class="small" for="street">Street Number, Street Name *</label>
+                                        <input type="text" name="street" formControlName="street">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="district">District, Area *</label>
+                                        <input type="text" name="district" formControlName="district">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="city">City, Country *</label>
+                                        <input type="text" name="city" formControlName="city">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset *ngIf="order.shipping>0&&defaultAddress">
+                                <input class="styled-checkbox" id="newShippingAddress" type="checkbox" [checked]="shipAddress" (change)="onAddressChange()">
+                                <label for="newShippingAddress">Add a Shipping Address</label>
+                                <div class="field-full" formGroupName="address" [hidden]="!shipAddress">
+                                    <div>
+                                        <label class="small" for="building">Unit, Floor, Block, Building Name *</label>
+                                        <input type="text" name="building" formControlName="building">
+                                    </div>
+                                    <div>
+                                        <label class="small" for="street">Street Number, Street Name *</label>
+                                        <input type="text" name="street" formControlName="street">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="district">District, Area *</label>
+                                        <input type="text" name="district" formControlName="district">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="city">City, Country *</label>
+                                        <input type="text" name="city" formControlName="city">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <h3>Leave a comment</h3>
+                        <div class="form">
+                            <fieldset>
+                                <div>
+                                    <input type="text" formControlName="comment">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </li>
-        <li class="step active">
-            <div>
-                <a>Shipping & Payment</a>
-            </div>
-        </li>
-        <li class="step ">
-            <div>
-                <a>Place your order</a>
-            </div>
-        </li>
-    </ul>
-</div>
-<div class="body body-flex">
-    <div class="body-left">
-        <div class="loader" *ngIf="!shipForm">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <form *ngIf="shipForm" [formGroup]="shipForm">
-            <div class="container">
-                <h3>Delivery</h3>
-                <fieldset>
-                    <div class="radio">
-                        <input id="radio-1" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Self Pick-Up">
-                        <label for="radio-1" class="radio-label">Self Pick-Up</label>
-                        <p class="small">
-                            Pick-up address : Room 3308, 33/F, Cable TV tower, 9 Hoi Shing Road, Tsuen Wan, N.T. Hong Kong
+            <div class="body-right">
+                <div class="container">
+                    <h3>Shopping Bag <a class="crimson small" [routerLink]="['../shopping-bag']">Edit</a></h3>
+                    <div class="bag" *ngFor="let item of order.orderItems">
+                        <a [routerLink]="['/en/products',item.product.sku ]"><img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="" onError="this.src='assets/images/icon.png'"></a>
+                        <div class="small">
+                            <p>{{item.product.name}} </p>
+                            <p>#{{item.product.sku}}</p>
+                            <p>Qty: {{item.qty}}</p>
+                            <p *ngIf="item.product.dis!=='0'">{{item.product.dis | currency:userCurrency}} {{item.product.off}}
+                            </p>
+                            <p *ngIf="item.product.dis==='0'">{{item.product.price | currency:userCurrency}} </p>
+                        </div>
+                    </div>
+                    <div class="flex-tb">
+                        <label for="">Subtotal<span> (1 Items):</span></label>
+                        <p>{{order.subtotal| currency:userCurrency}}</p>
+                    </div>
+                    <div class="flex-tb" *ngIf="order.bonus||order.discount">
+                        <label for=""> Bonus / Discount </label>
+                        <p>
+                            <span *ngIf="order.bonus">- {{order.bonus| currency:userCurrency}}</span>
+                            <span *ngIf="order.discount"> {{order.discount}}% Off </span>
                         </p>
                     </div>
-                    <div class="radio">
-                        <input id="radio-2" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Standard Delivery">
-                        <label for="radio-2" class="radio-label">Standard Delivery</label>
-                        <p class="small">Dispatched immediately. (1-3 Business Days)</p>
+                    <div class="flex-tb">
+                        <label for="">Tax:</label>
+                        <p>HK$0.00</p>
                     </div>
-                </fieldset>
-            </div>
-            <br>
-            <div class="container">
-                <h3>Payment</h3>
-                <div>
-                    <div class="radio" *ngIf="order.shipping===0">
-                        <input id="cash" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Cash">
-                        <label for="cash" class="radio-label"><span>By Cash</span>
-                            <p class="small"> Only available for Self Pick-Up. </p>
+                    <div class="flex-tb" *ngIf="order.shipping>=0">
+                        <label for="">Shipping:</label>
+                        <p> {{order.shipping| currency:userCurrency}}</p>
+                    </div>
+                    <div class="flex-tb" *ngIf="order.shipping>=0">
+                        <label for="">Total:</label>
+                        <p>{{order.total| currency:userCurrency}}</p>
+                    </div>
+                    <hr>
+                    <div class="flex-tb">
+                        <input class="styled-checkbox" id="tc" type="checkbox" [checked]="agreeTc" (click)="agreeTc=!agreeTc">
+                        <label for="tc"> I have read and agree to the
+                            <a [routerLink]="[ '/en/FAQ/tc']">Terms &amp; Conditions </a>
                         </label>
                     </div>
-                    <div class="radio">
-                        <input id="bank" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Bank Transfer">
-                        <label for="bank" class="radio-label">
-                            <span>By Bank Transfer</span>
-                            <p class="small">BANK: HSBC <br> A/C: 124-510389-838 <br> BENEFICIARY: ENJOY BAG (HK)
-                                LIMITED</p>
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <input id="paypalBtn" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Paypal">
-                        <label for="paypalBtn" class="radio-label">
-                            <span>By Paypal</span>
-                            <p for="paypal" class="small">
-                                <span>Pay using your PayPal account. You will be redirected to one of these systems
-                                    respectively to complete the payment</span><br>
-                            </p>
-                            <div>
-                                <div id="paypal-button-container" class="paypal-btn"></div>
-                                <div class="payment-info">
-                                    <div *ngIf="paymentObject.paypalLoad" class="loader">
-                                        <div class="bar"></div>
-                                        <div class="bar"></div>
-                                        <div class="bar"></div>
-                                        <div class="bar"></div>
-                                        <div class="bar"></div>
-                                    </div>
-                                    <span *ngIf="paymentObject.paypalLoad===false&&paymentObject.paymentStatus">
-                                        {{paymentObject.paymentStatus}}<br>{{paymentObject.paymentMessage}}</span>
-                                </div>
-                            </div>
-                        </label>
+                    <div class="text-center">
+                        <button class="nextBtn bg-crimson" [ngClass]="{'fade': !agreeTc||shipForm.invalid}" type="submit" [disabled]="!agreeTc||shipForm.invalid" (click)="placeOrder()">Place Your
+                            Order</button>
                     </div>
                 </div>
-                <!-- <div class="radio">
-              <input id="wechat" name="method" type="radio">
-              <label for="wechat" class="radio-label">By Wechat</label>
-              <p>Please add our wechat ID: hkenjoybag or scan the QR code for our customer service representative to assist
-                your order and payment. Wechat Office Hour: Mon to Fri 10:00 - 17:30</p>
-            </div> -->
-            </div>
-            <br>
-            <div class="container">
-                <h3>Billing Details</h3>
-                <div class="form">
-                    <fieldset formGroupName="billing">
-                        <div class="field-full">
-                            <div class="forms_field half">
-                                <label class="no-margin">First Name *</label>
-                                <input type="text" formControlName="firstname" />
-                            </div>
-                            <div class="forms_field half">
-                                <label class="no-margin">Last Name *</label>
-                                <input type="text" formControlName="lastname" />
-                            </div>
-                        </div>
-                        <div class="forms_field">
-                            <label>Email *</label>
-                            <input type="text" formControlName="email" />
-                        </div>
-                        <div class="forms_field">
-                            <label for="phone">Mobile No *</label>
-                            <div class="mobile_box">
-                                <input class="area_code" formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted }" />
-                                <span> <i class="fa fa-minus"></i> </span>
-                                <input formControlName="phone" type="tel" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted  }" />
-                            </div>
-                        </div>
-                        <div class="forms_field" *ngIf="defaultAddress">
-                            <label>Default Address</label>
-                            <div>
-                                <input type="text" name="building" formControlName="oldAddress" readonly>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset *ngIf="order.shipping>0&&!defaultAddress">
-                        <label>Shipping Address</label>
-                        <div class="field-full" formGroupName="address">
-                            <div>
-                                <label class="small" for="building">Unit, Floor, Block, Building Name *</label>
-                                <input type="text" name="building" formControlName="building">
-                            </div>
-                            <div>
-                                <label class="small" for="street">Street Number, Street Name *</label>
-                                <input type="text" name="street" formControlName="street">
-                            </div>
-                            <div class="half">
-                                <label class="small" for="district">District, Area *</label>
-                                <input type="text" name="district" formControlName="district">
-                            </div>
-                            <div class="half">
-                                <label class="small" for="city">City, Country *</label>
-                                <input type="text" name="city" formControlName="city">
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset *ngIf="order.shipping>0&&defaultAddress">
-                        <input class="styled-checkbox" id="newShippingAddress" type="checkbox" [checked]="shipAddress" (change)="onAddressChange()">
-                        <label for="newShippingAddress">Add a Shipping Address</label>
-                        <div class="field-full" formGroupName="address" [hidden]="!shipAddress">
-                            <div>
-                                <label class="small" for="building">Unit, Floor, Block, Building Name *</label>
-                                <input type="text" name="building" formControlName="building">
-                            </div>
-                            <div>
-                                <label class="small" for="street">Street Number, Street Name *</label>
-                                <input type="text" name="street" formControlName="street">
-                            </div>
-                            <div class="half">
-                                <label class="small" for="district">District, Area *</label>
-                                <input type="text" name="district" formControlName="district">
-                            </div>
-                            <div class="half">
-                                <label class="small" for="city">City, Country *</label>
-                                <input type="text" name="city" formControlName="city">
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <br>
-            <div class="container">
-                <h3>Leave a comment</h3>
-                <div class="form">
-                    <fieldset>
-                        <div>
-                            <input type="text" formControlName="comment">
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="body-right">
-        <div class="container">
-            <h3>Shopping Bag <a [routerLink]="['../shopping-bag']">Edit</a></h3>
-            <div class="bag" *ngFor="let item of order.orderItems">
-                <a [routerLink]="['/en/products',item.product.sku ]"><img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="" onError="this.src='assets/images/icon.png'"></a>
-                <div class="small">
-                    <p>{{item.product.name}} </p>
-                    <p>#{{item.product.sku}}</p>
-                    <p>Qty: {{item.qty}}</p>
-                    <p *ngIf="item.product.dis!=='0'">{{item.product.dis | currency:userCurrency}} {{item.product.off}}
-                    </p>
-                    <p *ngIf="item.product.dis==='0'">{{item.product.price | currency:userCurrency}} </p>
-                </div>
-            </div>
-            <div class="flex-tb">
-                <label for="">Subtotal<span> (1 Items):</span></label>
-                <p>{{order.subtotal| currency:userCurrency}}</p>
-            </div>
-            <div class="flex-tb" *ngIf="order.bonus||order.discount">
-                <label for=""> Bonus / Discount </label>
-                <p>
-                    <span *ngIf="order.bonus">- {{order.bonus| currency:userCurrency}}</span>
-                    <span *ngIf="order.discount"> {{order.discount}}% Off </span>
-                </p>
-            </div>
-            <div class="flex-tb">
-                <label for="">Tax:</label>
-                <p>HK$0.00</p>
-            </div>
-            <div class="flex-tb" *ngIf="order.shipping>=0">
-                <label for="">Shipping:</label>
-                <p> {{order.shipping| currency:userCurrency}}</p>
-            </div>
-            <div class="flex-tb" *ngIf="order.shipping>=0">
-                <label for="">Total:</label>
-                <p>{{order.total| currency:userCurrency}}</p>
-            </div>
-            <hr>
-            <div class="flex-tb">
-                <input class="styled-checkbox" id="tc" type="checkbox" [checked]="agreeTc" (click)="agreeTc=!agreeTc">
-                <label for="tc"> I have read and agree to the
-                    <a [routerLink]="[ '/en/FAQ/tc']">Terms &amp; Conditions </a>
-                </label>
-            </div>
-            <div class="text-center">
-                <button class="nextBtn" [ngClass]="{'fade': !agreeTc||shipForm.invalid}" type="submit" [disabled]="!agreeTc||shipForm.invalid" (click)="placeOrder()">Place Your Order</button>
             </div>
         </div>
-    </div>
+    </ng-template>
+    <ng-template #mobileTemplate>
+        <div class="body body-mobile">
+            <div>
+                <div class="loader" *ngIf="!shipForm">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <form *ngIf="shipForm" [formGroup]="shipForm">
+                    <h3>Delivery</h3>
+                    <div class="container">
+                        <fieldset>
+                            <div class="radio">
+                                <input id="radio-1" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Self Pick-Up">
+                                <label for="radio-1" class="radio-label">Self Pick-Up</label>
+                                <p class="small">
+                                    Pick-up address : Room 3308, 33/F, Cable TV tower, 9 Hoi Shing Road, Tsuen Wan, N.T. Hong Kong
+                                </p>
+                            </div>
+                            <div class="radio">
+                                <input id="radio-2" name="deliveryMethod" type="radio" formControlName="deliveryMethod" value="Standard Delivery">
+                                <label for="radio-2" class="radio-label">Standard Delivery</label>
+                                <p class="small">Dispatched immediately. (1-3 Business Days)</p>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <br>
+                    <h3>Payment</h3>
+                    <div class="container">
+                        <div>
+                            <div class="radio" *ngIf="order.shipping===0">
+                                <input id="cash" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Cash">
+                                <label for="cash" class="radio-label"><span>By Cash</span>
+                                    <p class="small"> Only available for Self Pick-Up. </p>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <input id="bank" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Bank Transfer">
+                                <label for="bank" class="radio-label">
+                                    <span>By Bank Transfer</span>
+                                    <p class="small">BANK: HSBC <br> A/C: 124-510389-838 <br> BENEFICIARY: ENJOY BAG
+                                        (HK)
+                                        LIMITED</p>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <input id="paypalBtn" name="paymentMethod" type="radio" formControlName="paymentMethod" value="By Paypal">
+                                <label for="paypalBtn" class="radio-label">
+                                    <span>By Paypal</span>
+                                    <p for="paypal" class="small">
+                                        <span>Pay using your PayPal account. You will be redirected to one of these
+                                            systems
+                                            respectively to complete the payment</span><br>
+                                    </p>
+                                    <div>
+                                        <div id="paypal-button-container" class="paypal-btn"></div>
+                                        <div class="payment-info">
+                                            <div *ngIf="paymentObject.paypalLoad" class="loader">
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                                <div class="bar"></div>
+                                            </div>
+                                            <span *ngIf="paymentObject.paypalLoad===false&&paymentObject.paymentStatus">
+                                                {{paymentObject.paymentStatus}}<br>{{paymentObject.paymentMessage}}</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- <div class="radio">
+                  <input id="wechat" name="method" type="radio">
+                  <label for="wechat" class="radio-label">By Wechat</label>
+                  <p>Please add our wechat ID: hkenjoybag or scan the QR code for our customer service representative to assist
+                    your order and payment. Wechat Office Hour: Mon to Fri 10:00 - 17:30</p>
+                </div> -->
+                    </div>
+                    <br>
+                    <h3>Billing Details</h3>
+                    <div class="container">
+                        <div class="form">
+                            <fieldset formGroupName="billing">
+                                <div class="field-full">
+                                    <div class="forms_field half">
+                                        <label class="no-margin">First Name *</label>
+                                        <input type="text" formControlName="firstname" />
+                                    </div>
+                                    <div class="forms_field half">
+                                        <label class="no-margin">Last Name *</label>
+                                        <input type="text" formControlName="lastname" />
+                                    </div>
+                                </div>
+                                <div class="forms_field">
+                                    <label>Email *</label>
+                                    <input type="text" formControlName="email" />
+                                </div>
+                                <div class="forms_field">
+                                    <label for="phone">Mobile No *</label>
+                                    <div class="mobile_box">
+                                        <input class="area_code" formControlName="areacode" type="tel" maxlength="4" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted }" />
+                                        <span>
+                                            <fa-icon [icon]="faMinus"></fa-icon>
+                                        </span>
+                                        <input formControlName="phone" type="tel" pattern="[0-9]+" [ngClass]="{ 'is-invalid': submitted  }" />
+                                    </div>
+                                </div>
+                                <div class="forms_field" *ngIf="defaultAddress">
+                                    <label>Default Address</label>
+                                    <div>
+                                        <textarea rows="3" type="text" name="building" formControlName="oldAddress" readonly>
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset *ngIf="order.shipping>0&&!defaultAddress">
+                                <label>Shipping Address</label>
+                                <div class="field-full" formGroupName="address">
+                                    <div>
+                                        <label class="small" for="building">Unit, Floor, Block, Building Name *</label>
+                                        <input type="text" name="building" formControlName="building">
+                                    </div>
+                                    <div>
+                                        <label class="small" for="street">Street Number, Street Name *</label>
+                                        <input type="text" name="street" formControlName="street">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="district">District, Area *</label>
+                                        <input type="text" name="district" formControlName="district">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="city">City, Country *</label>
+                                        <input type="text" name="city" formControlName="city">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset *ngIf="order.shipping>0&&defaultAddress">
+                                <input class="styled-checkbox" id="newShippingAddress" type="checkbox" [checked]="shipAddress" (change)="onAddressChange()">
+                                <label for="newShippingAddress">Add a Shipping Address</label>
+                                <div class="field-full" formGroupName="address" [hidden]="!shipAddress">
+                                    <div>
+                                        <label class="small" for="building">Unit, Floor, Block, Building Name *</label>
+                                        <input type="text" name="building" formControlName="building">
+                                    </div>
+                                    <div>
+                                        <label class="small" for="street">Street Number, Street Name *</label>
+                                        <input type="text" name="street" formControlName="street">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="district">District, Area *</label>
+                                        <input type="text" name="district" formControlName="district">
+                                    </div>
+                                    <div class="half">
+                                        <label class="small" for="city">City, Country *</label>
+                                        <input type="text" name="city" formControlName="city">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br>
+                    <h3>Leave a comment</h3>
+                    <div class="container">
+                        <div class="form">
+                            <fieldset>
+                                <div>
+                                    <input type="text" formControlName="comment">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br> <br>
+            <h3>Shopping Bag <a class="crimson small" [routerLink]="['../shopping-bag']">Edit</a></h3>
+            <div class="container">
+                <div class="bag" *ngFor="let item of order.orderItems">
+                    <a [routerLink]="['/en/products',item.product.sku ]"><img src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg" alt="" onError="this.src='assets/images/icon.png'"></a>
+                    <div class="small">
+                        <p>{{item.product.name}} </p>
+                        <p>#{{item.product.sku}}</p>
+                        <p>Qty: {{item.qty}}</p>
+                        <p *ngIf="item.product.dis!=='0'">{{item.product.dis | currency:userCurrency}} {{item.product.off}}
+                        </p>
+                        <p *ngIf="item.product.dis==='0'">{{item.product.price | currency:userCurrency}} </p>
+                    </div>
+                </div>
+                <div class="flex-tb">
+                    <label for="">Subtotal<span> (1 Items):</span></label>
+                    <p>{{order.subtotal| currency:userCurrency}}</p>
+                </div>
+                <div class="flex-tb" *ngIf="order.bonus||order.discount">
+                    <label for=""> Bonus / Discount </label>
+                    <p>
+                        <span *ngIf="order.bonus">- {{order.bonus| currency:userCurrency}}</span>
+                        <span *ngIf="order.discount"> {{order.discount}}% Off </span>
+                    </p>
+                </div>
+                <div class="flex-tb">
+                    <label for="">Tax:</label>
+                    <p>HK$0.00</p>
+                </div>
+                <div class="flex-tb" *ngIf="order.shipping>=0">
+                    <label for="">Shipping:</label>
+                    <p> {{order.shipping| currency:userCurrency}}</p>
+                </div>
+                <div class="flex-tb" *ngIf="order.shipping>=0">
+                    <label for="">Total:</label>
+                    <p>{{order.total| currency:userCurrency}}</p>
+                </div>
+                <hr>
+                <div class="flex-tb">
+                    <input class="styled-checkbox" id="tc" type="checkbox" [checked]="agreeTc" (click)="agreeTc=!agreeTc">
+                    <label for="tc"> I have read and agree to the Terms &amp; Conditions </label>
+                </div>
+                <div class="text-center">
+                    <button class="nextBtn bg-crimson" [ngClass]="{'fade': !agreeTc||shipForm.invalid}" type="submit" [disabled]="!agreeTc||shipForm.invalid" (click)="placeOrder()">Place Your Order</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <app-footer></app-footer>
 </div>
-<app-footer></app-footer>

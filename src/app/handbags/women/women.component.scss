@@ -32,8 +32,6 @@ nav {
     height: 50vh;
     text-align: center;
     position: relative;
-    background: url(../../../assets/images/cradle-2.jpg) 100% 70% no-repeat;
-    background-size: contain;
     background-color: #fff7f9;
     h2 {
         font-size: 2rem;
@@ -44,6 +42,11 @@ nav {
         margin: 0;
         transform: translateY(-50%);
         text-transform: uppercase;
+    }
+    &-women {
+        background: url(../../../assets/images/cradle-2.jpg) 100% 70% no-repeat;
+        background-size: contain;
+        background-color: #fff7f9;
     }
     &.crossbody {
         background: url(../../../assets/images/cross.jpg) 100% 50% no-repeat;
@@ -75,6 +78,46 @@ nav {
         background-size: contain;
         background-color: #fdfcfd;
     }
+    &-acce {
+        background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
+        background-size: contain;
+        background-color: #f0f0f0;
+    }
+    &.eyeglasses-cases {
+        background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
+        background-size: contain;
+        background-color: #f0f0f0;
+    }
+    &.bag {
+        background: url(../../../assets/images/acce.jpg) 100% 32% no-repeat;
+        background-size: contain;
+        background-color: #f0f0f0;
+    }
+    &.wallets {
+        background: url(../../../assets/images/wallet.jpg) 100% 32% no-repeat;
+        background-size: contain;
+        background-color: #f9f9f9;
+    }
+    &.cosmeti {
+        background: url(../../../assets/images/cosmetic.jpg) 100% 50% no-repeat;
+        background-size: contain;
+        background-color: #fdfcfd;
+    }
+    &.card {
+        background: url(../../../assets/images/cardholder.jpg) 100% 50% no-repeat;
+        background-size: contain;
+        background-color: #fdfcfd;
+    }
+    &.belts {
+        background: url(../../../assets/images/cross.jpg) 100% 50% no-repeat;
+        background-size: contain;
+        background-color: #f9f9f9;
+    }
+    &.bracelets {
+        background: url(../../../assets/images/bracelet.jpg) 100% 50% no-repeat;
+        background-size: contain;
+        background-color: #f6f7f9;
+    }
 }
 
 .body-flex {
@@ -89,7 +132,7 @@ nav {
     width: 20%;
     display: inline-block;
     vertical-align: top;
-    padding: 30px 20px 20px 0;
+    padding: 30px 0 2rem 0;
     max-width: 220px;
     height: max-content;
     transition: all .1s ease;
@@ -119,9 +162,22 @@ nav {
 .right-list {
     width: 80%;
     display: inline-block;
+    padding: 0 2rem;
+}
+
+@media(max-width:1520px) {
+    nav {
+        padding: 10px 2rem;
+    }
+    .side-list {
+        padding-left: 2rem;
+    }
 }
 
 .mobile {
+    nav {
+        padding: 10px 1rem;
+    }
     .banner {
         height: 30vh;
         background-size: cover;
@@ -137,5 +193,6 @@ nav {
     }
     .right-list {
         width: 100%;
+        padding: 0;
     }
 }

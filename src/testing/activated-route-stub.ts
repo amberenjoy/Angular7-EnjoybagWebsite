@@ -1,0 +1,40 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-10-14 15:19:23
+ * @LastEditTime: 2019-10-18 15:56:20
+ * @LastEditors: Please set LastEditors
+ */
+// export for convenience.
+export { ActivatedRoute } from '@angular/router';
+
+import { ReplaySubject } from 'rxjs';
+import { convertToParamMap, ParamMap, Params } from '@angular/router';
+
+/**
+ * An ActivateRoute test double with a `paramMap` observable.
+ * Use the `setParamMap()` method to add the next `paramMap` value.
+ */
+export class ActivatedRouteStub {
+  // Use a ReplaySubject to share previous values with subscribers
+  // and pump new values into the `paramMap` observable
+  private subject = new ReplaySubject<ParamMap>();
+
+  constructor(initialParams?: Params) {
+    this.setParamMap(initialParams);
+  }
+
+  /** The mock paramMap observable */
+  readonly paramMap = this.subject.asObservable();
+
+  /** Set the paramMap observables's next value */
+  setParamMap(params?: Params) {
+    this.subject.next(convertToParamMap(params));
+  }
+}
+
+/*
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

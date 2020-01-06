@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:16
- * @LastEditTime: 2019-09-06 15:01:56
+ * @LastEditTime: 2019-10-18 14:56:58
  * @LastEditors: Please set LastEditors
  */
 import { Injectable } from '@angular/core';
@@ -16,14 +16,13 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(
-    private http: HttpClient,
-  ) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('user'))
+    );
     this.currentUser = this.currentUserSubject.asObservable();
   } // NgZone service to remove outside scope warning
 
@@ -37,22 +36,30 @@ export class AuthenticationService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>(`${environment.apiUrl}/users/auth`, { email, password }, httpOptions)
-      .pipe(map(thisUser => {
-        // login successful if there's a jwt token in the response
-        if (thisUser && thisUser.token) {
-          // store thisUser details and jwt token in local storage to keep thisUser logged in between page refreshes
-          localStorage.setItem('user', JSON.stringify(thisUser));
-          this.currentUserSubject.next(thisUser);
-          return thisUser;
-        }
-      }));
+    return this.http
+      .post<any>(
+        `${environment.apiUrl}/users/auth`,
+        { email, password },
+        httpOptions
+      )
+      .pipe(
+        map(thisUser => {
+          // login successful if there's a jwt token in the response
+          if (thisUser && thisUser.token) {
+            // store thisUser details and jwt token in local storage to keep thisUser logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(thisUser));
+            this.currentUserSubject.next(thisUser);
+            return thisUser;
+          }
+        })
+      );
   }
 
   logout() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
-    return this.http.get(`${environment.apiUrl}/users/logout`, { headers })
+    return this.http
+      .get(`${environment.apiUrl}/users/logout`, { headers })
       .subscribe(res => {
         // remove user from local storage to log user out
         localStorage.removeItem('user');
@@ -63,12 +70,17 @@ export class AuthenticationService {
   loginWithFB(userData) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json; charset=UTF-8');
-    return this.http.post<any>(`https://5fd0dafc.ngrok.io/api/auth/facebook`, userData, { headers })
-      .pipe(map(res => {
-        console.log(res);
-        localStorage.setItem('user', JSON.stringify(res));
-        this.currentUserSubject.next(res);
-        return res;
-      }));
+    return this.http
+      .post<any>(`https://5fd0dafc.ngrok.io/api/auth/facebook`, userData, {
+        headers
+      })
+      .pipe(
+        map(res => {
+          console.log(res);
+          localStorage.setItem('user', JSON.stringify(res));
+          this.currentUserSubject.next(res);
+          return res;
+        })
+      );
   }
 }

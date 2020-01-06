@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:13
+ * @LastEditTime: 2019-07-05 14:52:13
+ * @LastEditors: your name
+ */
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +23,7 @@ import { PaymentComponent } from './payment/payment.component';
   declarations: [
     DeliveryComponent, MembershipComponent, TcComponent,
     PolicyComponent, MaintenanceComponent,
-    CareComponent, PaymentComponent,
+    CareComponent, PaymentComponent
   ],
   imports: [
     CommonModule,

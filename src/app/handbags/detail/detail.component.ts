@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-07-05 14:52:14
- * @LastEditors: your name
+ * @LastEditTime: 2019-10-25 14:51:55
+ * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,13 +14,13 @@ import { BaglistService } from '../../shared/services/baglist.service';
 import { CartItemService } from './../../shared/services/cart-item.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { ResponsiveService } from './../../shared/services/responsive.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-
 export class DetailComponent implements OnInit {
   sku: number;
   bag: {};
@@ -32,6 +32,7 @@ export class DetailComponent implements OnInit {
   key: string;
   userCurrency: string;
   userLanguage: string;
+  faTimes = faTimes;
 
   addBag = false;
   subtotal = 0;
@@ -53,24 +54,25 @@ export class DetailComponent implements OnInit {
     private cartItem: CartItemService,
     private authentication: AuthenticationService,
     private responsiveService: ResponsiveService
-
-  ) { }
+  ) {}
 
   ngOnInit() {
     // get currency
     this.userCurrency = localStorage.getItem('currency') || 'HKD';
     // reload the current route with the angular  router
-    this.router.routeReuseStrategy.shouldReuseRoute = (() => {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
-    });
-    this.route.params.subscribe(params => {
-      this.sku = +params['sku'.toString()]; // (+) converts string 'id' to a number
-      this.dataService.getBag(this.sku, 'EN', this.userCurrency).subscribe(results => {
-        this.loading = false;
-        this.bag = results;
-        this.getAllInfo(this.bag);
-      });
-      this.key = params.key || params.name || params.line;
+    };
+    this.route.paramMap.subscribe(params => {
+      this.sku = +params.get('sku'); // (+) converts string 'id' to a number
+      this.dataService
+        .getBag(this.sku, 'EN', this.userCurrency)
+        .subscribe(results => {
+          this.loading = false;
+          this.bag = results;
+          this.getAllInfo(this.bag);
+        });
+      this.key = params.get('key') || params.get('name') || params.get('line');
       if (!this.key || this.key === 'all') {
         this.key = this.router.url.split('/')[3];
         if (this.key === 'discount') {
@@ -93,20 +95,31 @@ export class DetailComponent implements OnInit {
   }
 
   getAllInfo(bag) {
-    this.title.setTitle('Enjoybag ' + bag['productname'.toString()] + ' : ' + bag['type'.toString()]);
-    this.meta.addTag({ name: 'description', content: bag['Description'.toString()] });
-    this.meta.addTag({ name: 'keywords', content: bag['productname'.toString()] });
+    this.title.setTitle(
+      `Designer ${bag['productname'.toString()]} | Enjoy Handbag HK`
+    );
+
+    this.meta.addTag({
+      name: 'description',
+      content: bag['Description'.toString()]
+    });
+    this.meta.addTag({
+      name: 'keywords',
+      content: bag['productname'.toString()]
+    });
 
     this.shareInfo = {
       title: bag.productname,
       desc: bag.Description,
-      url: 'https://www.enjoybag.com.hk/product-info.html?lan=EN&sku=' + this.sku,
-      imgurl: 'https://www.enjoybag.com.hk/photo/' + this.sku + '_1_c.jpg',
+      url:
+        'https://www.enjoybag.com.hk/product-info.html?lan=EN&sku=' + this.sku,
+      imgurl: 'https://www.enjoybag.com.hk/photo/' + this.sku + '_1_c.jpg'
     };
 
     for (let i = 1; i <= bag.photono; i++) {
       this.bagPhotoArray.push({
-        url: 'https://www.enjoybag.com.hk/photo/' + this.sku + '_' + i + '_c.jpg',
+        url:
+          'https://www.enjoybag.com.hk/photo/' + this.sku + '_' + i + '_c.jpg',
         show: false
       });
     }
@@ -123,7 +136,10 @@ export class DetailComponent implements OnInit {
       this.bagDetail.push(bag.Detail);
     }
     // get other color
-    if (!bag.othercolor_productcode || bag.othercolor_productcode['totalcolor'.toString()] === '0') {
+    if (
+      !bag.othercolor_productcode ||
+      bag.othercolor_productcode['totalcolor'.toString()] === '0'
+    ) {
       this.otherColorList = [];
     } else if (bag.othercolor_productcode.product.length) {
       this.otherColorList = bag.othercolor_productcode.product;
@@ -155,6 +171,9 @@ export class DetailComponent implements OnInit {
   }
 
   facebookSharing() {
-    window.open('https://www.facebook.com/sharer.php?u=' + encodeURIComponent(this.shareInfo.url));
+    window.open(
+      'https://www.facebook.com/sharer.php?u=' +
+        encodeURIComponent(this.shareInfo.url)
+    );
   }
 }

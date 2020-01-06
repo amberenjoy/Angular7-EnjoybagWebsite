@@ -1,15 +1,16 @@
 /*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-23 15:18:06
- * @LastEditTime: 2019-09-24 11:19:51
+* @Description: In User Settings Edit
+* @Author: your name
+* @Date: 2019-09-23 15:18:06
+ * @LastEditTime: 2019-10-11 17:21:44
  * @LastEditors: Please set LastEditors
- */
+*/
 import { Component, OnInit } from '@angular/core';
 import { ResponsiveService } from './../../../shared/services/responsive.service';
 import { CategoriesService } from '../../../shared/services/categories.service';
 import { Category } from '../../../shared/models/category';
 import { Router, ActivatedRoute } from '@angular/router';
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header-mobile-sidenav',
@@ -23,6 +24,8 @@ export class HeaderMobileSidenavComponent implements OnInit {
   link: string;
   openSubSideNav: boolean;
   categories: Category[];
+  faChevronRight = faChevronRight;
+  faChevronLeft = faChevronLeft;
 
   constructor(
     private router: Router,

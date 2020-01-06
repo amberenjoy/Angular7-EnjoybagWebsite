@@ -2,12 +2,13 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 10:20:31
- * @LastEditTime: 2019-09-06 15:29:29
+ * @LastEditTime: 2019-10-17 16:34:59
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-password-page',
@@ -22,12 +23,14 @@ export class PasswordPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private title: Title
+  ) {}
 
   ngOnInit() {
+    this.title.setTitle('Recover password | Enjoy handbag HK');
     this.resetForm = this.formBuilder.group({
-      email: ['amberenjoy@outlook.com', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
   // convenience getter for easy access to form fields

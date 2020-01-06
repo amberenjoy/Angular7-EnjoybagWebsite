@@ -9,8 +9,8 @@
     top: 0;
     width: 100%;
     div {
-        opacity: 0;
-        visibility: hidden;
+        // opacity: 0;
+        // visibility: hidden;
         transition: all .3s ease;
         img {
             height: 94vh;
@@ -18,7 +18,7 @@
         }
         span {
             position: absolute;
-            top: 49vh;
+            top: 47vh;
             font-size: 2rem;
             background: #fff;
             padding-left: 30px;
@@ -36,7 +36,7 @@
     position: absolute;
     top: 46vh;
     a {
-        font-size: 4rem;
+        font-size: 2rem;
         position: absolute;
         cursor: pointer;
     }

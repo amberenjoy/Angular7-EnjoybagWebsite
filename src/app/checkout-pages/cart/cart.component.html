@@ -2,57 +2,55 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:13
- * @LastEditTime: 2019-09-19 14:56:10
+ * @LastEditTime: 2019-10-11 17:13:16
  * @LastEditors: Please set LastEditors
  -->
-<div class="banner">
-    <h3>A few steps to place this order</h3>
-    <ul>
-        <li class="step active">
-            <div>
-                <a [routerLink]="['./shopping-bag']">Shopping bag</a>
-            </div>
-        </li>
-        <li class="step">
-            <div>
-                <a>Shipping & Payment</a>
-            </div>
-        </li>
-        <li class="step ">
-            <div>
-                <a>Place your order</a>
-            </div>
-        </li>
-    </ul>
-</div>
-<div class="body">
-    <ng-container *ngIf="items.length>0; else noItems">
-        <div class="body-flex">
-            <div class="body-left" [ngClass]="{'full': logined}">
-                <h3>Shopping bag <span>({{items.length}} items)</span>
-                    <span class="sub" *ngIf="discount>0"> {{userLevel}} Level ( {{discount}}% Off All Regular
-                        Priced Items )</span>
-                </h3>
-                <div class="tbl-header">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Price</th>
-                                <th>QTY.</th>
-                                <th>Sub-total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
+<div [ngClass]="{'mobile': isMobile}">
+    <div class="banner">
+        <h3>A few steps to place this order</h3>
+        <ul>
+            <li class="step active">
+                <div>
+                    <a [routerLink]="['/en/checkout/shopping-bag']">Shopping bag</a>
                 </div>
-                <div class="tbl-content">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tbody>
-                            <ng-container>
-                                <tr *ngFor="let item of items">
-                                    <td>
-                                        <div>
+            </li>
+            <li class="step">
+                <div>
+                    <a>Checkout</a>
+                </div>
+            </li>
+            <li class="step ">
+                <div>
+                    <a>Place your order</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="!isMobile; then pcTemplate; else mobileTemplate"> </div>
+    <ng-template #pcTemplate>
+        <div class="body body-pc">
+            <ng-container *ngIf="items.length>0; else noItems">
+                <div class="body-flex">
+                    <div class="body-left" [ngClass]="{'full': logined}">
+                        <h3>Shopping bag <span>({{items.length}} items)</span>
+                            <span class="sub crimson" *ngIf="discount>0">
+                                {{userLevel}} Level ( {{discount}}% Off All
+                                Regular Priced Items )</span>
+                        </h3>
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    <th><label>Item</label> </th>
+                                    <th><label>Price</label></th>
+                                    <th><label>QTY.</label></th>
+                                    <th><label>Sub-total</label></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container>
+                                    <tr *ngFor="let item of items">
+                                        <td class="flex">
                                             <a [routerLink]="['/en/products',item.product.sku]">
                                                 <img alt="" onerror="this.src='assets/images/icon.png'" src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg">
                                             </a>
@@ -63,54 +61,184 @@
                                                 </p>
                                                 <p class="sub">#{{item.product.sku}}</p>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p [ngClass]="{'del': item.product.dis>0}">
-                                            {{item.product.price | currency:userCurrency}} </p>
-                                        <p *ngIf="item.product.dis>0"> {{item.product.dis | currency:userCurrency}}
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p>&nbsp; {{item.qty}} </p>
-                                    </td>
-                                    <td *ngIf="item.product.dis<=0">
-                                        <p>
-                                            <span class="strong" *ngIf="discount">( {{discount}}% Off )&nbsp;</span> {{item.product.price* item.qty*(1-discount/100) | currency:userCurrency}}
-                                        </p>
-                                    </td>
-                                    <td *ngIf="item.product.dis>0">
-                                        <p>{{item.product.dis* item.qty | currency:userCurrency}}</p>
-                                    </td>
-                                    <td><i class="fa fa-minus" (click)="deleteItem(item)"></i></td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                    <div>
-                        <div class="half">
-                            <div *ngIf="logined&&userLevel!=='Staff'">
-                                <p>Cash Code</p>
-                                <div>
-                                    <input type="text" class="uppercase" (input)="changeCode()" #cashCode>
-                                    <button (click)="applyCode()"> <span> Apply Code </span>
-                                        <div class="loader" *ngIf="loading">
-                                            <span></span><span></span><span></span><span></span><span></span>
-                                        </div>
-                                    </button>
-                                    <p class="info">{{message}}</p>
+                                        </td>
+                                        <td>
+                                            <p [ngClass]="{'del': item.product.dis>0}">
+                                                {{item.product.price | currency:userCurrency}}
+                                            </p>
+                                            <p *ngIf="item.product.dis>0">
+                                                {{item.product.dis | currency:userCurrency}}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>&nbsp; {{item.qty}} </p>
+                                        </td>
+                                        <td *ngIf="item.product.dis<=0">
+                                            <p>
+                                                <span class="crimson" *ngIf="discount">( {{discount}}% Off
+                                                    )&nbsp;</span> {{item.product.price* item.qty*(1-discount/100) | currency:userCurrency}}
+                                            </p>
+                                        </td>
+                                        <td *ngIf="item.product.dis>0">
+                                            <p>{{item.product.dis* item.qty | currency:userCurrency}}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <fa-icon class="crimson" [icon]="faTimes" (click)="deleteItem(item)">
+                                            </fa-icon>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                        <br>
+                        <div class="flex flex-content">
+                            <div>
+                                <div *ngIf="logined&&userLevel!=='Staff'">
+                                    <p>Cash Code</p>
+                                    <div>
+                                        <input type="text" class="uppercase" (input)="changeCode()" #cashCode>
+                                        <button (click)="applyCode()"> <span> Apply Code </span>
+                                            <div class="loader" *ngIf="loading">
+                                                <span></span><span></span><span></span><span></span><span></span>
+                                            </div>
+                                        </button>
+                                        <p class="sub crimson">{{message}}</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="text-right">
+                                <p [hidden]="!logined">
+                                    <span>Subtotal:</span>
+                                    <span>{{subtotal()| currency:userCurrency}}</span>
+                                </p>
+                                <p class="crimson" *ngIf="logined&&userLevel!=='Staff'">
+                                    <span [hidden]="couponBonus.discount+couponBonus.amount===0">Bonus /
+                                        Discount:</span>
+                                    <span>
+                                        <i [hidden]="couponBonus.discount===0">{{couponBonus.discount/100 | percent}}
+                                            Off</i>
+                                        <i [hidden]="couponBonus.amount===0">
+                                            -{{couponBonus.amount| currency:userCurrency}}</i>
+                                    </span>
+                                </p>
+                                <h4>
+                                    <span>Grand Total:</span>
+                                    <span>{{total()| currency:userCurrency}}</span>
+                                </h4>
+                                <p class="sub crimson">Shipping and taxes calculated at checkout.</p>
+                            </div>
                         </div>
-                        <div class="half">
+                        <br>
+                        <div class="flex  flex-content">
+                            <div>
+                                <a class="previousBtn" [routerLink]="['/en/home']">Return to store</a>
+                            </div>
+                            <div>
+                                <a [hidden]="!logined " class="nextBtn bg-crimson " (click)="goToShipping() ">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body-right " *ngIf="!logined ">
+                        <h3>Checkout</h3>
+                        <div>
+                            <h4>Registered Customer</h4>
+                            <p class="sub">Login for to autocomplete required information and speed up checkout process.
+                            </p>
+                            <div class="text-center">
+                                <a class="nextBtn bg-crimson " [routerLink]="[ '/en/register'] " [queryParams]="{returnUrl: '/en/checkout/shopping-bag'} ">Login and checkout</a>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <h4>New Customer</h4>
+                            <p class="sub">Checkout as a guest. Your information will not be stored.</p>
+                            <div class="text-center">
+                                <a class="nextBtn" (click)="goToShipping() ">Checkout as a guest </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noItems>
+                <div class="body-empty text-center" [ngClass]="{ 'full': logined} ">
+                    <h3>Your cart is empty</h3>
+                    <div class="flex">
+                        <div class="box">
+                            <img src="assets/images/snap-s.jpg " alt=" " class="img-responsive ">
+                            <br> <br>
+                            <a [routerLink]="['/en/products/women/all']">Women's</a>
+                        </div>
+                        <div class="box">
+                            <img src="assets/images/men-1.jpg " alt=" " class="img-responsive ">
+                            <br> <br>
+                            <a [routerLink]="['/en/products/men/all']">Men's</a>
+                        </div>
+                        <div class="box">
+                            <img src="assets/images/snap-s.jpg " alt=" " class="img-responsive ">
+                            <br> <br>
+                            <a [routerLink]="['/en/products/accessories/all']">Accessories</a>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+
+    <ng-template #mobileTemplate>
+        <div class="body body-mobile">
+            <ng-container *ngIf="items.length>0; else noItems">
+                <div>
+                    <h3>Shopping bag
+                        <span>({{items.length}} items)</span>
+                        <span class="sub" *ngIf="discount>0"> {{userLevel}} Level ( {{discount}}% Off All Regular Priced
+                            Items )</span>
+                    </h3>
+                    <div class="cart">
+                        <div class="flex" *ngFor="let item of items">
+                            <div>
+                                <a [routerLink]="['/en/products',item.product.sku]">
+                                    <img alt="" onerror="this.src='assets/images/icon.png'" src="https://www.enjoybag.com.hk/photo/{{item.product.sku}}_1_s.jpg">
+                                </a>
+                            </div>
+                            <div>
+                                <p>{{item.product.name}}</p>
+                                <p class="sub">({{item.product.color}})</p>
+                                <p class="sub" *ngIf="item.product.stock<6"> Stock: {{item.product.stock}} </p>
+                                <p class="sub">{{item.product.sku}}</p>
+                                <p>
+                                    <span [ngClass]="{'del': item.product.dis>0}">{{item.product.price | currency:userCurrency}}</span>
+                                    <span *ngIf="item.product.dis>0">
+                                        {{item.product.dis | currency:userCurrency}}</span>
+                                </p>
+                            </div>
+                            <div class="text-right crimson qty">
+                                <fa-icon [icon]="faTimes" (click)="deleteItem(item)"></fa-icon>
+                                <p>{{item.qty}}</p>
+                            </div>
+                        </div>
+                        <div class="promo flex-content" *ngIf="logined&&userLevel!=='Staff'">
+                            <p>Cash Code</p>
+                            <div>
+                                <input type="text" class="uppercase" (input)="changeCode()" #cashCode>
+                                <button (click)="applyCode()"> <span> Apply Code </span>
+                                    <div class="loader" *ngIf="loading">
+                                        <span></span><span></span><span></span><span></span><span></span>
+                                    </div>
+                                </button>
+                            </div>
+                            <p class="info crimson">{{message}}</p>
+                        </div>
+                        <div class="total">
                             <p [hidden]="!logined">
                                 <span>Subtotal:</span>
                                 <span>{{subtotal()| currency:userCurrency}}</span>
                             </p>
-                            <p class="strong" *ngIf="logined&&userLevel!=='Staff'">
-                                <span [hidden]="couponBonus.discount+couponBonus.amount===0">Bonus / Discount:</span>
+                            <p class="crimson" *ngIf="logined&&userLevel!=='Staff'">
+                                <span [hidden]="couponBonus.discount+couponBonus.amount===0">Bonus /
+                                    Discount:</span>
                                 <span>
-                                    <i [hidden]="couponBonus.discount===0">{{couponBonus.discount}}% Off</i>
+                                    <i [hidden]="couponBonus.discount===0">{{couponBonus.discount/100 | percent}}
+                                        Off</i>
                                     <i [hidden]="couponBonus.amount===0">
                                         -{{couponBonus.amount| currency:userCurrency}}</i>
                                 </span>
@@ -119,62 +247,55 @@
                                 <span>Grand Total:</span>
                                 <span>{{total()| currency:userCurrency}}</span>
                             </h4>
-                            <p class="sub">Shipping and taxes calculated at checkout.</p>
+                            <br>
+                            <div *ngIf="logined" class="text-center">
+                                <a class="nextBtn bg-crimson" (click)="goToShipping() ">Checkout</a>
+                                <br> <br>
+                            </div>
+                            <p class="sub crimson text-center">Shipping and taxes calculated at checkout.</p>
+                        </div>
+                        <div *ngIf="!logined" class="checkout">
+                            <h3>Checkout</h3>
+                            <div>
+                                <h4>Registered Customer</h4>
+                                <p class="sub">Login for to autocomplete required information and speed up checkout process.
+                                </p>
+                                <div class="text-center">
+                                    <a class="nextBtn bg-crimson " [routerLink]="[ '/en/register'] " [queryParams]="{returnUrl: '/en/checkout/shopping-bag'} ">Login and checkout</a>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <h4>New Customer</h4>
+                                <p class="sub">Checkout as a guest. Your information will not be stored.</p>
+                                <div class="text-center">
+                                    <a class="nextBtn" (click)="goToShipping() ">Checkout as a guest </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </ng-container>
+            <ng-template #noItems>
+                <div class="body-empty text-center " [ngClass]="{ 'full': logined} ">
                     <div>
-                        <div class="half">
-                            <a class="previousBtn" [routerLink]="['/en/home']">Return to store</a>
+                        <h3>Your cart is empty</h3>
+                        <div class="flex">
+                            <div class="box">
+                                <img src="assets/images/snap-s.jpg " alt=" " class="img-responsive ">
+                                <br> <br>
+                                <a [routerLink]="['/en/products/women/all']">Women's</a>
+                            </div>
+                            <div class="box">
+                                <img src="assets/images/men-1.jpg " alt=" " class="img-responsive ">
+                                <br> <br>
+                                <a [routerLink]="['/en/products/men/all']">Men's</a>
+                            </div>
                         </div>
-                        <div class=" half ">
-                            <a [hidden]="!logined " class="nextBtn crimson " (click)="goToShipping() ">Checkout</a>
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="body-right " *ngIf="!logined ">
-                <h3>Checkout</h3>
-                <div>
-                    <h4>Registered Customer</h4>
-                    <span>Login for to autocomplete required information and speed up checkout process.</span>
-                    <div class="text-center">
-                        <a class="nextBtn crimson " [routerLink]="[ '/en/register'] " [queryParams]="{returnUrl: '/en/checkout/shopping-bag'} ">Login and checkout</a>
-                    </div>
-                </div>
-                <br>
-                <div>
-                    <h4>New Customer</h4>
-                    <span>Checkout as a guest. Your information will not be stored.</span>
-                    <div class="text-center">
-                        <a class="nextBtn" (click)="goToShipping() ">Checkout as a guest </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-container>
-    <ng-template #noItems>
-        <div class="body-flex text-center " [ngClass]="{ 'full': logined} ">
-            <div>
-                <h3>Your bag is empty</h3>
-                <div class="flex">
-                    <div class="box">
-                        <img src="assets/images/snap-s.jpg " alt=" " class="img-responsive ">
-                        <br> <br>
-                        <a [routerLink]="['/en/products/women/all']">Women's</a>
-                    </div>
-                    <div class="box">
-                        <img src="assets/images/men-1.jpg " alt=" " class="img-responsive ">
-                        <br> <br>
-                        <a [routerLink]="['/en/products/men/all']">Men's</a>
-                    </div>
-                    <div class="box">
-                        <img src="assets/images/snap-s.jpg " alt=" " class="img-responsive ">
-                        <br> <br>
-                        <a [routerLink]="['/en/products/accessories/all']">Accessories</a>
-                    </div>
-                </div>
-            </div>
+            </ng-template>
         </div>
     </ng-template>
+    <app-footer></app-footer>
 </div>
-<app-footer></app-footer>

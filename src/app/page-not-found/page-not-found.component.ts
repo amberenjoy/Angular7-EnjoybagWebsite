@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-07-05 14:52:14
+ * @LastEditTime: 2019-09-30 15:21:13
+ * @LastEditors: Please set LastEditors
+ */
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
@@ -9,12 +16,11 @@ import { Title } from '@angular/platform-browser';
 export class PageNotFoundComponent implements OnInit {
 
   constructor(
-    private titleService: Title
+    private title: Title
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('FAQ | Enjoybag HK');
-
+    this.title.setTitle('404 | Enjoybag HK');
   }
 
 }

@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { BagListComponent } from './../bag-list/bag-list.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NewComponent', () => {
   let component: NewComponent;
@@ -20,9 +21,9 @@ describe('NewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NewComponent, BagListComponent],
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule]
-    })
-      .compileComponents();
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-07-05 14:52:14
- * @LastEditTime: 2019-09-24 11:15:43
+ * @LastEditTime: 2019-10-25 12:10:23
  * @LastEditors: Please set LastEditors
  */
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
@@ -15,27 +15,30 @@ import { ResponsiveService } from './../../shared/services/responsive.service';
 @Component({
   selector: 'app-accessories',
   templateUrl: './accessories.component.html',
-  styleUrls: ['./accessories.component.scss']
+  styleUrls: ['./../women/women.component.scss']
 })
 export class AccessoriesComponent implements OnInit {
-  name: string;
+  name = 'all';
   categories: Category[];
   isMobile: boolean;
 
   constructor(
-    private route: ActivatedRoute, private title: Title,
+    private route: ActivatedRoute,
+    private title: Title,
     private elementRef: ElementRef,
     private categoriesService: CategoriesService,
     private responsiveService: ResponsiveService
-
-  ) { }
+  ) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const domElement = this.elementRef.nativeElement.querySelector(`.side-list`);
+    const domElement = this.elementRef.nativeElement.querySelector(
+      `.side-list`
+    );
     const distance = domElement.offsetTop;
-    const stopElement = this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight
-      + this.elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
+    const stopElement =
+      this.elementRef.nativeElement.querySelector(`.right-list`).offsetHeight +
+      this.elementRef.nativeElement.querySelector(`.right-list`).offsetTop;
 
     if (window.pageYOffset > distance) {
       const marginAdd = window.pageYOffset - distance;
@@ -48,10 +51,14 @@ export class AccessoriesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.name = params['name'.toString()];
+    this.route.paramMap.subscribe(params => {
+      this.name =
+        params.get('name').replace('-', ' ') === 'all'
+          ? 'Accessories'
+          : params.get('name').replace('-', ' ');
+      this.title.setTitle(`Designer ${this.name} | Enjoy Handbag HK`);
     });
-    this.title.setTitle('Designer ' + this.name.replace('-', ' ') + ' | Enjoybag HK');
+
     this.categoriesService.getSLGCategories().subscribe(res => {
       this.categories = res;
       this.categories.forEach(each => {

@@ -26,7 +26,8 @@ fieldset {
         width: 100%;
         padding: 5px 0 4px;
         text-indent: 5px;
-        letter-spacing: .1rem;
+        letter-spacing: 1px;
+        line-height: 1.5;
         border: none;
         border-bottom: 1px solid #ccc;
         background: rgba(243, 243, 243, 0.54);
@@ -97,7 +98,7 @@ fieldset {
         height: 16px;
         background: white;
         border: 1px solid #888;
-        transition: all .3s;
+        transition: all .1s;
         border-radius: 50%;
         margin-left: -26px;
     }
@@ -203,13 +204,12 @@ fieldset {
     background: #f9f9f9;
     margin-bottom: 20px !important;
     div {
-        padding: 15px 20px 0;
+        padding: 1rem 1rem 0;
         display: flex;
         p {
             margin: 0 0 0 10px;
         }
-        i {
-            margin-top: 5px;
+        fa-icon {
             color: crimson;
         }
     }
@@ -225,6 +225,19 @@ fieldset {
     padding: 20px;
     color: crimson;
     line-height: 1.4;
+}
+
+.mobile {
+    .half {
+        width: 100%;
+    }
+    .half-right {
+        margin: 0;
+    }
+    .radio {
+        display: block;
+        margin-top: 14px;
+    }
 }
 
 .loader {
